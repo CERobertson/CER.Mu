@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Azure", "src\CER.Azure\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Text", "src\CER.Text\CER.Text.csproj", "{8404E936-1566-4666-B90F-EEADA25C4E87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Test", "src\CER.Test\CER.Test.csproj", "{280BB794-9039-407E-A8FB-98522C3A0065}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8404E936-1566-4666-B90F-EEADA25C4E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8404E936-1566-4666-B90F-EEADA25C4E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8404E936-1566-4666-B90F-EEADA25C4E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280BB794-9039-407E-A8FB-98522C3A0065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280BB794-9039-407E-A8FB-98522C3A0065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280BB794-9039-407E-A8FB-98522C3A0065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280BB794-9039-407E-A8FB-98522C3A0065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
