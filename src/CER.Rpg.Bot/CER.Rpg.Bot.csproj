@@ -85,6 +85,14 @@
       <Project>{ef28ebc3-edf1-4c76-8e28-81ae1e020f5c}</Project>
       <Name>CER.Executable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CER.Test\CER.Test.csproj">
+      <Project>{280bb794-9039-407e-a8fb-98522c3a0065}</Project>
+      <Name>CER.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CER.Text\CER.Text.csproj">
+      <Project>{8404e936-1566-4666-b90f-eeada25c4e87}</Project>
+      <Name>CER.Text</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
