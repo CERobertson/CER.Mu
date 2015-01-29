@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Rpg.Bot", "src\CER.Rpg.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Rpg", "src\CER.Rpg\CER.Rpg.csproj", "{AC67FABD-5BF6-4253-8E03-A3E63B6626E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Runtime.Serialization", "src\CER.Runtime.Serialization\CER.Runtime.Serialization.csproj", "{2DC86DFB-CF9A-4368-8F4C-1B2C65276FBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{AC67FABD-5BF6-4253-8E03-A3E63B6626E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC67FABD-5BF6-4253-8E03-A3E63B6626E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC67FABD-5BF6-4253-8E03-A3E63B6626E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DC86DFB-CF9A-4368-8F4C-1B2C65276FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DC86DFB-CF9A-4368-8F4C-1B2C65276FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DC86DFB-CF9A-4368-8F4C-1B2C65276FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DC86DFB-CF9A-4368-8F4C-1B2C65276FBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
