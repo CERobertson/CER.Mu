@@ -77,19 +77,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CER.Azure\CER.Azure.csproj">
+    <ProjectReference Include="..\Azure\CER.Azure.csproj">
       <Project>{4572bb5b-0922-4bc5-a9d7-457ffb1e483b}</Project>
       <Name>CER.Azure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CER.Executable\CER.Executable.csproj">
+    <ProjectReference Include="..\Executable\CER.Executable.csproj">
       <Project>{ef28ebc3-edf1-4c76-8e28-81ae1e020f5c}</Project>
       <Name>CER.Executable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CER.Test\CER.Test.csproj">
+    <ProjectReference Include="..\Test\CER.Test.csproj">
       <Project>{280bb794-9039-407e-a8fb-98522c3a0065}</Project>
       <Name>CER.Test</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CER.Text\CER.Text.csproj">
+    <ProjectReference Include="..\Text\CER.Text.csproj">
       <Project>{8404e936-1566-4666-b90f-eeada25c4e87}</Project>
       <Name>CER.Text</Name>
     </ProjectReference>
