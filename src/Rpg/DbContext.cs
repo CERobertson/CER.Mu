@@ -71,6 +71,7 @@
         public int id { get; set; }
         public string gm_name { get; set; }
         public string description { get; set; }
+        public string introduction { get; set; }
         public decimal estimated_duration { get; set; }
         public int scale_duration { get; set; }
         public decimal confidence_duration { get; set; }
