@@ -17,8 +17,8 @@
 
         private static void Main(string[] args)
         {
-            Program.LogV("Entering CER.RolePlayingGame.RpgBot.Program.Main");
-            Program.LogI(string.Format("Running program {0}CER.RolePlayingGame.RpgBot.exe{0}", Program.Separator) + string.Join(Program.Separator.ToString(), args));
+            Program.LogV("Entering CER.Rpg.Bot.Program.Main");
+            Program.LogI(string.Format("Running program {0}CER.Rpg.Bot.exe{0}", Program.Separator) + string.Join(Program.Separator.ToString(), args));
 
             try
             {
@@ -55,7 +55,7 @@
         {
             if (bool.Parse(ConfigurationManager.AppSettings["LogWarningsInAzureTable"]))
             {
-                Program.LogV("Connecting AzureTableWarningListener to program warnings");
+                Program.LogV("Connecting AzureTableWarningListener to log warnings");
                 var azure_trace_listener = new AzureTableWarningListener
                 {
                     Name = "AzureTableWarningListener",

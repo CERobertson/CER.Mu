@@ -33,18 +33,18 @@
                                 possible_match.Key,
                                 this.TokenRegex[possible_match.Key]));
                         }
-                        index = result.Length;
+                        message = message.Substring(result.Length);
+                        break;
                     }
                 }
                 if (!match)
                 {
-                    index = 1;
+                    if (message.Length - 1 < 1)
+                    {
+                        break;
+                    }
+                    message = message.Substring(1);
                 }
-                if (message.Length - index < 1)
-                {
-                    break;
-                }
-                message = message.Substring(index);
             }
         }
 
