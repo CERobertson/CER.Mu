@@ -37,7 +37,7 @@
                     input = Console.ReadLine();
                     foreach (var token in Program.RpgInterpreter.Scan(input))
                     {
-                        Program.LogV(string.Join(Program.Separator.ToString(), token.Name, token.Value));
+                        Program.LogV(string.Join(Program.Separator.ToString(), token.Id, token.Value));
                     }
                 }
             }
@@ -50,10 +50,10 @@
         private static void InitializeInterpreter()
         {
             Program.LogV("Initializing the Rpg interpreter.");
-            Program.RpgInterpreter.TokenRegex["character"] = "character";
-            Program.RpgInterpreter.TokenRegex["game"] = "game";
-            Program.RpgInterpreter.TokenRegex["plot"] = "plot";
-            Program.RpgInterpreter.TokenRegex["identifier"] = @"\S+";
+            Program.RpgInterpreter.TokenRegex[Tokens.character] = "character ";
+            Program.RpgInterpreter.TokenRegex[Tokens.game] = "game ";
+            Program.RpgInterpreter.TokenRegex[Tokens.plot] = "plot ";
+            Program.RpgInterpreter.TokenRegex[Tokens.identifier] = @"\S+";
         }
 
         private static void ConnectAzureTableWarningListener()
@@ -73,5 +73,16 @@
                 Program.External.Listeners.Add(azure_trace_listener);
             }
         }
+    }
+
+    public enum Tokens
+    {
+        character,
+        command,
+        commands,
+        game,
+        plot,
+        identifier,
+        identifiers
     }
 }

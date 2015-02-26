@@ -16,16 +16,21 @@
             var compilerToTest = new Compiler();
             var scan_results = compilerToTest.Scan(test).ToList();
             Assert.AreEqual(scan_results.Count, 0);
-            compilerToTest.TokenRegex["Any one character"] = ".";
+            compilerToTest.TokenRegex[Tokens.Any_one_character] = ".";
             scan_results = compilerToTest.Scan(test).ToList();
             Assert.AreEqual(scan_results.Count, test.Length);
 
             test = "123 4354this213123is some cra8sy oar-77";
             compilerToTest = new Compiler();
-            compilerToTest.TokenRegex["Number"] = @"\d+";
+            compilerToTest.TokenRegex[Tokens.Number] = @"\d+";
             scan_results = compilerToTest.Scan(test).ToList();
             Assert.AreEqual(scan_results.Count, 5);
         }
+    }
+    public enum Tokens
+    {
+        Any_one_character,
+        Number
     }
 }
 

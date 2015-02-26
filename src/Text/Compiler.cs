@@ -9,7 +9,7 @@
     {
         public Compiler()
         {
-            this.TokenRegex = new Dictionary<string, string>();
+            this.TokenRegex = new Dictionary<object, string>();
         }
 
         public IEnumerable<Token> Scan(string message)
@@ -25,7 +25,7 @@
                     if (match)
                     {
                         var result = possible_match.Value.Match(message);
-                        yield return new Token { Name = possible_match.Key, Value = result.Value };
+                        yield return new Token { Id = possible_match.Key, Value = result.Value };
                         if (result.Length == 0)
                         {
                             throw new ScanningException(string.Format(
@@ -48,16 +48,16 @@
             }
         }
 
-        public Dictionary<string, string> TokenRegex { get; set; }
-        private Dictionary<string, Regex> TokenToRegex()
+        public Dictionary<object, string> TokenRegex { get; set; }
+        private Dictionary<int, Regex> TokenToRegex()
         {
-            var dictionary = new Dictionary<string, Regex>();
+            var dictionary = new Dictionary<int, Regex>();
             foreach (var tokenToRegexString in this.TokenRegex)
             {
                 var regex = tokenToRegexString.Value.StartsWith("^")
                     ? tokenToRegexString.Value
                     : "^" + tokenToRegexString.Value;
-                dictionary[tokenToRegexString.Key] = new Regex(regex);
+                dictionary[(int)tokenToRegexString.Key] = new Regex(regex);
             }
             return dictionary;
         }
@@ -65,8 +65,8 @@
 
     public class Token
     {
+        public int Id { get; set; }
         public string Value { get; set; }
-        public string Name { get; set; }
     }
 
     public class ScanningException : Exception
