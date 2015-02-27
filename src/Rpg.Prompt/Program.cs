@@ -50,10 +50,10 @@
         private static void InitializeInterpreter()
         {
             Program.LogV("Initializing the Rpg interpreter.");
-            Program.RpgInterpreter.TokenRegex[Tokens.character] = "character ";
-            Program.RpgInterpreter.TokenRegex[Tokens.game] = "game ";
-            Program.RpgInterpreter.TokenRegex[Tokens.plot] = "plot ";
-            Program.RpgInterpreter.TokenRegex[Tokens.identifier] = @"\S+";
+            Program.RpgInterpreter.Regex[Tokens.character] = "character ";
+            Program.RpgInterpreter.Regex[Tokens.game] = "game ";
+            Program.RpgInterpreter.Regex[Tokens.plot] = "plot ";
+            Program.RpgInterpreter.Regex[Tokens.identifier] = @"\S+";
         }
 
         private static void ConnectAzureTableWarningListener()
