@@ -5,7 +5,9 @@
     using CER.Text;
     using Microsoft.WindowsAzure.Storage;
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
+    using System.Linq;
     using System.Threading;
 
     class Program : CER.Executable.Program
@@ -35,15 +37,59 @@
                 while (true)
                 {
                     input = Console.ReadLine();
-                    foreach (var token in Program.RpgInterpreter.Scan(input))
+                    var command = Tokens.identifier;
+                    var tokenSequence = Program.RpgInterpreter.Scan(input).ToArray();
+                    foreach (var token in tokenSequence)
                     {
                         Program.LogV(string.Join(Program.Separator.ToString(), token.Id, token.Value));
+                    }
+                    for (int i = 0; i < tokenSequence.Length; i++)
+                    {
+                        command = (Tokens)tokenSequence[i].Id;
+
+                        if (command != Tokens.identifier)
+                        {
+                            i++;
+                            var identifier = (Tokens)tokenSequence[i].Id;
+                            var identifiers = new List<Token>();
+                            while (identifier == Tokens.identifier)
+                            {
+                                identifiers.Add(tokenSequence[i]);
+                                i++;
+                            }
+                            Program.Query(command, identifiers.ToArray());
+                            command = identifier;
+                        }
                     }
                 }
             }
             catch (Exception e)
             {
                 Program.LogE(e.DetailedMessage());
+            }
+        }
+
+        public static void Query(Tokens command, params Token[] identifiers)
+        {
+            switch (command)
+            {
+                case Tokens.character:
+                    Program.LogI(string.Format("{0}",
+                        command.ToString()));
+                    break;
+                case Tokens.game:
+                    Program.LogI(string.Format("{0}",
+                        command.ToString()));
+                    break;
+                case Tokens.plot:
+                    Program.LogI(string.Format("{0}",
+                        command.ToString()));
+                    break;
+                default:
+                    Program.LogW(string.Format(
+                        "Command '{0}' has been passed to Program.Query",
+                        command.ToString()));
+                    break;
             }
         }
 
@@ -78,11 +124,8 @@
     public enum Tokens
     {
         character,
-        command,
-        commands,
         game,
         plot,
-        identifier,
-        identifiers
+        identifier
     }
 }

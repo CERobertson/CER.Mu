@@ -42,6 +42,7 @@
         public int id { get; set; }
         public string gm_name { get; set; }
         public string description { get; set; }
+        public virtual List<relationship> relationships { get; set; }
         public virtual List<creation_process> creation_history { get; set; }
     }
     public class role
@@ -76,8 +77,20 @@
         public int scale_duration { get; set; }
         public decimal confidence_duration { get; set; }
         public virtual List<plot> subplots { get; set; }
+        public virtual List<character> characters { get; set; }
+        public virtual List<relationship> relationships { get; set; }
         public virtual List<performance> participants { get; set; }
         public virtual List<creation_process> creation_history { get; set; }
+    }
+    public class relationship
+    {
+        [Key]
+        public int id { get; set; }
+        public string gm_name { get; set; }
+        public string description { get; set; }
+        public int priority { get; set; }
+        public virtual List<creation_process> creation_history { get; set; }
+
     }
     public class creation_process
     {

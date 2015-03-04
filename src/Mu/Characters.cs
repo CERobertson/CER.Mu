@@ -32,7 +32,7 @@
             gm_name = "Reflective plate in orbit",
             description = @"A mirror that is reflecting an image of the planet.
             It always stays opposite to the light on the moon so the image it
-            shows of the planet with a faint halo.",
+            shows a time lapse of the planet with a faint halo.",
             creation_history = new creation_process[] 
             {
                 CreationProcesses.Character.GameMasterCreated
