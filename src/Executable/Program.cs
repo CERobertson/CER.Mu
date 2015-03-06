@@ -16,11 +16,13 @@
         static Program()
         {
             Program.External.Listeners.Remove("Default");
+            Program.LogI(Program.StartDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
         }
 
         //Identity information.
         public static readonly Guid Process = Guid.NewGuid();
-        public static readonly long Start = DateTime.Now.Ticks;
+        public static readonly DateTime StartDateTime = DateTime.Now;
+        public static readonly long Start = Program.StartDateTime.Ticks;
 
         private static void LogToExternal(string input)
         {
@@ -33,8 +35,7 @@
         }
         public static void LogE(string input)
         {
-            Trace.WriteLineIf(Program.TraceSwitch.TraceError,
-                string.Format("{0}{1}{2}", "Error       1", Program.Separator, input));
+            Trace.WriteLineIf(Program.TraceSwitch.TraceError,input);
             Program.LogToExternal(input);
         }
         public static void LogW(string input)
@@ -43,13 +44,11 @@
         }
         public static void LogI(string input)
         {
-            Trace.WriteLineIf(Program.TraceSwitch.TraceInfo,
-                string.Format("{0}{1}{2}", "Information 3", Program.Separator, input));
+            Trace.WriteLineIf(Program.TraceSwitch.TraceInfo, input);
         }
         public static void LogV(string input)
         {
-            Trace.WriteLineIf(Program.TraceSwitch.TraceVerbose,
-                string.Format("{0}{1}{2}", "Verbose     4", Program.Separator, input));
+            Trace.WriteLineIf(Program.TraceSwitch.TraceVerbose, input);
         }
     }
 }

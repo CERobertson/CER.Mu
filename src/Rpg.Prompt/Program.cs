@@ -37,29 +37,10 @@
                 while (true)
                 {
                     input = Console.ReadLine();
-                    var command = Tokens.identifier;
                     var tokenSequence = Program.RpgInterpreter.Scan(input).ToArray();
                     foreach (var token in tokenSequence)
                     {
                         Program.LogV(string.Join(Program.Separator.ToString(), token.Id, token.Value));
-                    }
-                    for (int i = 0; i < tokenSequence.Length; i++)
-                    {
-                        command = (Tokens)tokenSequence[i].Id;
-
-                        if (command != Tokens.identifier)
-                        {
-                            i++;
-                            var identifier = (Tokens)tokenSequence[i].Id;
-                            var identifiers = new List<Token>();
-                            while (identifier == Tokens.identifier)
-                            {
-                                identifiers.Add(tokenSequence[i]);
-                                i++;
-                            }
-                            Program.Query(command, identifiers.ToArray());
-                            command = identifier;
-                        }
                     }
                 }
             }
