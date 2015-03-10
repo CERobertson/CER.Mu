@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Mu", "src\Mu\CER.Mu.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Rpg.Prompt", "src\Rpg.Prompt\CER.Rpg.Prompt.csproj", "{6329F608-AA97-4912-97F4-EF01217ADC7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Roslyn", "src\Roslyn\CER.Roslyn.csproj", "{7A5DFEA1-69B5-48DB-AA16-44357BB94BC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{6329F608-AA97-4912-97F4-EF01217ADC7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6329F608-AA97-4912-97F4-EF01217ADC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6329F608-AA97-4912-97F4-EF01217ADC7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A5DFEA1-69B5-48DB-AA16-44357BB94BC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A5DFEA1-69B5-48DB-AA16-44357BB94BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A5DFEA1-69B5-48DB-AA16-44357BB94BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A5DFEA1-69B5-48DB-AA16-44357BB94BC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

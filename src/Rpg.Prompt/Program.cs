@@ -2,6 +2,7 @@
 {
     using CER.Azure;
     using CER.Executable;
+    using CER.Roslyn;
     using CER.Text;
     using Microsoft.WindowsAzure.Storage;
     using System;

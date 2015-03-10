@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CER.Rpg.Bot</RootNamespace>
-    <AssemblyName>CER.Rpg.Bot</AssemblyName>
+    <AssemblyName>Rpg.Bot</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -84,6 +84,10 @@
     <ProjectReference Include="..\Executable\CER.Executable.csproj">
       <Project>{ef28ebc3-edf1-4c76-8e28-81ae1e020f5c}</Project>
       <Name>CER.Executable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Roslyn\CER.Roslyn.csproj">
+      <Project>{7a5dfea1-69b5-48db-aa16-44357bb94bc7}</Project>
+      <Name>CER.Roslyn</Name>
     </ProjectReference>
     <ProjectReference Include="..\Test\CER.Test.csproj">
       <Project>{280bb794-9039-407e-a8fb-98522c3a0065}</Project>

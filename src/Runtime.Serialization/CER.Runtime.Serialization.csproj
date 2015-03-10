@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CER.Runtime.Serialization</RootNamespace>
-    <AssemblyName>CER.Runtime.Serialization</AssemblyName>
+    <AssemblyName>Runtime.Serialization</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

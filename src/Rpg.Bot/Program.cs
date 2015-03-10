@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using CER.Executable;
     using CER.Azure;
+    using CER.Roslyn;
     using Microsoft.WindowsAzure.Storage;
     using System.Threading;
     //using Meebey.SmartIrc4net;

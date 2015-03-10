@@ -86,6 +86,10 @@
       <Project>{ef28ebc3-edf1-4c76-8e28-81ae1e020f5c}</Project>
       <Name>CER.Executable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Roslyn\CER.Roslyn.csproj">
+      <Project>{7a5dfea1-69b5-48db-aa16-44357bb94bc7}</Project>
+      <Name>CER.Roslyn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Text\CER.Text.csproj">
       <Project>{8404e936-1566-4666-b90f-eeada25c4e87}</Project>
       <Name>CER.Text</Name>

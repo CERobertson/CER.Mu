@@ -1,4 +1,4 @@
-﻿namespace CER.Executable
+﻿namespace CER.Roslyn
 {
     using System;
     using System.Text;
