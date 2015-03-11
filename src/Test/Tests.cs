@@ -10,10 +10,10 @@
         public static CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         public delegate void Assertion(T objectToTest, D dataContext);
-        public  Assertion[] Assertions = new Assertion[]
+        public Assertion[] Assertions = new Assertion[]
         {
             (obj, dc) => new object(),
-			(obj, dc) => {new object();}
+            (obj, dc) => {new object();}
         };
     }
 }

@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
+    using System.Collections.Generic;
 
     [TestClass]
     public class TimerTests : Tests<System.Timers.Timer, Timer>
@@ -14,9 +15,9 @@
         {
             try
             {
-                var interval = (int)Math.Pow(2,12);
+                var interval = (int)Math.Pow(2, 12);
                 var duration = 30;
-                while ((interval /= 2) >= (int)Math.Pow(2,7))
+                while ((interval /= 2) >= (int)Math.Pow(2, 7))
                 {
                     TimerTests.CancellationTokenSource = new System.Threading.CancellationTokenSource();
                     var cancel_token = TimerTests.CancellationTokenSource.Token;
@@ -41,16 +42,46 @@
             }
         }
 
+        [TestMethod]
+        public void ParallelMain()
+        {
+            TimerTests.CancellationTokenSource = new System.Threading.CancellationTokenSource();
+            var interval = (int)Math.Pow(2, 12);
+            var duration = 30;
+            var tasks = new List<Task>();
+            while ((interval /= 2) >= (int)Math.Pow(2, 7))
+            {
+                var timer = new Timer(interval, duration);
+                timer.TimerToTest = new System.Timers.Timer();
+                timer.TimerToTest.Interval = interval;
+                tasks.Add(Task.Run(() =>
+                {
+                    var cancel_token = TimerTests.CancellationTokenSource.Token;
+                    foreach (var assertion in this.Assertions)
+                    {
+                        timer.TimerToTest.Elapsed += (object o, System.Timers.ElapsedEventArgs a) => assertion(timer.TimerToTest, timer);
+                    }
+                    timer.TimerToTest.Enabled = true;
+                    timer.TimerToTest.Start();
+                    while (!cancel_token.IsCancellationRequested)
+                    {
+                    }
+                    timer.TimerToTest.Dispose();
+                }, TimerTests.CancellationTokenSource.Token));
+            }
+            Task.WaitAll(tasks.ToArray());
+        }
+
         new Assertion[] Assertions = new Assertion[]
         {
-			(obj, dc) => {dc.CallbackCount++;},
-			(obj, dc) => 
+            (obj, dc) => {dc.CallbackCount++;},
+            (obj, dc) => 
             {
                 DateTime currentTime = DateTime.Now;
                 dc.SmallThresholdViolationCount = (currentTime - dc.CurrentTime).Milliseconds - dc.IntervalInMilliseconds;
                 dc.CurrentTime = currentTime;
             },
-			(obj, dc) => 
+            (obj, dc) => 
             {
                 DateTime currentTime = DateTime.Now;
                 if ((currentTime - dc.StartTime).Seconds > dc.DurationInSeconds)
@@ -58,7 +89,7 @@
                     TimerTests.CancellationTokenSource.Cancel();
                 }
             },
-			(obj, dc) => 
+            (obj, dc) => 
             {
                 Console.WriteLine(string.Join(
                     TimerTests.Seperator.ToString(),
@@ -88,17 +119,17 @@
 
         private readonly object callbackcount_lock = new object();
         private int callbackcount;
-        public int CallbackCount 
-        { 
-            get { return callbackcount; } 
-            set { lock (callbackcount_lock) callbackcount = value; } 
+        public int CallbackCount
+        {
+            get { return callbackcount; }
+            set { lock (callbackcount_lock) callbackcount = value; }
         }
 
         private readonly object smallthresholdviolationcount_lock = new object();
         private int smallthresholdviolationcount;
-        public int SmallThresholdViolationCount 
-        { 
-            get { return smallthresholdviolationcount; } 
+        public int SmallThresholdViolationCount
+        {
+            get { return smallthresholdviolationcount; }
             set { lock (smallthresholdviolationcount_lock) smallthresholdviolationcount = value; }
         }
 
