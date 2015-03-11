@@ -14,16 +14,26 @@
         {
             try
             {
-                var timer = new Timer { CallbackCount = 0, SmallThresholdViolationCount = 0, };
-                timer.TimerToTest = new System.Timers.Timer();
-                timer.TimerToTest.Interval = 5000;
-                foreach (var assertion in this.Assertions)
+                var interval = (int)Math.Pow(2,12);
+                var duration = 30;
+                while ((interval /= 2) >= (int)Math.Pow(2,7))
                 {
-                    timer.TimerToTest.Elapsed += (object o, System.Timers.ElapsedEventArgs a) => assertion(timer.TimerToTest, timer);
+                    TimerTests.CancellationTokenSource = new System.Threading.CancellationTokenSource();
+                    var cancel_token = TimerTests.CancellationTokenSource.Token;
+                    var timer = new Timer(interval, duration);
+                    timer.TimerToTest = new System.Timers.Timer();
+                    timer.TimerToTest.Interval = interval;
+                    foreach (var assertion in this.Assertions)
+                    {
+                        timer.TimerToTest.Elapsed += (object o, System.Timers.ElapsedEventArgs a) => assertion(timer.TimerToTest, timer);
+                    }
+                    timer.TimerToTest.Enabled = true;
+                    timer.TimerToTest.Start();
+                    while (!cancel_token.IsCancellationRequested)
+                    {
+                    }
+                    timer.TimerToTest.Dispose();
                 }
-                timer.TimerToTest.Enabled = true;
-                timer.TimerToTest.Start();
-                while (timer.LargeThresholdViolationCount == 0) { }
             }
             catch (Exception e)
             {
@@ -37,28 +47,24 @@
 			(obj, dc) => 
             {
                 DateTime currentTime = DateTime.Now;
-                if ((currentTime - dc.CurrentTime).Seconds > 5)
-                {
-                    dc.SmallThresholdViolationCount++;
-                }
+                dc.SmallThresholdViolationCount = (currentTime - dc.CurrentTime).Milliseconds - dc.IntervalInMilliseconds;
                 dc.CurrentTime = currentTime;
             },
 			(obj, dc) => 
             {
-                if((DateTime.Now - dc.StartTime).Seconds > 10)
+                DateTime currentTime = DateTime.Now;
+                if ((currentTime - dc.StartTime).Seconds > dc.DurationInSeconds)
                 {
-                    dc.LargeThresholdViolationCount++;
+                    TimerTests.CancellationTokenSource.Cancel();
                 }
             },
 			(obj, dc) => 
             {
-                Console.WriteLine("{1}{0}{2}{0}{3}{0}{4}{0}{5}",
-                    TimerTests.Seperator,
-                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-                    dc.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                Console.WriteLine(string.Join(
+                    TimerTests.Seperator.ToString(),
+                    dc.IntervalInMilliseconds,
                     dc.CallbackCount,
-                    dc.SmallThresholdViolationCount,
-                    dc.LargeThresholdViolationCount);
+                    dc.SmallThresholdViolationCount));
             }
         };
     }
@@ -66,13 +72,18 @@
     public class Timer
     {
         public System.Timers.Timer TimerToTest { get; set; }
-        public DateTime StartTime { get; private set; }
 
-        public Timer()
+        public DateTime StartTime { get; private set; }
+        public int IntervalInMilliseconds { get; private set; }
+        public int DurationInSeconds { get; private set; }
+
+        public Timer(int interval_in_milliseconds, int duration_in_seconds)
         {
             DateTime currentTime = DateTime.Now;
             this.StartTime = currentTime;
             this.CurrentTime = currentTime;
+            this.IntervalInMilliseconds = interval_in_milliseconds;
+            this.DurationInSeconds = duration_in_seconds;
         }
 
         private readonly object callbackcount_lock = new object();

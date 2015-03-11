@@ -7,7 +7,7 @@
     public class Tests<T, D>
     {
         public static readonly char Seperator = '|';
-        public static readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+        public static CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         public delegate void Assertion(T objectToTest, D dataContext);
         public  Assertion[] Assertions = new Assertion[]
