@@ -18,7 +18,6 @@
             var tokenToMatch = this.ConstructRegex();
             while (true)
             {
-                var index = 0;
                 bool match = false;
                 foreach (var possible_match in tokenToMatch)
                 {

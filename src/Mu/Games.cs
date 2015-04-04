@@ -40,5 +40,23 @@
                 };
             }
         }
+        public game OutsideTime
+        {
+            get
+            {
+                return new game
+                {
+                    gm_name = "OutsideTime",
+                    description = @" A player is given powers to pause time, to manage inventory,
+                    keep people in for conversation for as long as needed and a number of other
+                    rpgs tropes.  NPC will notice the use and act.",
+                    current_chapter = 0,
+                    creation_history = new creation_process[] 
+                    {
+                        CreationProcesses.Game.GameMasterCreated
+                    }.ToList()
+                };
+            }
+        }
     }
 }

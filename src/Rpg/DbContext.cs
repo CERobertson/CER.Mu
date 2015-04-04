@@ -92,6 +92,13 @@
         public virtual List<creation_process> creation_history { get; set; }
 
     }
+    public class location
+    {
+        [Key]
+        public int id { get; set; }
+        public string gm_name { get; set; }
+        public virtual List<creation_process> creation_history { get; set; }
+    }
     public class creation_process
     {
         [Key]

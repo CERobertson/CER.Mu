@@ -82,7 +82,16 @@
             Program.RpgInterpreter.Regex[Tokens.character] = "character ";
             Program.RpgInterpreter.Regex[Tokens.game] = "game ";
             Program.RpgInterpreter.Regex[Tokens.plot] = "plot ";
+            Program.RpgInterpreter.Regex[Tokens.view] = "view ";
             Program.RpgInterpreter.Regex[Tokens.identifier] = @"\S+";
+
+            Program.RpgInterpreter.Rules.Add(new Rule(Tokens.commands, Tokens.command, Tokens.commands));
+            Program.RpgInterpreter.Rules.Add(new Rule(Tokens.commands, Tokens.command));
+            Program.RpgInterpreter.Rules.Add(new Rule(Tokens.command, Tokens.character, Tokens.view, Tokens.identifiers));
+            Program.RpgInterpreter.Rules.Add(new Rule(Tokens.command, Tokens.game, Tokens.view, Tokens.identifiers));
+            Program.RpgInterpreter.Rules.Add(new Rule(Tokens.command, Tokens.plot, Tokens.view, Tokens.identifiers));
+            Program.RpgInterpreter.Rules.Add(new Rule(Tokens.identifiers, Tokens.identifier, Tokens.identifiers));
+            Program.RpgInterpreter.Rules.Add(new Rule(Tokens.identifiers, Tokens.identifier));
         }
 
         private static void ConnectAzureTableWarningListener()
@@ -109,6 +118,10 @@
         character,
         game,
         plot,
-        identifier
+        view,
+        identifier,
+        identifiers,
+        command,
+        commands,
     }
 }
