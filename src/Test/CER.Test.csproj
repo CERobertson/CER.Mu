@@ -51,12 +51,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompilerTests.cs" />
+    <Compile Include="priis_Tests.cs" />
     <Compile Include="SerializableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="TimerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JudeaPearl\CER.JudeaPearl.csproj">
+      <Project>{21e6857b-f70b-43b3-ae55-651753b4a26b}</Project>
+      <Name>CER.JudeaPearl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Roslyn\CER.Roslyn.csproj">
       <Project>{7a5dfea1-69b5-48db-aa16-44357bb94bc7}</Project>
       <Name>CER.Roslyn</Name>
