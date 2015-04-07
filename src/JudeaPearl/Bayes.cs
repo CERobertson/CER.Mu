@@ -46,5 +46,58 @@
         {
             return oHypothesis / (1 + oHypothesis);
         }
+
+        /// <summary>
+        /// Vectory product
+        /// </summary>
+        /// <param name="v">v1</param>
+        /// <param name="vector">v2</param>
+        /// <returns>v1 * v2</returns>
+        public static decimal[] VectorProduct(this decimal[] v, decimal[] vector)
+        {
+            var result = new decimal[v.Length];
+            for (int i = 0; i < v.Length; i++)
+            {
+                result[i] = v[i] * vector[i];
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Likelihood vector from evidence.
+        /// </summary>
+        /// <param name="e">Evidence</param>
+        /// <param name="i">i-th likelihood vector.</param>
+        /// <returns>Likelihood vector.</returns>
+        public static decimal[] LikelihoodVector(this decimal[][] e, int i)
+        {
+
+            var result = new decimal[e.Length];
+            for (int j = 0; j < e.Length; j++)
+            {
+                result[j] = e[j][i];
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Normalize a vector to 1.0 (unity)
+        /// </summary>
+        /// <param name="v">vector</param>
+        /// <returns>Normalized vector.</returns>
+        public static decimal[] Normalize(this decimal[] v)
+        {
+            var normalizing_constant = 0.0M;
+            for (int i = 0; i < v.Length; i++)
+            {
+                normalizing_constant += v[i];
+            }
+            var result = new decimal[v.Length];
+            for (int i = 0; i < v.Length; i++)
+            {
+                result[i] = v[i] / normalizing_constant;
+            }
+            return result;
+        }
     }
 }
