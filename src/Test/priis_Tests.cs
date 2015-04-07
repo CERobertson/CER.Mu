@@ -1,7 +1,9 @@
 ﻿namespace CER.Test
 {
     using CER.JudeaPearl;
+    using CER.Test.Extensions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System;
 
     /// <summary>
     /// Computations of the examples contained in Judea Pearl's book, 
@@ -23,8 +25,8 @@
             var oBurglary_Alarm = lAlarm_Burglary.PosteriorOdds(oBurglary);
             var pBurglary_Alarm = oBurglary_Alarm.Probablity();
 
-            Assert.AreEqual(0.0095M, oBurglary_Alarm);
-            Assert.AreEqual(0.00941M, pBurglary_Alarm);
+            (0.0095M).IsEqualTo(oBurglary_Alarm, 4);
+            (0.00941M).IsEqualTo(pBurglary_Alarm, 5);
         }
     }
 }
