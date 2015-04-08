@@ -51,9 +51,9 @@
             var prior_pHypothesis = new decimal[] { 0.099M, 0.009M, 0.001M, 0.891M };
             var rpHypothesis_evidence = prior_pHypothesis.VectorProduct(lVector);
 
-            (0.00495M).IsEqualTo(rpHypothesis_evidence[0],5);
-            (0.000238M).IsEqualTo(rpHypothesis_evidence[1],6);
-            (0.0002M).IsEqualTo(rpHypothesis_evidence[2],4);
+            (0.00495M).IsEqualTo(rpHypothesis_evidence[0], 5);
+            (0.000238M).IsEqualTo(rpHypothesis_evidence[1], 6);
+            (0.0002M).IsEqualTo(rpHypothesis_evidence[2], 4);
             (0.0M).IsEqualTo(rpHypothesis_evidence[3]);
 
             var pHypothesis = rpHypothesis_evidence.Normalize();
@@ -62,10 +62,42 @@
             //fails due to slight difference from book. This seems like
             //an artifact from the decimal datatype I have used. I will
             //watch for more example before deciding to change types.
-            (0.919M).IsEqualTo(pHypothesis[0],3);
-            (0.0439M).IsEqualTo(pHypothesis[1],4);
-            (0.0375M).IsEqualTo(pHypothesis[2],4);
+            (0.919M).IsEqualTo(pHypothesis[0], 3);
+            (0.0439M).IsEqualTo(pHypothesis[1], 4);
+            (0.0375M).IsEqualTo(pHypothesis[2], 4);
             (0.0M).IsEqualTo(pHypothesis[3]);
+
+            (0.0814M).IsEqualTo(pHypothesis[1] + pHypothesis[2], 4);
+        }
+
+        [TestMethod]
+        public void Chaprter2_Example4and5()
+        {
+            var s = new decimal[][]
+            {
+                new decimal[] {0.95M, 0.05M},
+                new decimal[] {0.01M, 0.99M}
+            };
+
+            var lWatson_Sound = 9.0M;
+            var lGibbon_Sound = 4.0M;
+            var lWatsonGibbon_Sound = lWatson_Sound * lGibbon_Sound;
+            
+            (36.0M).IsEqualTo(lWatsonGibbon_Sound);
+
+            var dWatsonGibbon = new decimal[] { lWatsonGibbon_Sound, 1.0M };
+            var lVector = s.MatrixProduct(dWatsonGibbon);
+
+            (34.25M).IsEqualTo(lVector[0], 2);
+            (1.35M).IsEqualTo(lVector[1], 2);
+
+            var pBurglary = 0.0001M;
+            var pNoBurglary = 1 - pBurglary;
+            var pHypothesis = new decimal[] { pBurglary, pNoBurglary };
+            var pHypothesis_WatsonGibbon = lVector.VectorProduct(pHypothesis).Normalize();
+
+            (0.00253M).IsEqualTo(pHypothesis_WatsonGibbon[0], 5);
+            (0.99747M).IsEqualTo(pHypothesis_WatsonGibbon[1], 5);
         }
     }
 }

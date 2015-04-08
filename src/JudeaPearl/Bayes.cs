@@ -99,5 +99,26 @@
             }
             return result;
         }
+
+        /// <summary>
+        /// Product of Matrix with vector
+        /// </summary>
+        /// <param name="matrix">matrix</param>
+        /// <param name="vector">vector</param>
+        /// <returns>Matrix product with vector.</returns>
+        public static decimal[] MatrixProduct(this decimal[][] matrix, decimal[] vector)
+        {
+            var result = new decimal[matrix[0].Length];
+            for (int i = 0; i < matrix.Length; i++ )
+            {
+                var product = 0.0M;
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    product += matrix[i][j] * vector[j];
+                }
+                result[i] = product;
+            }
+            return result;
+        }
     }
 }
