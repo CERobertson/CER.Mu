@@ -63,6 +63,16 @@
             return result;
         }
 
+        public static decimal[][] VectorProduct(this decimal[][] v, decimal[][] vector)
+        {
+            var result = new decimal[v.Length][];
+            for (int i = 0; i < v.Length; i++)
+            {
+                result[i] = new decimal[] { v[i][0] * vector[i][0] };
+            }
+            return result;
+        }
+
         /// <summary>
         /// Likelihood vector from evidence.
         /// </summary>
@@ -100,23 +110,56 @@
             return result;
         }
 
-        /// <summary>
-        /// Product of Matrix with vector
-        /// </summary>
-        /// <param name="matrix">matrix</param>
-        /// <param name="vector">vector</param>
-        /// <returns>Matrix product with vector.</returns>
-        public static decimal[] MatrixProduct(this decimal[][] matrix, decimal[] vector)
+        public static decimal[][] Normalize(this decimal[][] v)
+        {
+            var normalizing_constant = 0.0M;
+            for (int i = 0; i < v.Length; i++)
+            {
+                normalizing_constant += v[i][0];
+            }
+            var result = new decimal[v.Length][];
+            for (int i = 0; i < v.Length; i++)
+            {
+                result[i] = new decimal[] { v[i][0] / normalizing_constant };
+            }
+            return result;
+        }
+        
+        public static decimal[][] MatrixProduct(this decimal[][] m_, decimal[][] matrix)
+        {
+            var result = new decimal[m_.Length][];
+            for (int i = 0; i < m_.Length; i++)
+            {
+                result[i] = new decimal[matrix[0].Length];
+                for (int j = 0; j < matrix[0].Length; j++)
+                {
+                    var accumulator = 0.0M;
+                    for (int k = 0; k < m_[0].Length; k++)
+                    {
+                        accumulator += m_[i][k] * matrix[k][j];
+                    }
+                    result[i][j] = accumulator;
+                }
+            }
+            return result;
+        }
+
+        public static decimal[][] MatrixProduct(this decimal[][] m_, decimal[] row)
+        {
+            return m_.MatrixProduct(new decimal[][] { row });
+        }
+
+        public static decimal[] MatrixProduct(this decimal[] m_, decimal[][] matrix)
         {
             var result = new decimal[matrix[0].Length];
-            for (int i = 0; i < matrix.Length; i++ )
+            for (int i = 0; i < matrix.Length; i++)
             {
-                var product = 0.0M;
+                var accumulator = 1.0M;
                 for (int j = 0; j < matrix[i].Length; j++)
                 {
-                    product += matrix[i][j] * vector[j];
+                    accumulator += m_[j] * matrix[i][j];
                 }
-                result[i] = product;
+                result[i] = accumulator;
             }
             return result;
         }

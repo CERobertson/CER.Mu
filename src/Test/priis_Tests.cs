@@ -71,7 +71,7 @@
         }
 
         [TestMethod]
-        public void Chaprter2_Example4and5()
+        public void Chapter2_Example4and5()
         {
             var s = new decimal[][]
             {
@@ -82,22 +82,42 @@
             var lWatson_Sound = 9.0M;
             var lGibbon_Sound = 4.0M;
             var lWatsonGibbon_Sound = lWatson_Sound * lGibbon_Sound;
-            
+
             (36.0M).IsEqualTo(lWatsonGibbon_Sound);
 
-            var dWatsonGibbon = new decimal[] { lWatsonGibbon_Sound, 1.0M };
+            var dWatsonGibbon = new decimal[][] 
+            { 
+                new decimal[] { lWatsonGibbon_Sound },
+                new decimal[] { 1.0M }
+            };
             var lVector = s.MatrixProduct(dWatsonGibbon);
 
-            (34.25M).IsEqualTo(lVector[0], 2);
-            (1.35M).IsEqualTo(lVector[1], 2);
+            (34.25M).IsEqualTo(lVector[0][0], 2);
+            (1.35M).IsEqualTo(lVector[1][0], 2);
 
             var pBurglary = 0.0001M;
             var pNoBurglary = 1 - pBurglary;
-            var pHypothesis = new decimal[] { pBurglary, pNoBurglary };
+            var pHypothesis = new decimal[][] 
+            { 
+                new decimal[] { pBurglary },
+                new decimal[] { pNoBurglary }
+            };
             var pHypothesis_WatsonGibbon = lVector.VectorProduct(pHypothesis).Normalize();
 
-            (0.00253M).IsEqualTo(pHypothesis_WatsonGibbon[0], 5);
-            (0.99747M).IsEqualTo(pHypothesis_WatsonGibbon[1], 5);
+            (0.00253M).IsEqualTo(pHypothesis_WatsonGibbon[0][0], 5);
+            (0.99747M).IsEqualTo(pHypothesis_WatsonGibbon[1][0], 5);
+        }
+
+        [TestMethod]
+        public void Chapter2_Example6()
+        {
+            var pDaughter_Sound = new decimal[][]
+            {
+                new decimal[] {0.7M, 0.3M},
+                new decimal[] {0.0M, 1.0M}
+            };
+
+
         }
     }
 }
