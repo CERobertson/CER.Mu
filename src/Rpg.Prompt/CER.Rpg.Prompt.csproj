@@ -7,7 +7,7 @@
     <ProjectGuid>{6329F608-AA97-4912-97F4-EF01217ADC7C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CER.Prompt</RootNamespace>
+    <RootNamespace>CER.Rpg.Prompt</RootNamespace>
     <AssemblyName>Prompt</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
