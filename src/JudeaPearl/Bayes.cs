@@ -154,7 +154,7 @@
             var result = new decimal[matrix[0].Length];
             for (int i = 0; i < matrix.Length; i++)
             {
-                var accumulator = 1.0M;
+                var accumulator = 0.0M;
                 for (int j = 0; j < matrix[i].Length; j++)
                 {
                     accumulator += m_[j] * matrix[i][j];
@@ -162,6 +162,86 @@
                 result[i] = accumulator;
             }
             return result;
+        }
+
+        public static decimal[][] Transpose(this decimal[] v)
+        {
+            var result = new decimal[v.Length][];
+            for (int i = 0; i < v.Length; i++)
+            {
+                result[i] = new decimal[] { v[i] };
+            }
+            return result;
+        }
+
+        public static decimal[] Transpose(this decimal[][] v)
+        {
+            var result = new decimal[v.Length];
+            for (int i = 0; i < v.Length; i++)
+            {
+                result[i] = v[i][0];
+            }
+            return result;
+        }
+
+        public static decimal[] Vector(this decimal[][] e, int i)
+        {
+            var result = new decimal[e.Length];
+            for (int j = 0; j < e.Length; j++)
+            {
+                result[j] = e[j][i];
+            }
+            return result;
+        }
+
+        public static decimal[][] Unit(this decimal[][] schema)
+        {
+            var result = new decimal[schema.Length][];
+            for (int i = 0; i < schema.Length; i++)
+            {
+                result[i] = new decimal[schema[0].Length];
+                for (int j = 0; j < schema[0].Length; j++)
+                {
+                    result[i][j] = 1;
+                }
+            }
+            return result;
+        }
+
+        public static decimal[][] Duplicate(this decimal[][] schema)
+        {
+            var result = new decimal[schema.Length][];
+            for (int i = 0; i < schema.Length; i++)
+            {
+                result[i] = new decimal[schema[0].Length];
+                for (int j = 0; j < schema[0].Length; j++)
+                {
+                    result[i][j] = schema[i][j];
+                }
+            }
+            return result;
+        }
+
+        public static decimal[][] Construct(this decimal[][] template, decimal[][] target)
+        {
+            if (target == null)
+            {
+                target = new decimal[template.Length][];
+                for (int i = 0; i < template.Length; i++)
+                {
+                    target[i] = new decimal[template[0].Length];
+                }
+            }
+            return target;
+        }
+
+        public static decimal[][] ConstructUnit(this decimal[][] template, decimal[][] target)
+        {
+            if (target == null)
+            {
+                target = template.Construct(target).Unit();
+            }
+            return target;
         }
     }
 }

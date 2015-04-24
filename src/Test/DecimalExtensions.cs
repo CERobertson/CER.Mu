@@ -5,8 +5,9 @@
 
     public static class DecimalExtensions
     {
-        public static void IsEqualTo(this decimal expected, decimal actual, int rounding_to_decimal = 0)
+        public static void IsEqualTo(this decimal expected, decimal actual)
         {
+            var rounding_to_decimal = expected.ToString().Split('.')[1].Length;
             Assert.AreEqual(expected, Math.Round(actual, rounding_to_decimal));
         }
 
