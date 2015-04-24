@@ -60,7 +60,7 @@
         /// </summary>
         public void UpdateDiagnosticSupport(int variable, decimal[] support)
         {
-            this.DiagnosticSupport[variable] = support;
+            this.DiagnosticSupport[variable] = DiagnosticSupport[variable].VectorProduct(support);
             this.UpdateBelief(variable);
 
             if (this.parents.Count > 0)
