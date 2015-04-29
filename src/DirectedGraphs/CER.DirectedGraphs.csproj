@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{21E6857B-F70B-43B3-AE55-651753B4A26B}</ProjectGuid>
+    <ProjectGuid>{D648ED86-53BE-4E5D-9BE9-EA4318E58755}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CER.JudeaPearl</RootNamespace>
-    <AssemblyName>JudeaPearl</AssemblyName>
+    <RootNamespace>CER.DirectedGraphs</RootNamespace>
+    <AssemblyName>DirectedGraphs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,14 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bayes.cs" />
-    <Compile Include="CausalNetwork.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DirectedGraphs\CER.DirectedGraphs.csproj">
-      <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
-      <Name>CER.DirectedGraphs</Name>
+    <ProjectReference Include="..\Runtime.Serialization\CER.Runtime.Serialization.csproj">
+      <Project>{2dc86dfb-cf9a-4368-8f4c-1b2c65276fbf}</Project>
+      <Name>CER.Runtime.Serialization</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

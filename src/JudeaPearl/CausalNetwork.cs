@@ -1,5 +1,6 @@
 ﻿namespace CER.JudeaPearl.CausalNetwork
 {
+    using CER.DirectedGraphs;
     using CER.JudeaPearl;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,35 +8,20 @@
     /// <summary>
     /// X -> Y
     /// </summary>
-    public class Node
+    public class Belief : Node<Belief>
     {
-        /// <summary>
-        /// Y
-        /// </summary>
-        public string Variable { get; set; }
-
         /// <summary>
         /// x in M y|x
         /// </summary>
         public string[] MutuallyExclusiveHypotheses { get; set; }
 
-        /// <summary>
-        /// Parent nodes which contribute to causal support.
-        /// </summary>
-        private IList<Node> parents = new List<Node>();
-
-        /// <summary>
-        /// Children nodes which contribute to evidential support.
-        /// </summary>
-        private IList<Node> children = new List<Node>();
-
-        public decimal[][] Belief { get; private set; }
+        public decimal[][] Value { get; private set; }
         /// <summary>
         /// BEL(x)
         /// </summary>
         public void UpdateBelief(int variable)
         {
-            this.Belief[variable] = this
+            this.Value[variable] = this
                 .DiagnosticSupport[variable].VectorProduct(this.CausalSupport[variable])
                 .Normalize();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         }
@@ -84,16 +70,16 @@
                 this.conditional_probability = value;
                 this.DiagnosticSupport = this.conditional_probability.ConstructUnit(this.DiagnosticSupport);
                 this.CausalSupport = this.conditional_probability.Construct(this.CausalSupport);
-                this.Belief = this.conditional_probability.Construct(this.Belief);
+                this.Value = this.conditional_probability.Construct(this.Value);
             }
         }
 
-        public void Causes(Node child)
+        public void Causes(Belief child)
         {
             if (this.parents.Count == 0)
             {
                 this.CausalSupport = child.ConditionalProbability.Duplicate();
-                this.Belief = child.ConditionalProbability.Construct(this.Belief);
+                this.Value = child.ConditionalProbability.Construct(this.Value);
                 this.DiagnosticSupport = child.ConditionalProbability.ConstructUnit(this.DiagnosticSupport);
             }
             child.Initialize(this);
@@ -102,11 +88,6 @@
             {
                 child.UpdateCausalSupport(i, this.CausalSupport[i]);
             }
-        }
-
-        public void Initialize(Node parent)
-        {
-            this.parents.Add(parent);
         }
     }
 }

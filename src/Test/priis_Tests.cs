@@ -112,12 +112,12 @@
         [TestMethod]
         public void Chapter4_Example3through6()
         {
-            var X = new Node
+            var X = new Belief
             {
                 Variable = "the last user of the weapon"
             };
 
-            var Y = new Node
+            var Y = new Belief
             {
                 Variable = "the last holder of the weapon",
                 ConditionalProbability = new decimal[][]
@@ -135,22 +135,22 @@
 
             Y.UpdateDiagnosticSupport(0, new decimal[] { 0.8M, 0.6M, 0.5M });
 
-            (0.738M).IsEqualTo(Y.Belief[0][0]);
-            (0.143M).IsEqualTo(Y.Belief[0][1]);
-            (0.119M).IsEqualTo(Y.Belief[0][2]);
+            (0.738M).IsEqualTo(Y.Value[0][0]);
+            (0.143M).IsEqualTo(Y.Value[0][1]);
+            (0.119M).IsEqualTo(Y.Value[0][2]);
 
-            (0.84M).IsEqualTo(X.Belief[0][0]);
-            (0.085M).IsEqualTo(X.Belief[0][1]);
-            (0.076M).IsEqualTo(X.Belief[0][2]);
+            (0.84M).IsEqualTo(X.Value[0][0]);
+            (0.085M).IsEqualTo(X.Value[0][1]);
+            (0.076M).IsEqualTo(X.Value[0][2]);
 
             var alibi = new decimal[] { 0.28M, 0.36M, 0.36M };
             X.CausalSupport[0] = alibi;
             X.UpdateBelief(0);
 
-            (0.337M).IsEqualTo(X.Belief[0][0]);
-            (0.352M).IsEqualTo(X.Belief[0][1]);
+            (0.337M).IsEqualTo(X.Value[0][0]);
+            (0.352M).IsEqualTo(X.Value[0][1]);
             //Rounding error between test and priis pg. 160 orginal is 0.311M
-            (0.312M).IsEqualTo(X.Belief[0][2]);
+            (0.312M).IsEqualTo(X.Value[0][2]);
             
             Y.UpdateCausalSupport(0, alibi);
 
@@ -162,9 +162,9 @@
             Y.UpdateDiagnosticSupport(0, new decimal[] { 0.3M, 0.5M, 0.9M });
 
             //more round error.  Between 0 and 2.  Things still add to 1 so that is good.
-            (0.215M).IsEqualTo(Y.Belief[0][0]);
-            (0.314M).IsEqualTo(Y.Belief[0][1]);
-            (0.471M).IsEqualTo(Y.Belief[0][2]);
+            (0.215M).IsEqualTo(Y.Value[0][0]);
+            (0.314M).IsEqualTo(Y.Value[0][1]);
+            (0.471M).IsEqualTo(Y.Value[0][2]);
         }
     }
 
