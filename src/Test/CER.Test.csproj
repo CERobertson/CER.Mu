@@ -52,6 +52,12 @@
   <ItemGroup>
     <Compile Include="CompilerTests.cs" />
     <Compile Include="DecimalExtensions.cs" />
+    <Compile Include="JsonResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JsonResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="JsonTests.cs" />
     <Compile Include="priis_Tests.cs" />
     <Compile Include="SerializableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ObjectTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JsonResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>JsonResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
