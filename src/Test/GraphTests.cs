@@ -1,6 +1,7 @@
 ﻿namespace CER.Test
 {
     using CER.DirectedGraphs;
+    using CER.DirectedGraphs.SetExtensions;
     using CER.Test.Extensions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
