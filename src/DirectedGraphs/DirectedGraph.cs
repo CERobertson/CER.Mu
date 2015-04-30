@@ -10,8 +10,20 @@
     {
         public static DirectedGraph Parse(string json)
         {
+            if(string.IsNullOrEmpty(json))
+            {
+                return DirectedGraph.EmptyGraph;
+            }
             return new MemoryStream(json.ToByteArray())
                 .Deserialize<DirectedGraph>(new DataContractJsonSerializerSettings { UseSimpleDictionaryFormat = true });
+        }
+
+        public static DirectedGraph EmptyGraph
+        {
+            get
+            {
+                return new DirectedGraph();
+            }
         }
 
         public string[] Roots

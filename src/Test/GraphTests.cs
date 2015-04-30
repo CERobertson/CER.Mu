@@ -13,6 +13,10 @@
             var valid_DAG = new DirectedGraphContext[]
             {
                 new DirectedGraphContext{ 
+                    Json = string.Empty, 
+                    Roots = new string[] { }, 
+                    Sinks = new string[] { }},
+                new DirectedGraphContext{ 
                     Json = JsonResource.Minimal_DAG, 
                     Roots = new[] { "A" }, 
                     Sinks = new[] { "B" }}
