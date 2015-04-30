@@ -1,15 +1,8 @@
 ﻿namespace CER.Test
 {
-    using System;
-    using CER.Runtime.Serialization;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Runtime.Serialization.Json;
     using CER.DirectedGraphs;
-    using CER.JudeaPearl.CausalNetwork;
     using CER.Test.Extensions;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class GraphTests : Tests<DirectedGraph, GraphTests.DirectedGraphContext>
@@ -26,6 +19,10 @@
             };
             var invalid_DAG = new DirectedGraphContext[]
             {
+                new DirectedGraphContext{ 
+                    Json = JsonResource.Minimal_DCG, 
+                    Roots = new string[] { }, 
+                    Sinks = new string[] { }}
 
             };
             this.Assert_AreDAGs(valid_DAG);
@@ -41,7 +38,7 @@
                 expected.Sinks.Assert_NoDifferences(dg.Sinks);
             }
         }
-        //.OrderBy(x => x).ToArray()
+
         public class DirectedGraphContext
         {
             public string Json { get; set; }

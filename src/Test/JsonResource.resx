@@ -120,4 +120,7 @@
   <data name="Minimal_DAG" xml:space="preserve">
     <value>{"A":["B"]}</value>
   </data>
+  <data name="Minimal_DCG" xml:space="preserve">
+    <value>{"A":["A"]}</value>
+  </data>
 </root>

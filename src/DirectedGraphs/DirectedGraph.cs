@@ -19,12 +19,9 @@
             get
             {
                 var possible_roots = this.Select(x => x.Key).ToList();
-                foreach (var node in this)
+                foreach (var child in this.SelectMany(x => x.Value).Distinct())
                 {
-                    foreach (var child in node.Value)
-                    {
-                        possible_roots.Remove(child);
-                    }
+                    possible_roots.Remove(child);
                 }
                 return possible_roots.ToArray();
             }

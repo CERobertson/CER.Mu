@@ -68,5 +68,14 @@ namespace CER.Test {
                 return ResourceManager.GetString("Minimal_DAG", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {&quot;A&quot;:[&quot;A&quot;]}.
+        /// </summary>
+        internal static string Minimal_DCG {
+            get {
+                return ResourceManager.GetString("Minimal_DCG", resourceCulture);
+            }
+        }
     }
 }
