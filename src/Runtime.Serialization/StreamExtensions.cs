@@ -8,13 +8,23 @@
     {
         public static void Serialize<T>(this Stream stream, T obj)
         {
-            var serializer = new DataContractJsonSerializer(typeof(T));
+            stream.Serialize<T>(obj, new DataContractJsonSerializerSettings());
+        }
+
+        public static void Serialize<T>(this Stream stream, T obj, DataContractJsonSerializerSettings settings)
+        {
+            var serializer = new DataContractJsonSerializer(typeof(T), settings);
             serializer.WriteObject(stream, obj);
         }
 
         public static T Deserialize<T>(this Stream stream) where T : class
         {
-            var serializer = new DataContractJsonSerializer(typeof(T));
+            return stream.Deserialize<T>(new DataContractJsonSerializerSettings());
+        }
+
+        public static T Deserialize<T>(this Stream stream, DataContractJsonSerializerSettings settings) where T : class
+        {
+            var serializer = new DataContractJsonSerializer(typeof(T), settings);
             return serializer.ReadObject(stream) as T;
         }
 
@@ -49,6 +59,20 @@
                     }
                 }
             }
+        }
+
+        public static byte[] ToByteArray(this string s)
+        {
+            byte[] bytes = new byte[s.Length * sizeof(char)];
+            Buffer.BlockCopy(s.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
+        public static string _ToString(this byte[] bytes)
+        {
+            char[] chars = new char[bytes.Length / sizeof(char)];
+            Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            return new string(chars);
         }
     }
 }

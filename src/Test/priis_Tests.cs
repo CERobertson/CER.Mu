@@ -26,8 +26,8 @@
             var oBurglary_Alarm = lAlarm_Burglary.PosteriorOdds(oBurglary);
             var pBurglary_Alarm = oBurglary_Alarm.Probablity();
 
-            (0.0095M).IsEqualTo(oBurglary_Alarm);
-            (0.00941M).IsEqualTo(pBurglary_Alarm);
+            (0.0095M).Assert_AboutEqual(oBurglary_Alarm);
+            (0.00941M).Assert_AboutEqual(pBurglary_Alarm);
         }
 
         [TestMethod]
@@ -44,31 +44,31 @@
             var d2NoSound = detector_sensitivity.LikelihoodVector(0);
             var lVector = d1HighSound.VectorProduct(d2NoSound);
 
-            (0.05M).IsEqualTo(lVector[0]);
-            (0.0264M).IsEqualTo(lVector[1]);
-            (0.2M).IsEqualTo(lVector[2]);
-            (0.0M).IsEqualTo(lVector[3]);
+            (0.05M).Assert_AboutEqual(lVector[0]);
+            (0.0264M).Assert_AboutEqual(lVector[1]);
+            (0.2M).Assert_AboutEqual(lVector[2]);
+            (0.0M).Assert_AboutEqual(lVector[3]);
 
             var prior_pHypothesis = new decimal[] { 0.099M, 0.009M, 0.001M, 0.891M };
             var rpHypothesis_evidence = prior_pHypothesis.VectorProduct(lVector);
 
-            (0.00495M).IsEqualTo(rpHypothesis_evidence[0]);
-            (0.000238M).IsEqualTo(rpHypothesis_evidence[1]);
-            (0.0002M).IsEqualTo(rpHypothesis_evidence[2]);
-            (0.0M).IsEqualTo(rpHypothesis_evidence[3]);
+            (0.00495M).Assert_AboutEqual(rpHypothesis_evidence[0]);
+            (0.000238M).Assert_AboutEqual(rpHypothesis_evidence[1]);
+            (0.0002M).Assert_AboutEqual(rpHypothesis_evidence[2]);
+            (0.0M).Assert_AboutEqual(rpHypothesis_evidence[3]);
 
             var pHypothesis = rpHypothesis_evidence.Normalize();
-            pHypothesis.SumsToUnity();
+            pHypothesis.AssertSumsToUnity();
 
             //fails due to slight difference from book. This seems like
             //an artifact from the decimal datatype I have used. I will
             //watch for more example before deciding to change types.
-            (0.919M).IsEqualTo(pHypothesis[0]);
-            (0.0439M).IsEqualTo(pHypothesis[1]);
-            (0.0375M).IsEqualTo(pHypothesis[2]);
-            (0.0M).IsEqualTo(pHypothesis[3]);
+            (0.919M).Assert_AboutEqual(pHypothesis[0]);
+            (0.0439M).Assert_AboutEqual(pHypothesis[1]);
+            (0.0375M).Assert_AboutEqual(pHypothesis[2]);
+            (0.0M).Assert_AboutEqual(pHypothesis[3]);
 
-            (0.0814M).IsEqualTo(pHypothesis[1] + pHypothesis[2]);
+            (0.0814M).Assert_AboutEqual(pHypothesis[1] + pHypothesis[2]);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@
             var lGibbon_Sound = 4.0M;
             var lWatsonGibbon_Sound = lWatson_Sound * lGibbon_Sound;
 
-            (36.0M).IsEqualTo(lWatsonGibbon_Sound);
+            (36.0M).Assert_AboutEqual(lWatsonGibbon_Sound);
 
             var dWatsonGibbon = new decimal[][] 
             { 
@@ -93,8 +93,8 @@
             };
             var lVector = s.MatrixProduct(dWatsonGibbon);
 
-            (34.25M).IsEqualTo(lVector[0][0]);
-            (1.35M).IsEqualTo(lVector[1][0]);
+            (34.25M).Assert_AboutEqual(lVector[0][0]);
+            (1.35M).Assert_AboutEqual(lVector[1][0]);
 
             var pBurglary = 0.0001M;
             var pNoBurglary = 1 - pBurglary;
@@ -105,8 +105,8 @@
             };
             var pHypothesis_WatsonGibbon = lVector.VectorProduct(pHypothesis).Normalize();
 
-            (0.00253M).IsEqualTo(pHypothesis_WatsonGibbon[0][0]);
-            (0.99747M).IsEqualTo(pHypothesis_WatsonGibbon[1][0]);
+            (0.00253M).Assert_AboutEqual(pHypothesis_WatsonGibbon[0][0]);
+            (0.99747M).Assert_AboutEqual(pHypothesis_WatsonGibbon[1][0]);
         }
 
         [TestMethod]
@@ -129,28 +129,28 @@
             };
             X.Causes(Y);
 
-            (0.66M).IsEqualTo(Y.CausalSupport[0][0]);
-            (0.17M).IsEqualTo(Y.CausalSupport[0][1]);
-            (0.17M).IsEqualTo(Y.CausalSupport[0][2]);
+            (0.66M).Assert_AboutEqual(Y.CausalSupport[0][0]);
+            (0.17M).Assert_AboutEqual(Y.CausalSupport[0][1]);
+            (0.17M).Assert_AboutEqual(Y.CausalSupport[0][2]);
 
             Y.UpdateDiagnosticSupport(0, new decimal[] { 0.8M, 0.6M, 0.5M });
 
-            (0.738M).IsEqualTo(Y.Value[0][0]);
-            (0.143M).IsEqualTo(Y.Value[0][1]);
-            (0.119M).IsEqualTo(Y.Value[0][2]);
+            (0.738M).Assert_AboutEqual(Y.Value[0][0]);
+            (0.143M).Assert_AboutEqual(Y.Value[0][1]);
+            (0.119M).Assert_AboutEqual(Y.Value[0][2]);
 
-            (0.84M).IsEqualTo(X.Value[0][0]);
-            (0.085M).IsEqualTo(X.Value[0][1]);
-            (0.076M).IsEqualTo(X.Value[0][2]);
+            (0.84M).Assert_AboutEqual(X.Value[0][0]);
+            (0.085M).Assert_AboutEqual(X.Value[0][1]);
+            (0.076M).Assert_AboutEqual(X.Value[0][2]);
 
             var alibi = new decimal[] { 0.28M, 0.36M, 0.36M };
             X.CausalSupport[0] = alibi;
             X.UpdateBelief(0);
 
-            (0.337M).IsEqualTo(X.Value[0][0]);
-            (0.352M).IsEqualTo(X.Value[0][1]);
+            (0.337M).Assert_AboutEqual(X.Value[0][0]);
+            (0.352M).Assert_AboutEqual(X.Value[0][1]);
             //Rounding error between test and priis pg. 160 orginal is 0.311M
-            (0.312M).IsEqualTo(X.Value[0][2]);
+            (0.312M).Assert_AboutEqual(X.Value[0][2]);
             
             Y.UpdateCausalSupport(0, alibi);
 
@@ -162,9 +162,9 @@
             Y.UpdateDiagnosticSupport(0, new decimal[] { 0.3M, 0.5M, 0.9M });
 
             //more round error.  Between 0 and 2.  Things still add to 1 so that is good.
-            (0.215M).IsEqualTo(Y.Value[0][0]);
-            (0.314M).IsEqualTo(Y.Value[0][1]);
-            (0.471M).IsEqualTo(Y.Value[0][2]);
+            (0.215M).Assert_AboutEqual(Y.Value[0][0]);
+            (0.314M).Assert_AboutEqual(Y.Value[0][1]);
+            (0.471M).Assert_AboutEqual(Y.Value[0][2]);
         }
     }
 

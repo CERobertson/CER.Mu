@@ -8,7 +8,7 @@
     using System.Collections.Generic;
 
     [TestClass]
-    public class TimerTests : Tests<System.Timers.Timer, Timer>
+    public class TimerTests : Tests<System.Timers.Timer, async_TimerContext>
     {
         [TestMethod]
         public void Main()
@@ -21,7 +21,7 @@
                 {
                     TimerTests.CancellationTokenSource = new System.Threading.CancellationTokenSource();
                     var cancel_token = TimerTests.CancellationTokenSource.Token;
-                    var timer = new Timer(interval, duration);
+                    var timer = new async_TimerContext(interval, duration);
                     timer.TimerToTest = new System.Timers.Timer();
                     timer.TimerToTest.Interval = interval;
                     foreach (var assertion in this.Assertions)
@@ -51,7 +51,7 @@
             var tasks = new List<Task>();
             while ((interval /= 2) >= (int)Math.Pow(2, 7))
             {
-                var timer = new Timer(interval, duration);
+                var timer = new async_TimerContext(interval, duration);
                 timer.TimerToTest = new System.Timers.Timer();
                 timer.TimerToTest.Interval = interval;
                 tasks.Add(Task.Run(() =>
@@ -92,7 +92,7 @@
             (obj, dc) => 
             {
                 Console.WriteLine(string.Join(
-                    TimerTests.Seperator.ToString(),
+                    TimerTests.Separator.ToString(),
                     dc.IntervalInMilliseconds,
                     dc.CallbackCount,
                     dc.SmallThresholdViolationCount));
@@ -100,7 +100,7 @@
         };
     }
 
-    public class Timer
+    public class async_TimerContext
     {
         public System.Timers.Timer TimerToTest { get; set; }
 
@@ -108,7 +108,7 @@
         public int IntervalInMilliseconds { get; private set; }
         public int DurationInSeconds { get; private set; }
 
-        public Timer(int interval_in_milliseconds, int duration_in_seconds)
+        public async_TimerContext(int interval_in_milliseconds, int duration_in_seconds)
         {
             DateTime currentTime = DateTime.Now;
             this.StartTime = currentTime;
