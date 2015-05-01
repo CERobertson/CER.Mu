@@ -1,4 +1,4 @@
-﻿namespace CER.DirectedGraphs
+﻿namespace CER.Graphs
 {
     using System.Collections.Generic;
 

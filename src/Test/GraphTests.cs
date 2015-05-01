@@ -1,7 +1,7 @@
 ﻿namespace CER.Test
 {
-    using CER.DirectedGraphs;
-    using CER.DirectedGraphs.SetExtensions;
+    using CER.Graphs;
+    using CER.Graphs.SetExtensions;
     using CER.Test.Extensions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -50,11 +50,10 @@
         {
             foreach (var expected in directed_graphs_in_json)
             {
-                var dg = DirectedGraph.Parse(expected.Json);
-                expected.Roots.Assert_NoDifferences(dg.Roots);
-                expected.Sinks.Assert_NoDifferences(dg.Sinks);
-                Assert.IsTrue(dg.IsDirectedAcyclicGraph ^ invert);
-                var dag = new DirectedAcyclicGraph<Node>(dg);
+                var dag = new DirectedAcyclicGraph<Node>(expected.Json);
+                expected.Roots.Assert_NoDifferences(dag.Template.Roots);
+                expected.Sinks.Assert_NoDifferences(dag.Template.Sinks);
+                Assert.IsTrue(dag.Template.IsDirectedAcyclicGraph ^ invert);
             }
         }
 

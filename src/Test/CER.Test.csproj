@@ -66,9 +66,9 @@
     <Compile Include="TimerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DirectedGraphs\CER.DirectedGraphs.csproj">
+    <ProjectReference Include="..\Graphs\CER.Graphs.csproj">
       <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
-      <Name>CER.DirectedGraphs</Name>
+      <Name>CER.Graphs</Name>
     </ProjectReference>
     <ProjectReference Include="..\JudeaPearl\CER.JudeaPearl.csproj">
       <Project>{21e6857b-f70b-43b3-ae55-651753b4a26b}</Project>

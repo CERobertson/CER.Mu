@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Roslyn", "src\Roslyn\CE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.JudeaPearl", "src\JudeaPearl\CER.JudeaPearl.csproj", "{21E6857B-F70B-43B3-AE55-651753B4A26B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.DirectedGraphs", "src\DirectedGraphs\CER.DirectedGraphs.csproj", "{D648ED86-53BE-4E5D-9BE9-EA4318E58755}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Graphs", "src\Graphs\CER.Graphs.csproj", "{D648ED86-53BE-4E5D-9BE9-EA4318E58755}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

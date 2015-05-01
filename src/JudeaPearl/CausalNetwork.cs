@@ -1,6 +1,6 @@
 ﻿namespace CER.JudeaPearl.CausalNetwork
 {
-    using CER.DirectedGraphs;
+    using CER.Graphs;
     using CER.JudeaPearl;
     using System.Collections.Generic;
     using System.Linq;

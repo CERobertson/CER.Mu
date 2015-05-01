@@ -7,8 +7,8 @@
     <ProjectGuid>{D648ED86-53BE-4E5D-9BE9-EA4318E58755}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CER.DirectedGraphs</RootNamespace>
-    <AssemblyName>DirectedGraphs</AssemblyName>
+    <RootNamespace>CER.Graphs</RootNamespace>
+    <AssemblyName>Graphs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

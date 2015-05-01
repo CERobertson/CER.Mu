@@ -1,4 +1,4 @@
-﻿namespace CER.DirectedGraphs.SetExtensions
+﻿namespace CER.Graphs.SetExtensions
 {
     using System;
     using System.Collections.Generic;

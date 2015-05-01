@@ -44,9 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DirectedGraphs\CER.DirectedGraphs.csproj">
+    <ProjectReference Include="..\Graphs\CER.Graphs.csproj">
       <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
-      <Name>CER.DirectedGraphs</Name>
+      <Name>CER.Graphs</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

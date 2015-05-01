@@ -1,4 +1,4 @@
-﻿namespace CER.DirectedGraphs
+﻿namespace CER.Graphs
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,9 @@
 
     public class DirectedAcyclicGraph<T> : Dictionary<string, T> where T : Node<T>, new()
     {
+        public DirectedAcyclicGraph(string json, bool throw_exception_on_flaws = false)
+            : this(DirectedGraph.Parse(json), throw_exception_on_flaws) { }
+
         public DirectedAcyclicGraph(DirectedGraph template, bool throw_exception_on_flaws = false)
         {
             this.Template = template;
