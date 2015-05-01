@@ -79,20 +79,5 @@
             }
             return this.DisassemblesToDirectedAcyclicGraph(graph);
         }
-
-        //public Node<T> ToDAG<T>() where T : Node<T>
-        //{
-        //    foreach (var n in this)
-        //    {
-        //        var x = new Node<T> { Variable = n.Key };
-        //        foreach (var e in n.Value)
-        //        {
-        //            var c = (T)(new Node<T> { Variable = e });
-        //            c.Initialize((T)x);
-        //            x.children.Add(c);
-        //        }
-        //    }
-        //    return new Node<T>();
-        //}
     }
 }

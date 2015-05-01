@@ -54,6 +54,7 @@
                 expected.Roots.Assert_NoDifferences(dg.Roots);
                 expected.Sinks.Assert_NoDifferences(dg.Sinks);
                 Assert.IsTrue(dg.IsDirectedAcyclicGraph ^ invert);
+                var dag = new DirectedAcyclicGraph<Node>(dg);
             }
         }
 
