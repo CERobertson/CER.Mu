@@ -9,11 +9,15 @@
 
     public class DirectedGraph : Dictionary<string, string[]>
     {
-        public static DirectedGraph Parse(string json)
+        public static DirectedGraph Parse(string json, string quote = "'")
         {
             if(string.IsNullOrEmpty(json))
             {
                 return DirectedGraph.EmptyGraph;
+            }
+            if (quote != "\"")
+            {
+                json = json.Replace(quote, "\"");
             }
             return new MemoryStream(json.ToByteArray())
                 .Deserialize<DirectedGraph>(new DataContractJsonSerializerSettings { UseSimpleDictionaryFormat = true });

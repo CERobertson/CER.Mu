@@ -4,6 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    public static class Set
+    {
+        public static string[] Empty { get { return new string[] { }; } }
+    }
+
     public static class Extensions
     {
         public static void Assert_NoDifferences<T>(this T[] set1, T[] set0)

@@ -6,8 +6,8 @@
 
     public class DirectedAcyclicGraph<T> : Dictionary<string, T> where T : Node<T>, new()
     {
-        public DirectedAcyclicGraph(string json, bool throw_exception_on_flaws = false)
-            : this(DirectedGraph.Parse(json), throw_exception_on_flaws) { }
+        public DirectedAcyclicGraph(string json, string quote = "'", bool throw_exception_on_flaws = false)
+            : this(DirectedGraph.Parse(json, quote), throw_exception_on_flaws) { }
 
         public DirectedAcyclicGraph(DirectedGraph template, bool throw_exception_on_flaws = false)
         {
@@ -53,10 +53,10 @@
             {
                 foreach (var parents_of_child in remaining_edges.ToArray().GroupBy(x => x.Child))
                 {
-                    var child = new T { Variable = parents_of_child.Key };
+                    T child = new T { Variable = parents_of_child.Key };
                     foreach (var p in parents_of_child)
                     {
-                        var parent = this[p.Parent];
+                        T parent = this[p.Parent];
                         child.parents.Add(parent);
                         parent.children.Add(child);
                         remaining_edges.Remove(p);

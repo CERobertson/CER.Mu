@@ -14,38 +14,46 @@
             var valid_DAG = new DirectedGraphContext[]
             {
                 new DirectedGraphContext{ 
-                    Json = string.Empty, 
-                    Roots = new string[] { }, 
-                    Sinks = new string[] { }},
+                    Json = string.Empty,  
+                    Roots = Set.Empty, 
+                    Sinks = Set.Empty},
                 new DirectedGraphContext{ 
-                    Json = JsonResource.DAG_2, 
+                    Json = "{'A':['B']}", 
                     Roots = new[] { "A" }, 
                     Sinks = new[] { "B" }},
                 new DirectedGraphContext{ 
-                    Json = JsonResource.DAG_3, 
+                    Json = "{'A':['B'],'B':['C']}", 
                     Roots = new[] { "A" }, 
-                    Sinks = new[] { "C" }}
+                    Sinks = new[] { "C" }},
+                new DirectedGraphContext{ 
+                    Json = "{'A':['B','D'],'B':['C']}", 
+                    Roots = new[] { "A" }, 
+                    Sinks = new[] { "C", "D" }}
             };
             var invalid_DAG = new DirectedGraphContext[]
             {
                 new DirectedGraphContext{ 
-                    Json = JsonResource.DCG_1, 
-                    Roots = new string[] { }, 
-                    Sinks = new string[] { }},
+                    Json = "{'A':['A']}", 
+                    Roots = Set.Empty, 
+                    Sinks = Set.Empty},
                 new DirectedGraphContext{ 
-                    Json = JsonResource.DCG_2, 
-                    Roots = new string[] { }, 
-                    Sinks = new string[] { }},
+                    Json = "{'A':['B'],'B':['A']}",  
+                    Roots = Set.Empty, 
+                    Sinks = Set.Empty},
                 new DirectedGraphContext{ 
-                    Json = JsonResource.DCG_3, 
+                    Json = "{'A':['B'],'C':['C']}", 
                     Roots = new[] { "A" }, 
-                    Sinks = new[] { "B" }}  
+                    Sinks = new[] { "B" }},
+                new DirectedGraphContext{ 
+                    Json = "{'A':['B'],'C':['D'],'B':['C'],'D':['A']}",  
+                    Roots = Set.Empty, 
+                    Sinks = Set.Empty}
 
             };
             this.Assert_AreDAGs(valid_DAG);
             this.Assert_AreDAGs(invalid_DAG, true);
         }
-
+        
         private void Assert_AreDAGs(DirectedGraphContext[] directed_graphs_in_json, bool invert = false)
         {
             foreach (var expected in directed_graphs_in_json)
