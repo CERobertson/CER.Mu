@@ -1,6 +1,7 @@
 ﻿namespace CER.DirectedGraphs
 {
     using CER.Runtime.Serialization;
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -25,6 +26,9 @@
                 return new DirectedGraph();
             }
         }
+
+        public DirectedGraph() : base() { }
+        public DirectedGraph(IDictionary<string, string[]> template) : base(template) { }
 
         public string[] Roots
         {
@@ -51,33 +55,44 @@
                 return possible_sinks.ToArray();
             }
         }
-        
-        //L ← Empty list that will contain the sorted elements
-        //S ← Set of all nodes with no incoming edges
-        //while S is non-empty do
-        //    remove a node n from S
-        //    add n to tail of L
-        //    for each node m with an edge e from n to m do
-        //        remove edge e from the graph
-        //        if m has no other incoming edges then
-        //            insert m into S
-        //if graph has edges then
-        //    return error (graph has at least one cycle)
-        //else 
-        //    return L (a topologically sorted order)
-        public Node<T> ToDAG<T>() where T : Node<T>
+
+        public bool IsDirectedAcyclicGraph
         {
-            foreach (var n in this)
+            get
             {
-                var x = new Node<T> { Variable = n.Key };
-                foreach (var e in n.Value)
-                {
-                    var c = (T)(new Node<T> { Variable = e });
-                    c.Initialize((T)x);
-                    x.children.Add(c);
-                }
+                var graph = new DirectedGraph(this);
+                return this.DisassemblesToDirectedAcyclicGraph(graph);
             }
-            return new Node<T>();
         }
+
+        private bool DisassemblesToDirectedAcyclicGraph(DirectedGraph graph)
+        {
+            var roots = graph.Roots;
+            if (roots.Count() == 0)
+            {
+                if (graph.Count > 0) { return false; } else { return true; }
+            }
+
+            foreach (var r in roots)
+            {
+                graph.Remove(r);
+            }
+            return this.DisassemblesToDirectedAcyclicGraph(graph);
+        }
+
+        //public Node<T> ToDAG<T>() where T : Node<T>
+        //{
+        //    foreach (var n in this)
+        //    {
+        //        var x = new Node<T> { Variable = n.Key };
+        //        foreach (var e in n.Value)
+        //        {
+        //            var c = (T)(new Node<T> { Variable = e });
+        //            c.Initialize((T)x);
+        //            x.children.Add(c);
+        //        }
+        //    }
+        //    return new Node<T>();
+        //}
     }
 }

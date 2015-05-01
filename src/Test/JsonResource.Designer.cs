@@ -63,18 +63,45 @@ namespace CER.Test {
         /// <summary>
         ///   Looks up a localized string similar to {&quot;A&quot;:[&quot;B&quot;]}.
         /// </summary>
-        internal static string Minimal_DAG {
+        internal static string DAG_2 {
             get {
-                return ResourceManager.GetString("Minimal_DAG", resourceCulture);
+                return ResourceManager.GetString("DAG_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {&quot;A&quot;:[&quot;B&quot;],&quot;B&quot;:[&quot;C&quot;]}.
+        /// </summary>
+        internal static string DAG_3 {
+            get {
+                return ResourceManager.GetString("DAG_3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {&quot;A&quot;:[&quot;A&quot;]}.
         /// </summary>
-        internal static string Minimal_DCG {
+        internal static string DCG_1 {
             get {
-                return ResourceManager.GetString("Minimal_DCG", resourceCulture);
+                return ResourceManager.GetString("DCG_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {&quot;A&quot;:[&quot;B&quot;],&quot;B&quot;:[&quot;A&quot;]}.
+        /// </summary>
+        internal static string DCG_2 {
+            get {
+                return ResourceManager.GetString("DCG_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {&quot;A&quot;:[&quot;B&quot;],&quot;C&quot;:[&quot;C&quot;]}.
+        /// </summary>
+        internal static string DCG_3 {
+            get {
+                return ResourceManager.GetString("DCG_3", resourceCulture);
             }
         }
     }

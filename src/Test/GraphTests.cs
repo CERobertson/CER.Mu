@@ -18,16 +18,28 @@
                     Roots = new string[] { }, 
                     Sinks = new string[] { }},
                 new DirectedGraphContext{ 
-                    Json = JsonResource.Minimal_DAG, 
+                    Json = JsonResource.DAG_2, 
                     Roots = new[] { "A" }, 
-                    Sinks = new[] { "B" }}
+                    Sinks = new[] { "B" }},
+                new DirectedGraphContext{ 
+                    Json = JsonResource.DAG_3, 
+                    Roots = new[] { "A" }, 
+                    Sinks = new[] { "C" }}
             };
             var invalid_DAG = new DirectedGraphContext[]
             {
                 new DirectedGraphContext{ 
-                    Json = JsonResource.Minimal_DCG, 
+                    Json = JsonResource.DCG_1, 
                     Roots = new string[] { }, 
-                    Sinks = new string[] { }}
+                    Sinks = new string[] { }},
+                new DirectedGraphContext{ 
+                    Json = JsonResource.DCG_2, 
+                    Roots = new string[] { }, 
+                    Sinks = new string[] { }},
+                new DirectedGraphContext{ 
+                    Json = JsonResource.DCG_3, 
+                    Roots = new[] { "A" }, 
+                    Sinks = new[] { "B" }}  
 
             };
             this.Assert_AreDAGs(valid_DAG);
@@ -41,6 +53,7 @@
                 var dg = DirectedGraph.Parse(expected.Json);
                 expected.Roots.Assert_NoDifferences(dg.Roots);
                 expected.Sinks.Assert_NoDifferences(dg.Sinks);
+                Assert.IsTrue(dg.IsDirectedAcyclicGraph ^ invert);
             }
         }
 

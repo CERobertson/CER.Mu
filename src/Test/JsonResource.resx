@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Minimal_DAG" xml:space="preserve">
+  <data name="DAG_2" xml:space="preserve">
     <value>{"A":["B"]}</value>
   </data>
-  <data name="Minimal_DCG" xml:space="preserve">
+  <data name="DAG_3" xml:space="preserve">
+    <value>{"A":["B"],"B":["C"]}</value>
+  </data>
+  <data name="DCG_1" xml:space="preserve">
     <value>{"A":["A"]}</value>
+  </data>
+  <data name="DCG_2" xml:space="preserve">
+    <value>{"A":["B"],"B":["A"]}</value>
+  </data>
+  <data name="DCG_3" xml:space="preserve">
+    <value>{"A":["B"],"C":["C"]}</value>
   </data>
 </root>
