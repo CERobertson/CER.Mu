@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Azure", "src\Azure\CER.Azure.csproj", "{4572BB5B-0922-4BC5-A9D7-457FFB1E483B}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.JudeaPearl", "src\JudeaPearl\CER.JudeaPearl.csproj", "{21E6857B-F70B-43B3-AE55-651753B4A26B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Graphs", "src\Graphs\CER.Graphs.csproj", "{D648ED86-53BE-4E5D-9BE9-EA4318E58755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Foundry", "src\Foundry\CER.Foundry.csproj", "{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{D648ED86-53BE-4E5D-9BE9-EA4318E58755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D648ED86-53BE-4E5D-9BE9-EA4318E58755}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D648ED86-53BE-4E5D-9BE9-EA4318E58755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
