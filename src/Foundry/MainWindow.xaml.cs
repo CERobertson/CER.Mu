@@ -23,6 +23,7 @@ namespace CER.Foundry
         public MainWindow()
         {
             InitializeComponent();
+            //this.ListBox.ItemsSource
         }
     }
 }

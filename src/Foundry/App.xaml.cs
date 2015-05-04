@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CER.Rpg;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,12 @@ namespace CER.Foundry
     /// </summary>
     public partial class App : Application
     {
+
+        public DbContext Rpg { get; set; }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+        }
     }
 }

@@ -1,8 +1,27 @@
 ﻿<Window x:Class="CER.Foundry.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:src="clr-namespace:CER.Rpg;assembly=Rpg"
+        Title="Foundry" Height="350" Width="525">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="Rpg" ObjectType="{x:Type src:DbContext}" IsAsynchronous="True"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBox Name="TextBox" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="False" SpellCheck.IsEnabled="True"/>
+        <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <ListBox Name="ListBox" Grid.Column="2" Grid.Row="0" ItemsSource="{Binding Source={StaticResource Rpg}}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding Path=gm_name}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
