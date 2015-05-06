@@ -44,7 +44,7 @@
             var roots = graph.Roots;
             foreach (var r in roots)
             {
-                this[r] = new T { Variable = r };
+                this[r] = new T { variable = r };
                 remaining_edges.AddRange(graph[r].Select(x => new Edge { Parent = r, Child = x }));
                 graph.Remove(r);
             }
@@ -53,7 +53,7 @@
             {
                 foreach (var parents_of_child in remaining_edges.ToArray().GroupBy(x => x.Child))
                 {
-                    T child = new T { Variable = parents_of_child.Key };
+                    T child = new T { variable = parents_of_child.Key };
                     foreach (var p in parents_of_child)
                     {
                         T parent = this[p.Parent];

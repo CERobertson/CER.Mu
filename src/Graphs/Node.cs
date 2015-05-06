@@ -1,16 +1,27 @@
 ﻿namespace CER.Graphs
 {
+    using System;
     using System.Collections.Generic;
+
+    /// <summary>
+    /// X
+    /// </summary>
+    public class Entity
+    {
+        private readonly string seperator = "|";
+        public virtual string variable { get; set; }
+        public virtual string Address { get { return string.Join(this.seperator, this.GetType().FullName, this.variable); } }
+    }
 
     /// <summary>
     /// X -> Y
     /// </summary>
-    public class Node<T>
+    public class Node<T> : Entity
     {
         /// <summary>
         /// Y
         /// </summary>
-        public string Variable { get; set; }
+        public override string variable { get; set; }
 
         /// <summary>
         /// Parent nodes which contribute to causal support.

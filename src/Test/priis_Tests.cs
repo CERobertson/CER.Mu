@@ -114,12 +114,12 @@
         {
             var X = new Belief
             {
-                Variable = "the last user of the weapon"
+                variable = "the last user of the weapon"
             };
 
             var Y = new Belief
             {
-                Variable = "the last holder of the weapon",
+                variable = "the last holder of the weapon",
                 ConditionalProbability = new decimal[][]
                 {
                     new decimal[] {0.8M, 0.1M, 0.1M},

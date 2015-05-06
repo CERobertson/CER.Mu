@@ -1,11 +1,13 @@
 ﻿namespace CER.Rpg
 {
+    using CER.Graphs;
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using ef = System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.ModelConfiguration.Conventions;
-    using System;
     using System.Linq;
+    using ef = System.Data.Entity;
 
     public class DbContext : ef.DbContext
     {
@@ -98,7 +100,7 @@
         public string description { get; set; }
         public string video { get; set; }
     }    
-    public abstract class element
+    public abstract class element : Entity
     {
         private static string InitialContext;
         static element()
@@ -116,6 +118,10 @@
         public string gm_name { get; set; }
         public string description { get; set; }
         public virtual List<creation_process> creation_history { get; set; }
+
+        [NotMapped]
+        public override string variable { get { return this.gm_name; } set { this.gm_name = value; }
+        }
     }
 }
 

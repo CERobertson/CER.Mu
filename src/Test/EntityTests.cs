@@ -5,6 +5,8 @@
     using CER.Rpg;
     using CER.Test.Extensions;
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,7 +18,8 @@
         {
             var rpg = new DbContext();
             var games = new Games();
-            //rpg.Games.Add(games.Mu);
+            rpg.Characters.Add(games.Mu.chapters[0].characters[0]);
+            rpg.SaveChanges();
         }
     }
 }

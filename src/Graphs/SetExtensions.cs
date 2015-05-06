@@ -1,6 +1,7 @@
 ﻿namespace CER.Graphs.SetExtensions
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -57,6 +58,23 @@
         }
 
         /// <summary>
+        /// public IEnumerable<Entity> { get; set; }
+        /// </summary>
+        public static IEnumerable<Entity> Entities(this object obj)
+        {
+            return obj.GetType().GetProperties()
+                .Where(x => typeof(IEnumerable<Entity>).IsAssignableFrom(x.PropertyType))
+                .SelectMany(x =>
+                {
+                    var enumeration = x.GetValue(obj);
+                    if (enumeration != null)
+                        return enumeration as IEnumerable<Entity>;
+                    else
+                        return new Entity[] { }.AsEnumerable();
+                });
+        }
+
+        /// <summary>
         /// public static T
         /// </summary>
         public static IEnumerable<T> _Fields<T>(this Type t)
@@ -77,8 +95,19 @@
                 yield return (T)f.GetValue(obj);
             }
         }
+
+        /// <summary>
+        /// public T { get; }
+        /// </summary>
+        public static IEnumerable<T> _Properties<T>(this object obj)
+        {
+            foreach (var p in obj.GetType().GetProperties().Where(x => x.PropertyType == typeof(T)))
+            {
+                yield return (T)p.GetValue(obj);
+            }
+        }
     }
-    
+
     public class SetContext<T>
     {
         public T Element { get; set; }
