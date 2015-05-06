@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     public static class Set
     {
@@ -52,6 +53,28 @@
             foreach (var duplicate in set.GroupBy(x => x).Where(x => x.Count() > 1))
             {
                 yield return duplicate.Key;
+            }
+        }
+
+        /// <summary>
+        /// public static T
+        /// </summary>
+        public static IEnumerable<T> _Fields<T>(this Type t)
+        {
+            foreach (var f in t.GetFields().Where(x => x.FieldType == typeof(T)))
+            {
+                yield return (T)f.GetValue(null);
+            }
+        }
+
+        /// <summary>
+        /// public readonly T
+        /// </summary>
+        public static IEnumerable<T> _Fields<T>(this object obj)
+        {
+            foreach (var f in obj.GetType().GetFields().Where(x => x.FieldType == typeof(T) && x.IsInitOnly == true))
+            {
+                yield return (T)f.GetValue(obj);
             }
         }
     }

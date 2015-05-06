@@ -77,6 +77,10 @@
       <Project>{21e6857b-f70b-43b3-ae55-651753b4a26b}</Project>
       <Name>CER.JudeaPearl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mu\CER.Mu.csproj">
+      <Project>{68ab6f0e-3b05-4b9b-b2eb-2afd9a71a9f2}</Project>
+      <Name>CER.Mu</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Roslyn\CER.Roslyn.csproj">
       <Project>{7a5dfea1-69b5-48db-aa16-44357bb94bc7}</Project>
       <Name>CER.Roslyn</Name>

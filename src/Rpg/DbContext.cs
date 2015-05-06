@@ -9,6 +9,17 @@
 
     public class DbContext : ef.DbContext
     {
+        public DbContext()
+        {
+            var initializer = new DropCreateDbInitializer();
+            ef.Database.SetInitializer<DbContext>(initializer);
+            initializer.InitializeDatabase(this);
+        }
+        #region seeded
+        public ef.DbSet<creation_process> CreationProcesses { get; set; }
+        #endregion
+
+        #region unseeded
         public ef.DbSet<game> Games { get; set; }
         public ef.DbSet<player> Players { get; set; }
         public ef.DbSet<character> Characters { get; set; }
@@ -17,7 +28,8 @@
         public ef.DbSet<plot> Plots { get; set; }
         public ef.DbSet<relationship> Relationships { get; set; }
         public ef.DbSet<location> Locations { get; set; }
-        
+        #endregion
+
         protected override void OnModelCreating(ef.DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -88,8 +100,19 @@
     }    
     public abstract class element
     {
+        private static string InitialContext;
+        static element()
+        {
+            element.InitialContext = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        }
+        public element()
+        {
+            this.partition = element.InitialContext;
+        }
+
         [Key]
         public int id { get; set; }
+        public string partition { get; set; }
         public string gm_name { get; set; }
         public string description { get; set; }
         public virtual List<creation_process> creation_history { get; set; }

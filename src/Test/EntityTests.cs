@@ -1,6 +1,9 @@
 ﻿namespace CER.Test
 {
+    using CER.Graphs.SetExtensions;
+    using CER.Mu;
     using CER.Rpg;
+    using CER.Test.Extensions;
     using System;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +15,8 @@
         public void Rpg()
         {
             var rpg = new DbContext();
-            rpg.Elements().Count(); 
+            var games = new Games();
+            //rpg.Games.Add(games.Mu);
         }
     }
 }
