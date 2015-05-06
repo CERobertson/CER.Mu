@@ -12,10 +12,12 @@
     public class DbContext : ef.DbContext
     {
         public DbContext()
+            : this(new ef.CreateDatabaseIfNotExists<DbContext>()) { } 
+
+        public DbContext(ef.IDatabaseInitializer<DbContext> strategy)
         {
-            var initializer = new DropCreateDbInitializer();
-            ef.Database.SetInitializer<DbContext>(initializer);
-            initializer.InitializeDatabase(this);
+            ef.Database.SetInitializer<DbContext>(strategy);
+            strategy.InitializeDatabase(this);
         }
         #region seeded
         public ef.DbSet<creation_process> CreationProcesses { get; set; }
@@ -90,6 +92,7 @@
     public class relationship : element
     {
         public int priority { get; set; }
+        public virtual List<character> Characters { get; set; }
     }
     public class location : element { }
     public class creation_process
@@ -99,6 +102,14 @@
         public string title { get; set; }
         public string description { get; set; }
         public string video { get; set; }
+        public virtual List<game> Games { get; set; }
+        public virtual List<player> Players { get; set; }
+        public virtual List<character> Characters { get; set; }
+        public virtual List<role> Roles { get; set; }
+        public virtual List<performance> Performances { get; set; }
+        public virtual List<plot> Plots { get; set; }
+        public virtual List<relationship> Relationships { get; set; }
+        public virtual List<location> Locations { get; set; }
     }    
     public abstract class element : Entity
     {

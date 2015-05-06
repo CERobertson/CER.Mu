@@ -1,6 +1,7 @@
-﻿namespace CER.Rpg
+﻿namespace CER.Mu
 {
     using CER.Graphs.SetExtensions;
+    using CER.Rpg;
     using ef = System.Data.Entity;
     using System.Linq;
 
@@ -12,6 +13,10 @@
             {
                 context.CreationProcesses.Add(creation_proccesses);
             }
+            var games = new Games();
+            context.Games.Add(games.Mu);
+            context.Games.Add(games.OutsideTime);
+            context.Plots.Add(games.Plots.Witness_Prologue);
             context.SaveChanges();
             base.Seed(context);
         }

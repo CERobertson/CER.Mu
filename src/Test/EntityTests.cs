@@ -16,10 +16,8 @@
         [TestMethod]
         public void Rpg()
         {
-            var rpg = new DbContext();
-            var games = new Games();
-            rpg.Characters.Add(games.Mu.chapters[0].characters[0]);
-            rpg.SaveChanges();
+            var initializer = new DropCreateDbInitializer();
+            var rpg = new DbContext(initializer);
         }
     }
 }

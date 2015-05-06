@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="CreationProcesses.cs" />
     <Compile Include="DbContext.cs" />
-    <Compile Include="DbInitializers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

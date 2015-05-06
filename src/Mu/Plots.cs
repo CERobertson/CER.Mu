@@ -116,7 +116,7 @@ light fades on the moon and the voice stops.",
             {
                 return new plot
                 {
-                    gm_name = "Ask Mu Anything",
+                    gm_name = "Mu Extinguished",
                     estimated_duration = TimeSpan.TicksPerHour * 1,
                     confidence_duration = .99M,
                     scale_duration = 1,
