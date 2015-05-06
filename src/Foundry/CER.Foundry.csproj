@@ -103,6 +103,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mu\CER.Mu.csproj">
+      <Project>{68ab6f0e-3b05-4b9b-b2eb-2afd9a71a9f2}</Project>
+      <Name>CER.Mu</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rpg\CER.Rpg.csproj">
       <Project>{ac67fabd-5bf6-4253-8e03-a3e63b6626e5}</Project>
       <Name>CER.Rpg</Name>

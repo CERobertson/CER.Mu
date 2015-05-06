@@ -17,7 +17,7 @@
         [TestMethod]
         public void Rpg()
         {
-            var initializer = new DropCreateDbInitializer();
+            var initializer = new DropCreateSeedDatabaseAlways();
             var rpg = new DbContext(initializer);
             var directed_graph = new DirectedGraph(rpg.Elements());
             Assert.AreEqual(rpg.Elements().Count(), directed_graph.Count);

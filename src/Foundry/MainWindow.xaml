@@ -1,10 +1,15 @@
 ﻿<Window x:Class="CER.Foundry.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:CER.Rpg;assembly=Rpg"
+        xmlns:rpg="clr-namespace:CER.Rpg;assembly=Rpg"
+        xmlns:mu="clr-namespace:CER.Mu;assembly=Mu"
         Title="Foundry" Height="350" Width="525">
     <Window.Resources>
-        <ObjectDataProvider x:Key="Rpg" ObjectType="{x:Type src:DbContext}" IsAsynchronous="True"/>
+        <ObjectDataProvider x:Key="Rpg" ObjectType="{x:Type rpg:DbContext}" IsAsynchronous="True" MethodName="Elements">
+            <ObjectDataProvider.ConstructorParameters>
+                <mu:CreateSeedDatabaseIfNotExists/>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

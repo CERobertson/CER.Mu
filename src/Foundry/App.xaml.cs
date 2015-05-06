@@ -14,9 +14,6 @@ namespace CER.Foundry
     /// </summary>
     public partial class App : Application
     {
-
-        public DbContext Rpg { get; set; }
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

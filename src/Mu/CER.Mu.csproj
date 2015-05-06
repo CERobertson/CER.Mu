@@ -7,7 +7,7 @@
     <ProjectGuid>{68AB6F0E-3B05-4B9B-B2EB-2AFD9A71A9F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CER.RolePlayingGame.Mu</RootNamespace>
+    <RootNamespace>CER.Mu</RootNamespace>
     <AssemblyName>Mu</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Characters.cs" />
     <Compile Include="DbInitializers.cs" />
+    <Compile Include="DbSeeds.cs" />
     <Compile Include="Games.cs" />
     <Compile Include="Plots.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
