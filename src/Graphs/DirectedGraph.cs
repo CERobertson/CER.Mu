@@ -1,5 +1,6 @@
 ﻿namespace CER.Graphs
 {
+    using CER.Graphs.SetExtensions;
     using CER.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
@@ -33,6 +34,13 @@
 
         public DirectedGraph() : base() { }
         public DirectedGraph(IDictionary<string, string[]> template) : base(template) { }
+        public DirectedGraph(IEnumerable<Entity> entities)
+        {
+            foreach (var element in entities)
+            {
+                this[element.Address] = element.Entities().Select(x => x.Address).ToArray();
+            }
+        }
 
         public string[] Roots
         {

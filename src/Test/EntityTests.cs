@@ -1,5 +1,6 @@
 ﻿namespace CER.Test
 {
+    using CER.Graphs;
     using CER.Graphs.SetExtensions;
     using CER.Mu;
     using CER.Rpg;
@@ -18,6 +19,9 @@
         {
             var initializer = new DropCreateDbInitializer();
             var rpg = new DbContext(initializer);
+            var directed_graph = new DirectedGraph(rpg.Elements());
+            Assert.AreEqual(rpg.Elements().Count(), directed_graph.Count);
+            Assert.IsTrue(directed_graph.IsDirectedAcyclicGraph);
         }
     }
 }

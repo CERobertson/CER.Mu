@@ -19,11 +19,6 @@
             ef.Database.SetInitializer<DbContext>(strategy);
             strategy.InitializeDatabase(this);
         }
-        #region seeded
-        public ef.DbSet<creation_process> CreationProcesses { get; set; }
-        #endregion
-
-        #region unseeded
         public ef.DbSet<game> Games { get; set; }
         public ef.DbSet<player> Players { get; set; }
         public ef.DbSet<character> Characters { get; set; }
@@ -32,7 +27,7 @@
         public ef.DbSet<plot> Plots { get; set; }
         public ef.DbSet<relationship> Relationships { get; set; }
         public ef.DbSet<location> Locations { get; set; }
-        #endregion
+        public ef.DbSet<creation_process> CreationProcesses { get; set; }
 
         protected override void OnModelCreating(ef.DbModelBuilder modelBuilder)
         {
@@ -124,7 +119,7 @@
         }
 
         [Key]
-        public int id { get; set; }
+        public override int id { get; set; }
         public string partition { get; set; }
         public string gm_name { get; set; }
         public string description { get; set; }

@@ -10,7 +10,8 @@
     {
         private readonly string seperator = "|";
         public virtual string variable { get; set; }
-        public virtual string Address { get { return string.Join(this.seperator, this.GetType().FullName, this.variable); } }
+        public virtual int id { get; set; }
+        public virtual string Address { get { return string.Join(this.seperator, this.GetType().FullName, this.id); } }
     }
 
     /// <summary>
