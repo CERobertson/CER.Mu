@@ -93,6 +93,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\CER.Rpg.game.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -103,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Graphs\CER.Graphs.csproj">
+      <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
+      <Name>CER.Graphs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mu\CER.Mu.csproj">
       <Project>{68ab6f0e-3b05-4b9b-b2eb-2afd9a71a9f2}</Project>
       <Name>CER.Mu</Name>
