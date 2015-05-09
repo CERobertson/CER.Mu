@@ -34,6 +34,7 @@
         {
             System.Windows.Data.CollectionViewSource gameViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("gameViewSource")));
             this.rpg.Games.ToList();
+            this.gameListView.DataContext = this.rpg.Games.Local;
             gameViewSource.Source = this.rpg.Games.Local;
         }
 

@@ -86,7 +86,6 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\CER.Rpg.game.datasource" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>

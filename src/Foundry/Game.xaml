@@ -9,7 +9,9 @@
 
     <FlowDocumentPageViewer>
         <FlowDocument>
-            
+            <Section>
+                <Paragraph>Helo</Paragraph>
+            </Section>
         </FlowDocument>
     </FlowDocumentPageViewer>
 </Page>
