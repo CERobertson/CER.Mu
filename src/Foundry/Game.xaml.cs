@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CER.Mu;
+using CER.Rpg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +22,16 @@ namespace CER.Foundry
     /// </summary>
     public partial class Game : Page
     {
+        public static DependencyProperty ToObserveProperty = DependencyProperty.Register("ToObserve", typeof(game), typeof(Game));
+
+        public game ToObserve
+        {
+            get { return (game)this.GetValue(Game.ToObserveProperty); }
+            set { this.SetValue(Game.ToObserveProperty, value); }
+        }
+
+        private DbContext rpg = new DbContext(new CreateSeedDatabaseIfNotExists());
+
         public Game()
         {
             InitializeComponent();

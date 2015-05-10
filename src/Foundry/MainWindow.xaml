@@ -8,6 +8,10 @@
         mc:Ignorable="d" 
         x:Class="CER.Foundry.MainWindow"
         Title="Foundry" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"></CommandBinding>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveBinding_Executed"></CommandBinding>
+    </Window.CommandBindings>
     <Window.Resources>
         <CollectionViewSource x:Key="gameViewSource" Source="{Binding rpg:game}"/>
     </Window.Resources>
@@ -19,11 +23,32 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Frame x:Name="Frame" Grid.Column="0" Grid.Row="0" Source="Game.xaml"/>
-        <TextBox x:Name="TextBox" Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="False" SpellCheck.IsEnabled="True"/>
-        <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <GridSplitter Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <ListView x:Name="gameListView" Grid.Column="4" ItemsSource="{Binding Source={StaticResource gameViewSource}}" SelectionMode="Single">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+            <MenuItem Header="File">
+                <MenuItem Command="Open"></MenuItem>
+                <MenuItem Command="Save"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Frame x:Name="Frame" Grid.Row="1" Grid.Column="0" Source="Game.xaml"/>
+        <TextBlock x:Name="EditorMarkup" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>
+        <RichTextBox x:Name="Editor" Grid.Row="1" Grid.Column="2" TextChanged="Editor_TextChanged">
+            <FlowDocument>
+                <Section>
+                    <Paragraph>wrorld</Paragraph>
+                </Section>
+            </FlowDocument>
+        </RichTextBox>
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="1" Grid.Column="3"  Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Height="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <ListView Grid.Row="1" Grid.Column="4" x:Name="gameListView" ItemsSource="{Binding Source={StaticResource gameViewSource}}" SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
