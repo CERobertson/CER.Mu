@@ -29,6 +29,7 @@
             var gameViewSource = (CollectionViewSource)this.FindResource("gameViewSource");
             this.rpg.Games.ToList();
             gameViewSource.Source = this.rpg.Games.Local;
+            this.NavigateRpgFrameToGame("mu");
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -101,6 +102,21 @@
                     this.EditorMarkup.Text = r.ReadToEnd();
                 }
             }
+        }
+        
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            var link = (Hyperlink)sender;
+            var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
+            var prototype = new game { gm_name = text };
+            this.NavigateRpgFrameToGame(text, prototype);
+        }
+
+        private void NavigateRpgFrameToGame(string key, game obj = null)
+        {
+            var game = new Game();
+            game.ToObserve = this.rpg.SingleOrCreate(this.rpg.Games, x => x.gm_name == key, obj);
+            this.RpgFrame.Navigate(game);
         }
     }
 }

@@ -11,8 +11,21 @@
 
     public class DbContext : ef.DbContext
     {
+        public T SingleOrCreate<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null) where T : class
+        {
+            try
+            {
+                return set.Single(predicate);
+            }
+            catch(InvalidOperationException)
+            {
+                set.Add(obj);
+                return obj;
+            }
+        }
+
         public DbContext()
-            : this(new ef.CreateDatabaseIfNotExists<DbContext>()) { } 
+            : this(new ef.CreateDatabaseIfNotExists<DbContext>()) { }
 
         public DbContext(ef.IDatabaseInitializer<DbContext> strategy)
         {
@@ -105,7 +118,7 @@
         public virtual List<plot> Plots { get; set; }
         public virtual List<relationship> Relationships { get; set; }
         public virtual List<location> Locations { get; set; }
-    }    
+    }
     public abstract class element : Entity
     {
         private static string InitialContext;
@@ -126,7 +139,10 @@
         public virtual List<creation_process> creation_history { get; set; }
 
         [NotMapped]
-        public override string variable { get { return this.gm_name; } set { this.gm_name = value; }
+        public override string variable
+        {
+            get { return this.gm_name; }
+            set { this.gm_name = value; }
         }
     }
 }

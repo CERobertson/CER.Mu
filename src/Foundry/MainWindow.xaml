@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d" 
         x:Class="CER.Foundry.MainWindow"
-        Title="Foundry" Height="350" Width="525" Loaded="Window_Loaded">
+        Title="Foundry" Height="700" Width="800" Loaded="Window_Loaded">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"></CommandBinding>
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveBinding_Executed"></CommandBinding>
@@ -25,9 +25,10 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
@@ -36,19 +37,27 @@
                 <MenuItem Command="Save"></MenuItem>
             </MenuItem>
         </Menu>
-        <Frame x:Name="Frame" Grid.Row="1" Grid.Column="0" Source="Game.xaml"/>
-        <TextBlock x:Name="EditorMarkup" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>
-        <RichTextBox x:Name="Editor" Grid.Row="1" Grid.Column="2" TextChanged="Editor_TextChanged">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="5" Orientation="Horizontal">
+            <Button Margin="3" Padding="3">1</Button>
+            <Button Margin="3" Padding="3">2</Button>
+        </StackPanel>
+        <Frame x:Name="RpgFrame" Grid.Row="2" Grid.Column="0" />
+        <TextBlock x:Name="EditorMarkup" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>
+        <RichTextBox x:Name="Editor" Grid.Row="2" Grid.Column="2" TextChanged="Editor_TextChanged" VerticalScrollBarVisibility="Visible" IsDocumentEnabled="True">
             <FlowDocument>
                 <Section>
-                    <Paragraph>wrorld</Paragraph>
+                    <Paragraph>
+                        <Run>Helo wrorld</Run>
+                        <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="game.xml">u</Hyperlink>
+                        <Run>sees</Run>
+                    </Paragraph>
                 </Section>
             </FlowDocument>
         </RichTextBox>
-        <GridSplitter Grid.Row="1" Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <GridSplitter Grid.Row="1" Grid.Column="3"  Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <GridSplitter Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Height="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-        <ListView Grid.Row="1" Grid.Column="4" x:Name="gameListView" ItemsSource="{Binding Source={StaticResource gameViewSource}}" SelectionMode="Single">
+        <GridSplitter Grid.Row="2" Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="2" Grid.Column="3"  Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Height="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <ListView Grid.Row="2" Grid.Column="4" x:Name="gameListView" ItemsSource="{Binding Source={StaticResource gameViewSource}}" SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
