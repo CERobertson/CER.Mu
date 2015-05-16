@@ -19,6 +19,14 @@
         public readonly string DialogFilter = "XAML Files (*.xaml)|*.xaml|RichText Files (*.rtf)|*.rtf|All files (*.*)|*.*";
         private DbContext rpg = new DbContext(new CreateSeedDatabaseIfNotExists());
 
+        public static DependencyProperty InternalDocument_PreviousPartitionHeight_Property = DependencyProperty.Register("InternalDocument_PreviousPartitionHeight", typeof(int), typeof(MainWindow));
+
+        public int InternalDocument_PreviousPartitionHeight
+        {
+            get { return (int)this.GetValue(MainWindow.InternalDocument_PreviousPartitionHeight_Property); }
+            set { this.SetValue(MainWindow.InternalDocument_PreviousPartitionHeight_Property, value); }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -26,10 +34,16 @@
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //hooks up the collection viewer, most likely wont last
             var gameViewSource = (CollectionViewSource)this.FindResource("gameViewSource");
             this.rpg.Games.ToList();
             gameViewSource.Source = this.rpg.Games.Local;
+
+            //hooks up a navigation frame to a default page.
             this.NavigateRpgFrameToGame("mu");
+
+            //records the initial height of the InternalDocument_Partition grid splitter.
+
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -37,6 +51,11 @@
             base.OnClosing(e);
             this.rpg.SaveChanges();
             this.rpg.Dispose();
+        }
+
+        private void NewCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            this.Editor.Document = new FlowDocument();
         }
 
         private void OpenCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -117,6 +136,11 @@
             var game = new Game();
             game.ToObserve = this.rpg.SingleOrCreate(this.rpg.Games, x => x.gm_name == key, obj);
             this.RpgFrame.Navigate(game);
+        }
+        
+        private void GridSplitter_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var current_height = this.InternalDocument_Partition.Height;
         }
     }
 }

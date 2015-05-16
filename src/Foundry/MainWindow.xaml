@@ -9,8 +9,9 @@
         x:Class="CER.Foundry.MainWindow"
         Title="Foundry" Height="700" Width="800" Loaded="Window_Loaded">
     <Window.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"></CommandBinding>
-        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveBinding_Executed"></CommandBinding>
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveBinding_Executed"/>
     </Window.CommandBindings>
     <Window.Resources>
         <CollectionViewSource x:Key="gameViewSource" Source="{Binding rpg:game}"/>
@@ -33,6 +34,7 @@
 
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
             <MenuItem Header="File">
+                <MenuItem Command="New"></MenuItem>
                 <MenuItem Command="Open"></MenuItem>
                 <MenuItem Command="Save"></MenuItem>
             </MenuItem>
@@ -55,8 +57,8 @@
             </FlowDocument>
         </RichTextBox>
         <GridSplitter Grid.Row="2" Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <GridSplitter Grid.Row="2" Grid.Column="3"  Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Height="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="2" Grid.Column="3"  Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" MouseDoubleClick="GridSplitter_MouseDoubleClick"/>
+        <GridSplitter Name="InternalDocument_Partition" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Height="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
         <ListView Grid.Row="2" Grid.Column="4" x:Name="gameListView" ItemsSource="{Binding Source={StaticResource gameViewSource}}" SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style>
