@@ -16,17 +16,25 @@
             {
                 throw new OscillatorException("There should be a loop.");
             }
-            this.Graph = new DirectedAcyclicGraph<T>(this);
+
             var remaining_edges = new List<Edge>();
-            foreach (var element in 
-                this.DisassemblesToLoops(new DirectedGraph(this)).Select(x => x.Key).Union(
-                this.DisassemblesToLoops(new DirectedGraph(this)).SelectMany(x => x.Value)))
+            this.Graph = new DirectedAcyclicGraph<T>(this, remaining_edges);
+            var loop_cache = this.DisassemblesToLoops(new DirectedGraph(this)).ToArray();
+            foreach (var element in
+                loop_cache.Select(x => x.Key).Union(
+                loop_cache.SelectMany(x => x.Value)))
             {
                 T node;
                 if (!this.Graph.TryGetValue(element, out node))
                 {
                     this.Graph[element] = new T { variable = element };
-                    remaining_edges.AddRange(this[element].Select(x => new Edge { Parent = element, Child = x }));
+                    foreach (var arc in this[element].Select(x => new Edge { Parent = element, Child = x }))
+                    {
+                        if (remaining_edges.Where(x => x.Child != arc.Child && x.Parent != arc.Parent).Count() == 0)
+                        {
+                            remaining_edges.Add(arc);
+                        }
+                    }
                 }
             }
             foreach (var e in remaining_edges.ToArray())
@@ -35,11 +43,6 @@
                 var child = this.Graph[e.Child];
                 parent.children.Add(child);
                 child.parents.Add(parent);
-                remaining_edges.Remove(e);
-            }
-            if (remaining_edges.Count != 0)
-            {
-                throw new OscillatorException("All edges should have been processed.");
             }
         }
 

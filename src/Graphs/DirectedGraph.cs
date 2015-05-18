@@ -10,20 +10,6 @@
 
     public class DirectedGraph : Dictionary<string, string[]>
     {
-        public static DirectedGraph Parse(string json, string quote = "'")
-        {
-            if(string.IsNullOrEmpty(json))
-            {
-                return DirectedGraph.EmptyGraph;
-            }
-            if (quote != "\"")
-            {
-                json = json.Replace(quote, "\"");
-            }
-            return new MemoryStream(json.ToByteArray())
-                .Deserialize<DirectedGraph>(new DataContractJsonSerializerSettings { UseSimpleDictionaryFormat = true });
-        }
-
         public static DirectedGraph EmptyGraph
         {
             get
@@ -33,7 +19,7 @@
         }
 
         public DirectedGraph() : base() { }
-        public DirectedGraph(string json) : this(DirectedGraph.Parse(json)) {}
+        public DirectedGraph(string json, string quote = "'") : this(json.ParseJsonToSimple<DirectedGraph>(quote)) { }
         public DirectedGraph(IDictionary<string, string[]> template) : base(template) { }
         public DirectedGraph(IEnumerable<Entity> entities)
         {
@@ -78,13 +64,10 @@
             }
         }
 
-        public IEnumerable<KeyValuePair<string,string[]>> DisassemblesToLoops(DirectedGraph graph)
+        public KeyValuePair<string,string[]>[] DisassemblesToLoops(DirectedGraph graph)
         {
             this.DisassemblesToDirectedAcyclicGraph(graph);
-            foreach (var l in graph)
-            {
-                yield return l;
-            }
+            return graph.ToArray();
         }
 
         private bool DisassemblesToDirectedAcyclicGraph(DirectedGraph graph)

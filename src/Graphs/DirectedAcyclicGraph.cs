@@ -1,5 +1,6 @@
 ﻿namespace CER.Graphs
 {
+    using CER.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,14 +8,16 @@
     public class DirectedAcyclicGraph<T> : Dictionary<string, T> where T : Node<T>, new()
     {
         public DirectedAcyclicGraph(string json, string quote = "'", bool throw_exception_on_flaws = false)
-            : this(DirectedGraph.Parse(json, quote), throw_exception_on_flaws) { }
+            : this(json.ParseJsonToSimple<DirectedGraph>(quote), throw_exception_on_flaws) { }
 
         public DirectedAcyclicGraph(DirectedGraph template, bool throw_exception_on_flaws = false)
+            : this(template, new List<Edge>(), throw_exception_on_flaws) { }
+
+        public DirectedAcyclicGraph(DirectedGraph template, List<Edge> remaining_edges, bool throw_exception_on_flaws = false)
         {
             this.Template = template;
-            
+
             var graph = new DirectedGraph(this.Template);
-            var remaining_edges = new List<Edge>();
             this.ConstructDirectedAcyclicGraph(graph, remaining_edges);
 
             if (throw_exception_on_flaws && graph.Count != 0)
@@ -25,6 +28,7 @@
             {
                 throw new DirectedAcyclicGraph_ConstructionException("Unaccounted for edges.", graph, remaining_edges);
             }
+
         }
 
         private void ConstructDirectedAcyclicGraph(DirectedGraph graph, List<Edge> remaining_edges)
@@ -63,6 +67,10 @@
                     }
                     this[parents_of_child.Key] = child;
                 }
+                foreach (var e in graph)
+                {
+                    remaining_edges.AddRange(e.Value.Select(x => new Edge { Parent = e.Key, Child = x }));
+                }
             }
             else
             {
@@ -81,8 +89,8 @@
 
     public class DirectedAcyclicGraph_ConstructionException : Exception
     {
-        public DirectedAcyclicGraph_ConstructionException(string message, DirectedGraph cycles, List<Edge> disconnected_edges) 
-            : base(message) 
+        public DirectedAcyclicGraph_ConstructionException(string message, DirectedGraph cycles, List<Edge> disconnected_edges)
+            : base(message)
         {
             this.Cycles = cycles;
             this.DisconnectedEdges = disconnected_edges;

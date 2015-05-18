@@ -6,6 +6,20 @@
 
     public static class StreamExtensions
     {
+        public static T ParseJsonToSimple<T>(this string json, string quote = "'") where T : class, new()
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return new T();
+            }
+            if (quote != "\"")
+            {
+                json = json.Replace(quote, "\"");
+            }
+            return new MemoryStream(json.ToByteArray())
+                .Deserialize<T>(new DataContractJsonSerializerSettings { UseSimpleDictionaryFormat = true });
+        }
+
         public static void Serialize<T>(this Stream stream, T obj)
         {
             stream.Serialize<T>(obj, new DataContractJsonSerializerSettings());
