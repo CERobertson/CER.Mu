@@ -3,6 +3,7 @@
     using CER.Graphs;
     using CER.Graphs.SetExtensions;
     using CER.Test.Extensions;
+    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -70,6 +71,31 @@
             public string Json { get; set; }
             public string[] Roots { get; set; }
             public string[] Sinks { get; set; }
+        }
+
+        [TestMethod]
+        public void TestOscilattors()
+        {
+            var oscillators = new OscilattorContext[]
+            {
+                new OscilattorContext {
+                    Object = new Oscillator(),
+                    Loops = new string[] { "A", "B" }
+                }
+
+            };
+            foreach (var expected in oscillators)
+            {
+                var loops = new DirectedGraph(expected.Object);
+                expected.Object.DisassemblesToLoops(loops);
+                expected.Loops.Assert_NoDifferences(loops.Select(x => x.Key).ToArray());
+            }
+        }
+
+        public class OscilattorContext
+        {
+            public Oscillator Object { get; set; }
+            public string[] Loops { get; set; }
         }
     }
 }

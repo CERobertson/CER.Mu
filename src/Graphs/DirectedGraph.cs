@@ -33,6 +33,7 @@
         }
 
         public DirectedGraph() : base() { }
+        public DirectedGraph(string json) : this(DirectedGraph.Parse(json)) {}
         public DirectedGraph(IDictionary<string, string[]> template) : base(template) { }
         public DirectedGraph(IEnumerable<Entity> entities)
         {
@@ -75,6 +76,11 @@
                 var graph = new DirectedGraph(this);
                 return this.DisassemblesToDirectedAcyclicGraph(graph);
             }
+        }
+
+        public void DisassemblesToLoops(DirectedGraph graph)
+        {
+            this.DisassemblesToDirectedAcyclicGraph(graph);
         }
 
         private bool DisassemblesToDirectedAcyclicGraph(DirectedGraph graph)

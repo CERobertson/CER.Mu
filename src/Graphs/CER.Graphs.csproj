@@ -43,6 +43,7 @@
     <Compile Include="DirectedAcyclicGraph.cs" />
     <Compile Include="DirectedGraph.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Oscillator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetExtensions.cs" />
   </ItemGroup>
