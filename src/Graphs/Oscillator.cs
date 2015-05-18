@@ -46,7 +46,30 @@
             }
         }
 
-        public DirectedAcyclicGraph<T> Graph { get; private set; }
+        public Dictionary<string, string[]> Loops
+        {
+            get
+            {
+                var loops = new DirectedGraph(this);
+                this.DisassemblesToLoops(loops);
+                var remaining_children = loops.SelectMany(x => x.Value).Distinct().ToList();
+                foreach (var match in remaining_children.Where(x => loops.Select(y => y.Key).Contains(x)).ToArray())
+                {
+                    remaining_children.Remove(match);
+                }
+                foreach (var e in loops.ToArray())
+                {
+                    var children = e.Value.ToList();
+                    if (children.RemoveAll(x => remaining_children.Contains(x)) > 0)
+                    {
+                        loops.Remove(e.Key);
+                        loops[e.Key] = children.ToArray();
+                    }
+                }
+                return loops;
+            }
+        }
+        public Dictionary<string, T> Graph { get; private set; }
     }
     public class OscillatorException : Exception { public OscillatorException(string message) : base(message) { } }
 }

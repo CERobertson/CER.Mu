@@ -5,7 +5,7 @@
 
     public class NodeDictionary : Dictionary<string, Dictionary<string, string[]>>
     {
-        public static readonly string DefaultJson = "{'A':{'A':['A','B'],'B':['A','B']},'B':{'A':{'A':['A','B'],'B':['A','B']}}";
+        public static readonly string SampleJson = "{'A':{'A':['A','B'],'B':['A','B']},'B':{'A':{'A':['A','B'],'B':['A','B']}}";
         public NodeDictionary() : base() { }
         public NodeDictionary(string json, string quote = "'", bool throw_exception_on_flaws = false)
             : base(json.ParseJsonToSimple<NodeDictionary>(quote))

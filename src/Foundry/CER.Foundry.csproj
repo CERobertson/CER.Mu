@@ -104,6 +104,10 @@
       <Project>{ac67fabd-5bf6-4253-8e03-a3e63b6626e5}</Project>
       <Name>CER.Rpg</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WPF\CER.WPF.csproj">
+      <Project>{8a7985e2-b19c-4ff4-894c-4a35e98f104f}</Project>
+      <Name>CER.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

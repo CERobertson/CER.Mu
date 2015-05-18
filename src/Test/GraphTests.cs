@@ -93,9 +93,8 @@
             };
             foreach (var expected in oscillators)
             {
-                var loops = new DirectedGraph(expected.Object);
-                expected.Object.DisassemblesToLoops(loops);
-                expected.Loops.Assert_NoDifferences(loops.Select(x => x.Key).ToArray());
+                expected.Loops.Assert_NoDifferences(expected.Object.Loops.Select(x => x.Key).ToArray());
+                expected.Loops.Assert_NoDifferences(expected.Object.Loops.SelectMany(x => x.Value).Distinct().ToArray());
                 var nodes = new NodeDictionary(expected.NodeRelations);
                 foreach (var n in nodes.ToArray())
                 {
