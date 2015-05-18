@@ -79,7 +79,7 @@
             var oscillators = new OscilattorContext[]
             {
                 new OscilattorContext {
-                    Object = new Oscillator(),
+                    Object = new Oscillator<Node>(),
                     Loops = new string[] { "A", "B" }
                 }
 
@@ -94,7 +94,7 @@
 
         public class OscilattorContext
         {
-            public Oscillator Object { get; set; }
+            public Oscillator<Node> Object { get; set; }
             public string[] Loops { get; set; }
         }
     }

@@ -78,9 +78,13 @@
             }
         }
 
-        public void DisassemblesToLoops(DirectedGraph graph)
+        public IEnumerable<KeyValuePair<string,string[]>> DisassemblesToLoops(DirectedGraph graph)
         {
             this.DisassemblesToDirectedAcyclicGraph(graph);
+            foreach (var l in graph)
+            {
+                yield return l;
+            }
         }
 
         private bool DisassemblesToDirectedAcyclicGraph(DirectedGraph graph)
