@@ -90,11 +90,19 @@
                     Loops = new string[] { "A", "B" },
                     NodeRelations = "{'A':{'children':['B'],'parents':['B','C']},'B':{'children':['A'],'parents':['A']},'C':{'children':['A'],'parents':[]}}"
                 },
+                new OscilattorContext {
+                    Object = new Oscillator<Node>("{'A':['B','C'],'B':['A']}"),
+                    Loops = new string[] { "A", "B" },
+                    NodeRelations = "{'A':{'children':['B','C'],'parents':['B']},'B':{'children':['A'],'parents':['A']},'C':{'children':[],'parents':['A']}}"
+                }
             };
             foreach (var expected in oscillators)
             {
+                //{string:[string]} directed graph testing i.e. compact serialization form.
                 expected.Loops.Assert_NoDifferences(expected.Object.Loops.Select(x => x.Key).ToArray());
                 expected.Loops.Assert_NoDifferences(expected.Object.Loops.SelectMany(x => x.Value).Distinct().ToArray());
+
+                //{string:{string:[string]}} directed graph testing i.e. independent element form.
                 var nodes = new NodeDictionary(expected.NodeRelations);
                 foreach (var n in nodes.ToArray())
                 {

@@ -28,11 +28,14 @@
                 if (!this.Graph.TryGetValue(element, out node))
                 {
                     this.Graph[element] = new T { variable = element };
-                    foreach (var arc in this[element].Select(x => new Edge { Parent = element, Child = x }))
+                    if (this.ContainsKey(element))
                     {
-                        if (remaining_edges.Where(x => x.Child != arc.Child && x.Parent != arc.Parent).Count() == 0)
+                        foreach (var arc in this[element].Select(x => new Edge { Parent = element, Child = x }))
                         {
-                            remaining_edges.Add(arc);
+                            if (remaining_edges.Where(x => x.Child != arc.Child && x.Parent != arc.Parent).Count() == 0)
+                            {
+                                remaining_edges.Add(arc);
+                            }
                         }
                     }
                 }
