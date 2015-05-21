@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Graphs", "src\Graphs\CE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Foundry", "src\Foundry\CER.Foundry.csproj", "{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.RoutedUICommands", "src\RoutedUICommands\CER.RoutedUICommands.csproj", "{404BC0F9-C2A2-45FA-871A-16ABEC95E366}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F2E8EA2-7006-498D-B2D3-52E55E2750DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404BC0F9-C2A2-45FA-871A-16ABEC95E366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404BC0F9-C2A2-45FA-871A-16ABEC95E366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404BC0F9-C2A2-45FA-871A-16ABEC95E366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404BC0F9-C2A2-45FA-871A-16ABEC95E366}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

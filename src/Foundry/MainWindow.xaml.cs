@@ -43,7 +43,7 @@
             this.NavigateRpgFrameToGame("mu");
 
             //records the initial height of the InternalDocument_Partition grid splitter.
-
+            
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -141,6 +141,11 @@
         private void GridSplitter_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var current_height = this.InternalDocument_Partition.Height;
+        }
+
+        private void NewGameBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+
         }
     }
 }
