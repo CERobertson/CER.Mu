@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CER.Graphs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,18 @@ namespace CER.WPF
     /// </summary>
     public partial class OscilattingGridSplitter : GridSplitter
     {
+        public readonly static string Template = "{Initial:[Expanded],Expanded:[Collapsed],Collapsed:[Expanded]}";
+
+        public Oscillator<State> Oscillator { get; private set; }
+
+        public State Initial { get; private set; }
+
         public OscilattingGridSplitter()
         {
             InitializeComponent();
+            this.Oscillator = new Oscillator<State>(OscilattingGridSplitter.Template);
+            this.Initial = this.Oscillator.Graph[this.Oscillator.Roots[0]];
+            this.Initial.children[0].Switch = (() => this.;
         }
     }
 }

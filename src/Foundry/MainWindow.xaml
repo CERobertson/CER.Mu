@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:mu="clr-namespace:CER.Mu;assembly=Mu"
         xmlns:rpg="clr-namespace:CER.Rpg;assembly=Rpg"
-        xmlns:wpf="clr-namespace:CER.WPF;assembly=WPF"
         mc:Ignorable="d" 
         x:Class="CER.Foundry.MainWindow"
         Title="Foundry" Height="700" Width="800" Loaded="Window_Loaded">
@@ -59,7 +58,7 @@
         </RichTextBox>
         <GridSplitter Grid.Row="2" Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
         <GridSplitter Grid.Row="2" Grid.Column="3"  Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" MouseDoubleClick="GridSplitter_MouseDoubleClick"/>
-        <wpf:OscilattingGridSplitter Name="InternalDocument_Partition" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Height="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <GridSplitter Name="InternalDocument_Partition" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Height="3" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
         <ListView Grid.Row="2" Grid.Column="4" x:Name="gameListView" ItemsSource="{Binding Source={StaticResource gameViewSource}}" SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style>
