@@ -11,15 +11,19 @@
 
     public class DbContext : ef.DbContext
     {
-        public T SingleOrCreate<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null) where T : class
+        public T SingleOrCreate<T>(ef.DbSet<T> set, T obj = null, bool SaveOnCreate = false) where T : element
         {
             try
             {
-                return set.Single(predicate);
+                return set.Single(x => x.gm_name == obj.gm_name.Trim());
             }
             catch(InvalidOperationException)
             {
                 set.Add(obj);
+                if (SaveOnCreate)
+                {
+                    this.SaveChanges();
+                }
                 return obj;
             }
         }

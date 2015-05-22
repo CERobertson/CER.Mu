@@ -1,5 +1,5 @@
 ﻿using CER.Mu;
-using CER.Rpg;
+using rpg = CER.Rpg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +20,29 @@ namespace CER.Foundry
     /// <summary>
     /// Interaction logic for Game.xaml
     /// </summary>
-    public partial class Game : Page
+    public partial class game : Page
     {
-        public static DependencyProperty ToObserveProperty = DependencyProperty.Register("ToObserve", typeof(game), typeof(Game));
+        public static DependencyProperty ToObserveProperty = DependencyProperty.Register("ToObserve", typeof(rpg.game), typeof(game));
 
-        public game ToObserve
+        public void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            get { return (game)this.GetValue(Game.ToObserveProperty); }
-            set { this.SetValue(Game.ToObserveProperty, value); }
+            var link = (Hyperlink)sender;
+            var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
+            var prototype = new rpg.game { gm_name = text };
+            this.Navigation.Navigate(link.NavigateUri, this.rpg.SingleOrCreate(this.rpg.Games, prototype, true));
         }
 
-        private DbContext rpg = new DbContext(new CreateSeedDatabaseIfNotExists());
+        public NavigationService Navigation { get; set; }
 
-        public Game()
+        public rpg.game ToObserve
+        {
+            get { return (rpg.game)this.GetValue(game.ToObserveProperty); }
+            set { this.SetValue(game.ToObserveProperty, value); }
+        }
+
+        private rpg.DbContext rpg = new rpg.DbContext(new CreateSeedDatabaseIfNotExists());
+
+        public game()
         {
             InitializeComponent();
         }

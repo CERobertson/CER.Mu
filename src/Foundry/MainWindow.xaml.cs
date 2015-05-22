@@ -1,15 +1,18 @@
 ﻿namespace CER.Foundry
 {
     using CER.Mu;
-    using CER.Rpg;
+    using CER.RoutedUICommands;
+    using rpg = CER.Rpg;
     using Microsoft.Win32;
+    using System;
     using System.ComponentModel;
     using System.IO;
     using System.Linq;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Documents;
-
+    using System.Windows.Input;
+    using System.Windows.Navigation;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -17,7 +20,7 @@
     public partial class MainWindow : Window
     {
         public readonly string DialogFilter = "XAML Files (*.xaml)|*.xaml|RichText Files (*.rtf)|*.rtf|All files (*.*)|*.*";
-        private DbContext rpg = new DbContext(new CreateSeedDatabaseIfNotExists());
+        private rpg.DbContext rpg = new rpg.DbContext(new CreateSeedDatabaseIfNotExists());
 
         public static DependencyProperty InternalDocument_PreviousPartitionHeight_Property = DependencyProperty.Register("InternalDocument_PreviousPartitionHeight", typeof(int), typeof(MainWindow));
 
@@ -39,11 +42,7 @@
             this.rpg.Games.ToList();
             gameViewSource.Source = this.rpg.Games.Local;
 
-            //hooks up a navigation frame to a default page.
-            this.NavigateRpgFrameToGame("mu");
-
-            //records the initial height of the InternalDocument_Partition grid splitter.
-            
+            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -80,6 +79,7 @@
                     }
                 }
             }
+            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
 
         private void SaveBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -122,30 +122,106 @@
                 }
             }
         }
-        
-        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
-        {
-            var link = (Hyperlink)sender;
-            var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
-            var prototype = new game { gm_name = text };
-            this.NavigateRpgFrameToGame(text, prototype);
-        }
 
-        private void NavigateRpgFrameToGame(string key, game obj = null)
+        void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            var game = new Game();
-            game.ToObserve = this.rpg.SingleOrCreate(this.rpg.Games, x => x.gm_name == key, obj);
-            this.RpgFrame.Navigate(game);
-        }
-        
-        private void GridSplitter_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var current_height = this.InternalDocument_Partition.Height;
+            var game = e.ExtraData as rpg.game;
+            int g = 0;
+            int l = 0;
+            if (game != null)
+            {
+                g++;
+            }
+            var location = e.ExtraData as rpg.location;
+            if (location != null)
+            {
+                l++;
+            }
         }
 
         private void NewGameBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
-
+            this.InsertLink("pack://application:,,,/Game.xaml");
         }
+
+        private void NewLocationBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Location.xaml");
+        }
+
+        private void InsertLink(string uri)
+        {
+            var selection = this.Editor.Selection;
+            var link = new Hyperlink(selection.Start, selection.End);
+            link.NavigateUri = new Uri(uri);
+            this.newRpgBinding(link);
+
+            using (var s = new MemoryStream())
+            {
+                var textRange = new TextRange(link.ContentStart, link.ContentEnd);
+                textRange.Save(s, DataFormats.Xaml);
+                s.Position = 0;
+                selection.Load(s, DataFormats.Xaml);
+            }
+            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
+        }
+
+        private void newRpgBinding(Hyperlink link)
+        {
+            var page = link.NavigateUri.LocalPath.ToLower().TrimStart('/').Split('.')[0];
+            switch (page)
+            {
+                case "game":
+                    var game = new game();
+                    game.Navigation = this.RpgFrame.NavigationService;
+                    link.RequestNavigate += game.Hyperlink_RequestNavigate;
+                    break;
+                case"location":
+                    var location = new location();
+                    location.Navigation = this.RpgFrame.NavigationService;
+                    link.RequestNavigate += location.Hyperlink_RequestNavigate;
+                    break;
+                default:
+                    throw new Exception(string.Format("Page does not exist for local path {0}", link.NavigateUri.LocalPath));
+            }
+        }
+
+        private void RefreshBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.iterateSections(this.Editor.Document.Blocks);
+            this.iterateParagraphs(this.Editor.Document.Blocks);
+        }
+
+        private void iterateSections(BlockCollection blocks)
+        {
+            foreach (var block in blocks)
+            {
+                var section = block as Section;
+                if (section != null)
+                {
+                    iterateParagraphs(section.Blocks);
+                }
+            }
+        }
+
+        private void iterateParagraphs(BlockCollection blocks)
+        {
+            foreach (var block in blocks)
+            {
+                var paragraph = block as Paragraph;
+                if (paragraph != null)
+                {
+                    foreach (var inline in paragraph.Inlines)
+                    {
+                        var link = inline as Hyperlink;
+                        if (link != null)
+                        {
+                            this.newRpgBinding(link);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
