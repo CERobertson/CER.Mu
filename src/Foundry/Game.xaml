@@ -7,11 +7,15 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="game">
 
-    <FlowDocumentPageViewer>
-        <FlowDocument>
-            <Section>
-                <Paragraph>Helo</Paragraph>
-            </Section>
-        </FlowDocument>
-    </FlowDocumentPageViewer>
+    <Grid x:Name="View" DataContext="{}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="5">gm_name</TextBlock>
+        <TextBox x:Name="something" Grid.Row="1" Margin="5" Text="{Binding Path=gm_name}"/>
+    </Grid>
 </Page>

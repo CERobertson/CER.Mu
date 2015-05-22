@@ -7,8 +7,9 @@
         xmlns:c="clr-namespace:CER.RoutedUICommands;assembly=RoutedUICommands"
         mc:Ignorable="d" 
         x:Class="CER.Foundry.MainWindow"
-        Title="Foundry" Height="700" Width="800" Loaded="Window_Loaded">
+        Title="Foundry" Height="700" Width="1600" Loaded="Window_Loaded">
     <Window.CommandBindings>
+        <CommandBinding Command="c:RpgCommands.NewBelief" Executed="BeliefBinding_Executed"/>
         <CommandBinding Command="c:RpgCommands.NewGame" Executed="NewGameBinding_Executed"/>
         <CommandBinding Command="c:RpgCommands.NewLocation" Executed="NewLocationBinding_Executed"/>
         <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
@@ -21,7 +22,7 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
@@ -45,6 +46,7 @@
         <StackPanel Grid.Row="1" Grid.ColumnSpan="5" Orientation="Horizontal">
             <Button Margin  ="3" Padding="3" Command="c:RpgCommands.NewGame" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">G</Button>
             <Button Margin="3" Padding="3" Command="c:RpgCommands.NewLocation" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">L</Button>
+            <Button Margin="3" Padding="3" Command="c:RpgCommands.NewBelief" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">B</Button>
         </StackPanel>
         <Frame x:Name="RpgFrame" Grid.Row="2" Grid.Column="0" LoadCompleted="NavigationService_LoadCompleted"/>
         <TextBlock x:Name="EditorMarkup" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>

@@ -149,6 +149,11 @@
             this.InsertLink("pack://application:,,,/Location.xaml");
         }
 
+        private void BeliefBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Belief.xaml");
+        }
+
         private void InsertLink(string uri)
         {
             var selection = this.Editor.Selection;
@@ -169,17 +174,27 @@
         private void newRpgBinding(Hyperlink link)
         {
             var page = link.NavigateUri.LocalPath.ToLower().TrimStart('/').Split('.')[0];
+            var game = Application.LoadComponent(new Uri(link.NavigateUri.LocalPath, UriKind.Relative)) as game;
+            if (game != null)
+            {
+                game.Navigation = this.RpgFrame.NavigationService;
+                link.RequestNavigate += game.Hyperlink_RequestNavigate;
+            }
+
+
             switch (page)
             {
-                case "game":
-                    var game = new game();
-                    game.Navigation = this.RpgFrame.NavigationService;
-                    link.RequestNavigate += game.Hyperlink_RequestNavigate;
+                case "belief":
+                    var belief = new belief();
+                    belief.Navigation = this.RpgFrame.NavigationService;
+                    link.RequestNavigate += belief.Hyperlink_RequestNavigate;
                     break;
                 case"location":
                     var location = new location();
                     location.Navigation = this.RpgFrame.NavigationService;
                     link.RequestNavigate += location.Hyperlink_RequestNavigate;
+                    break;
+                case "game":
                     break;
                 default:
                     throw new Exception(string.Format("Page does not exist for local path {0}", link.NavigateUri.LocalPath));
@@ -222,6 +237,5 @@
                 }
             }
         }
-
     }
 }

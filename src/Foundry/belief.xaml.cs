@@ -7,11 +7,11 @@
     using System.Windows.Navigation;
 
     /// <summary>
-    /// Interaction logic for Location.xaml
+    /// Interaction logic for belief.xaml
     /// </summary>
-    public partial class location : Page
+    public partial class belief : Page
     {
-        public location()
+        public belief()
         {
             InitializeComponent();
         }
@@ -22,8 +22,8 @@
         {
             var link = (Hyperlink)sender;
             var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
-            var prototype = new rpg.location { gm_name = text };
-            this.Navigation.Navigate(link.NavigateUri, this.rpg.SingleOrCreate(this.rpg.Locations, prototype, true));
+            var prototype = new rpg.belief{ gm_name = text };
+            this.Navigation.Navigate(link.NavigateUri, this.rpg.SingleOrCreate(this.rpg.Beliefs, prototype, true));
         }
 
         public NavigationService Navigation { get; set; }

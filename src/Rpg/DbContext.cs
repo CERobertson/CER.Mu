@@ -39,6 +39,7 @@
         public ef.DbSet<game> Games { get; set; }
         public ef.DbSet<player> Players { get; set; }
         public ef.DbSet<character> Characters { get; set; }
+        public ef.DbSet<belief> Beliefs { get; set; }
         public ef.DbSet<role> Roles { get; set; }
         public ef.DbSet<performance> Performances { get; set; }
         public ef.DbSet<plot> Plots { get; set; }
@@ -64,7 +65,7 @@
         }
     }
 
-    public class game : element
+    public class game : element_with_supressed_variable
     {
         public int current_chapter { get; set; }
         public virtual List<plot> chapters { get; set; }
@@ -74,23 +75,30 @@
     {
         public string name { get; set; }
     }
-    public class character : element
+    public class character : element_with_supressed_variable
     {
         public virtual List<relationship> relationships { get; set; }
+        public virtual List<belief> beliefs { get; set; }
     }
-    public class role : element
+    public class belief : element
+    {
+        public new string variable { get; set; }
+        public virtual List<belief> parents { get; set; }
+        public virtual List<belief> children { get; set; }
+    }
+    public class role : element_with_supressed_variable
     {
         public virtual player player { get; set; }
         public virtual character character { get; set; }
 
     }
-    public class performance : element
+    public class performance : element_with_supressed_variable
     {
         public string start { get; set; }
         public decimal duration { get; set; }
         public virtual role role { get; set; }
     }
-    public class plot : element
+    public class plot : element_with_supressed_variable
     {
         public string introduction { get; set; }
         public decimal estimated_duration { get; set; }
@@ -101,12 +109,12 @@
         public virtual List<relationship> relationships { get; set; }
         public virtual List<performance> participants { get; set; }
     }
-    public class relationship : element
+    public class relationship : element_with_supressed_variable
     {
         public int priority { get; set; }
         public virtual List<character> Characters { get; set; }
     }
-    public class location : element { }
+    public class location : element_with_supressed_variable { }
     public class creation_process
     {
         [Key]
@@ -122,6 +130,15 @@
         public virtual List<plot> Plots { get; set; }
         public virtual List<relationship> Relationships { get; set; }
         public virtual List<location> Locations { get; set; }
+    }
+    public abstract class element_with_supressed_variable : element
+    {
+        [NotMapped]
+        public override string variable
+        {
+            get { return this.gm_name; }
+            set { this.gm_name = value; }
+        }
     }
     public abstract class element : Entity
     {
@@ -141,13 +158,6 @@
         public string gm_name { get; set; }
         public string description { get; set; }
         public virtual List<creation_process> creation_history { get; set; }
-
-        [NotMapped]
-        public override string variable
-        {
-            get { return this.gm_name; }
-            set { this.gm_name = value; }
-        }
     }
 }
 
