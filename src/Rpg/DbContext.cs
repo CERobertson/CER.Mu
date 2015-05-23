@@ -63,7 +63,10 @@
             {
                 if (obj.id == 0)
                 {
-                    belief = this.Beliefs.Single(x => x.variable == obj.variable && x.character.id == obj.character.id);
+                    belief = this.Beliefs.Single(x => 
+                        x.variable == obj.variable && 
+                        x.character.id == obj.character.id &&
+                        x.partition == obj.partition);
                 }
                 else
                 {
@@ -80,6 +83,13 @@
                 belief = obj;
             }
             return belief;
+        }
+
+        
+        public static string InitialContext;
+        static DbContext()
+        {
+            DbContext.InitialContext = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
 
         public DbContext()
@@ -142,6 +152,12 @@
     }
     public class belief : Node<belief>
     {
+        public belief()
+        {
+            this.partition = DbContext.InitialContext;
+        }
+
+        public string partition { get; set; }
         public new string variable { get; set; }
         public character character { get; set; }
         public virtual List<belief> parents { get { return this._parents; } set { this._parents = value; } }
@@ -195,14 +211,9 @@
 
     public abstract class element : Entity
     {
-        private static string InitialContext;
-        static element()
-        {
-            element.InitialContext = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-        }
         public element()
         {
-            this.partition = element.InitialContext;
+            this.partition = DbContext.InitialContext;
         }
 
         [Key]

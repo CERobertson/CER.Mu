@@ -26,7 +26,8 @@ using System;
         {
             var link = (Hyperlink)sender;
             var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
-            var dag = this.rpg.SaveBeliefNetworkToCharacter(text, new rpg.character { gm_name="chaos"});
+            var character = this.rpg.SingleOrCreate(this.rpg.Characters, new rpg.character { gm_name="chaos"});
+            var dag = this.rpg.SaveBeliefNetworkToCharacter(text, character);
         }
 
         public NavigationService Navigation { get; set; }
