@@ -154,6 +154,11 @@
             this.InsertLink("pack://application:,,,/Belief.xaml");
         }
 
+        private void CharacterBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Character.xaml");
+        }
+
         private void InsertLink(string uri)
         {
             var selection = this.Editor.Selection;
@@ -180,7 +185,12 @@
                 game.Navigation = this.RpgFrame.NavigationService;
                 link.RequestNavigate += game.Hyperlink_RequestNavigate;
             }
-
+            var character = Application.LoadComponent(new Uri(link.NavigateUri.LocalPath, UriKind.Relative)) as character;
+            if (character != null)
+            {
+                character.Navigation = this.RpgFrame.NavigationService;
+                link.RequestNavigate += character.Hyperlink_RequestNavigate;
+            }
 
             switch (page)
             {
@@ -195,6 +205,8 @@
                     link.RequestNavigate += location.Hyperlink_RequestNavigate;
                     break;
                 case "game":
+                    break;
+                case "character":
                     break;
                 default:
                     throw new Exception(string.Format("Page does not exist for local path {0}", link.NavigateUri.LocalPath));

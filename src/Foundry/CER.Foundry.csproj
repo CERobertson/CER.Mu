@@ -65,6 +65,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="character.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="game.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +87,9 @@
     </Compile>
     <Compile Include="belief.xaml.cs">
       <DependentUpon>belief.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="character.xaml.cs">
+      <DependentUpon>character.xaml</DependentUpon>
     </Compile>
     <Compile Include="game.xaml.cs">
       <DependentUpon>game.xaml</DependentUpon>

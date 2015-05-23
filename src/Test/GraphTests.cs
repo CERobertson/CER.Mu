@@ -29,7 +29,8 @@
                     Roots = new[] { "A" }, 
                     Sinks = new[] { "C" }},
                 new DirectedGraphContext{ 
-                    Json = "{'A':['B','D'],'B':['C']}", 
+                    Json = "{'A':['B','D'],'B':['C']}",
+                    NodeRelations = "{'A':{'children':['B','D'],'parents':[]},'B':{'children':['C'],'parents':['A']},'C':{'children':[],'parents':['B']},'D':{'children':[],'parents':['A']}}",
                     Roots = new[] { "A" }, 
                     Sinks = new[] { "C", "D" }}
             };
@@ -65,12 +66,24 @@
                 expected.Roots.Assert_NoDifferences(dag.Template.Roots);
                 expected.Sinks.Assert_NoDifferences(dag.Template.Sinks);
                 Assert.IsTrue(dag.Template.IsDirectedAcyclicGraph ^ invert);
+                if (!string.IsNullOrEmpty(expected.NodeRelations))
+                {
+                    var nodes = new NodeDictionary(expected.NodeRelations);
+                    foreach (var n in nodes.ToArray())
+                    {
+                        dag[n.Key]._children.Select(x => x.variable).ToArray().Assert_NoDifferences(n.Value["children"]);
+                        dag[n.Key]._parents.Select(x => x.variable).ToArray().Assert_NoDifferences(n.Value["parents"]);
+                        dag.Remove(n.Key);
+                    }
+                    Assert.IsTrue(dag.Count == 0);
+                }
             }
         }
 
         public class DirectedGraphContext
         {
             public string Json { get; set; }
+            public string NodeRelations { get; set; }
             public string[] Roots { get; set; }
             public string[] Sinks { get; set; }
         }
@@ -106,8 +119,8 @@
                 var nodes = new NodeDictionary(expected.NodeRelations);
                 foreach (var n in nodes.ToArray())
                 {
-                    expected.Object.Graph[n.Key].children.Select(x => x.variable).ToArray().Assert_NoDifferences(n.Value["children"]);
-                    expected.Object.Graph[n.Key].parents.Select(x => x.variable).ToArray().Assert_NoDifferences(n.Value["parents"]);
+                    expected.Object.Graph[n.Key]._children.Select(x => x.variable).ToArray().Assert_NoDifferences(n.Value["children"]);
+                    expected.Object.Graph[n.Key]._parents.Select(x => x.variable).ToArray().Assert_NoDifferences(n.Value["parents"]);
                     expected.Object.Graph.Remove(n.Key);
                 }
                 Assert.IsTrue(expected.Object.Graph.Count == 0);

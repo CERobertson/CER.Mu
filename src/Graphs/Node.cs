@@ -8,10 +8,10 @@
     /// </summary>
     public class Entity
     {
-        private readonly string seperator = "|";
+        public readonly char seperator = '|';
         public virtual string variable { get; set; }
         public virtual int id { get; set; }
-        public virtual string Address { get { return string.Join(this.seperator, this.GetType().FullName, this.id); } }
+        public virtual string Address { get { return string.Join(this.seperator.ToString(), this.GetType().FullName, this.id); } }
     }
 
     /// <summary>
@@ -27,16 +27,16 @@
         /// <summary>
         /// Parent nodes which contribute to causal support.
         /// </summary>
-        public IList<T> parents = new List<T>();
+        public List<T> _parents = new List<T>();
 
         /// <summary>
         /// Children nodes which contribute to evidential support.
         /// </summary>
-        public IList<T> children = new List<T>();
+        public List<T> _children = new List<T>();
 
         public void Initialize(T parent)
         {
-            this.parents.Add(parent);
+            this._parents.Add(parent);
         }
     }
 

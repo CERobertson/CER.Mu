@@ -39,8 +39,8 @@
                 if (this.TryGetValue(e.Child, out child))
                 {
                     T parent = this[e.Parent];
-                    child.parents.Add(parent);
-                    parent.children.Add(child);
+                    child._parents.Add(parent);
+                    parent._children.Add(child);
                     remaining_edges.Remove(e);
                 }
             }
@@ -61,8 +61,8 @@
                     foreach (var p in parents_of_child)
                     {
                         T parent = this[p.Parent];
-                        child.parents.Add(parent);
-                        parent.children.Add(child);
+                        child._parents.Add(parent);
+                        parent._children.Add(child);
                         remaining_edges.Remove(p);
                     }
                     this[parents_of_child.Key] = child;
@@ -79,6 +79,8 @@
         }
 
         public DirectedGraph Template { get; private set; }
+
+        public IEnumerable<T> Roots { get { return this.Where(x => this.Template.Roots.Contains(x.Key)).Select(x => x.Value); } }
     }
 
     public class Edge

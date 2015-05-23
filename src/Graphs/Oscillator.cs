@@ -44,8 +44,8 @@
             {
                 var parent = this.Graph[e.Parent];
                 var child = this.Graph[e.Child];
-                parent.children.Add(child);
-                child.parents.Add(parent);
+                parent._children.Add(child);
+                child._parents.Add(parent);
             }
         }
 

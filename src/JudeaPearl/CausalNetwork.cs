@@ -34,7 +34,7 @@
         {
             this.CausalSupport[variable] = support.MatrixProduct(this.ConditionalProbability);
             this.UpdateBelief(variable);
-            foreach (var child in this.children)
+            foreach (var child in this._children)
             {
                 child.UpdateCausalSupport(variable, this.CausalSupport[variable]);
             }
@@ -49,9 +49,9 @@
             this.DiagnosticSupport[variable] = DiagnosticSupport[variable].VectorProduct(support);
             this.UpdateBelief(variable);
 
-            if (this.parents.Count > 0)
+            if (this._parents.Count > 0)
             {
-                this.parents.ElementAt(0).UpdateDiagnosticSupport(variable, this.ConditionalProbability.MatrixProduct(support.Transpose()).Transpose());
+                this._parents.ElementAt(0).UpdateDiagnosticSupport(variable, this.ConditionalProbability.MatrixProduct(support.Transpose()).Transpose());
             }
         }
 
@@ -76,14 +76,14 @@
 
         public void Causes(Belief child)
         {
-            if (this.parents.Count == 0)
+            if (this._parents.Count == 0)
             {
                 this.CausalSupport = child.ConditionalProbability.Duplicate();
                 this.Value = child.ConditionalProbability.Construct(this.Value);
                 this.DiagnosticSupport = child.ConditionalProbability.ConstructUnit(this.DiagnosticSupport);
             }
             child.Initialize(this);
-            this.children.Add(child);
+            this._children.Add(child);
             for (int i = 0; i < child.ConditionalProbability.Length; i++)
             {
                 child.UpdateCausalSupport(i, this.CausalSupport[i]);

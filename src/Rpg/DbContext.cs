@@ -13,9 +13,17 @@
     {
         public T SingleOrCreate<T>(ef.DbSet<T> set, T obj = null, bool SaveOnCreate = false) where T : element
         {
+            T result;
             try
             {
-                return set.Single(x => x.gm_name == obj.gm_name.Trim());
+                if (obj.id == 0)
+                {
+                    result = set.FirstOrDefault(x => x.gm_name == obj.gm_name);
+                }
+                else
+                {
+                    result = set.FirstOrDefault(x => x.id == obj.id);
+                }
             }
             catch(InvalidOperationException)
             {
@@ -24,8 +32,54 @@
                 {
                     this.SaveChanges();
                 }
-                return obj;
+                result = obj;
             }
+            return result;
+        }
+
+        public DirectedAcyclicGraph<belief> SaveBeliefNetworkToCharacter(string json, character c)
+        {
+
+            var dg = new DirectedGraph(json);
+            var dag_subgraph = new DirectedAcyclicGraph<belief>(dg);
+
+            foreach (var n in dag_subgraph)
+            {
+                n.Value.variable = n.Key;
+                n.Value.character = c;
+            }
+
+            foreach (var n in dag_subgraph.Roots)
+            {
+                this.SingleOrCreate(n, true);
+            }
+            return dag_subgraph;
+        }
+
+        public belief SingleOrCreate(belief obj = null, bool SaveOnCreate = false)
+        {
+            belief belief;
+            try
+            {
+                if (obj.id == 0)
+                {
+                    belief = this.Beliefs.Single(x => x.variable == obj.variable && x.character.id == obj.character.id);
+                }
+                else
+                {
+                    belief = this.Beliefs.Single(x => x.id == obj.id && x.character.id == obj.character.id);
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                this.Beliefs.Add(obj);
+                if (SaveOnCreate)
+                {
+                    this.SaveChanges();
+                }
+                belief = obj;
+            }
+            return belief;
         }
 
         public DbContext()
@@ -65,7 +119,7 @@
         }
     }
 
-    public class game : element_with_supressed_variable
+    public class game : element
     {
         public int current_chapter { get; set; }
         public virtual List<plot> chapters { get; set; }
@@ -75,30 +129,37 @@
     {
         public string name { get; set; }
     }
-    public class character : element_with_supressed_variable
+    public class character : element
     {
+        public character()
+        {
+            this.relationships = new List<relationship>();
+            this.beliefs = new List<belief>();
+        }
+
         public virtual List<relationship> relationships { get; set; }
         public virtual List<belief> beliefs { get; set; }
     }
-    public class belief : element
+    public class belief : Node<belief>
     {
         public new string variable { get; set; }
-        public virtual List<belief> parents { get; set; }
-        public virtual List<belief> children { get; set; }
+        public character character { get; set; }
+        public virtual List<belief> parents { get { return this._parents; } set { this._parents = value; } }
+        public virtual List<belief> children { get { return this._children; } set { this._children = value; } }
     }
-    public class role : element_with_supressed_variable
+    public class role : element
     {
         public virtual player player { get; set; }
         public virtual character character { get; set; }
 
     }
-    public class performance : element_with_supressed_variable
+    public class performance : element
     {
         public string start { get; set; }
         public decimal duration { get; set; }
         public virtual role role { get; set; }
     }
-    public class plot : element_with_supressed_variable
+    public class plot : element
     {
         public string introduction { get; set; }
         public decimal estimated_duration { get; set; }
@@ -109,12 +170,12 @@
         public virtual List<relationship> relationships { get; set; }
         public virtual List<performance> participants { get; set; }
     }
-    public class relationship : element_with_supressed_variable
+    public class relationship : element
     {
         public int priority { get; set; }
         public virtual List<character> Characters { get; set; }
     }
-    public class location : element_with_supressed_variable { }
+    public class location : element { }
     public class creation_process
     {
         [Key]
@@ -131,15 +192,7 @@
         public virtual List<relationship> Relationships { get; set; }
         public virtual List<location> Locations { get; set; }
     }
-    public abstract class element_with_supressed_variable : element
-    {
-        [NotMapped]
-        public override string variable
-        {
-            get { return this.gm_name; }
-            set { this.gm_name = value; }
-        }
-    }
+
     public abstract class element : Entity
     {
         private static string InitialContext;
@@ -158,6 +211,13 @@
         public string gm_name { get; set; }
         public string description { get; set; }
         public virtual List<creation_process> creation_history { get; set; }
+
+        [NotMapped]
+        public override string variable
+        {
+            get { return this.gm_name; }
+            set { this.gm_name = value; }
+        }
     }
 }
 

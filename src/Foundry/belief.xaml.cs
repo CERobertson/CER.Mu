@@ -2,9 +2,13 @@
 {
     using CER.Mu;
     using rpg = CER.Rpg;
+    using System.Linq;
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Navigation;
+    using CER.Graphs;
+using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Interaction logic for belief.xaml
@@ -22,8 +26,7 @@
         {
             var link = (Hyperlink)sender;
             var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
-            var prototype = new rpg.belief{ gm_name = text };
-            this.Navigation.Navigate(link.NavigateUri, this.rpg.SingleOrCreate(this.rpg.Beliefs, prototype, true));
+            var dag = this.rpg.SaveBeliefNetworkToCharacter(text, new rpg.character { gm_name="chaos"});
         }
 
         public NavigationService Navigation { get; set; }
