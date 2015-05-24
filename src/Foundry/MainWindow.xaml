@@ -7,7 +7,8 @@
         xmlns:c="clr-namespace:CER.RoutedUICommands;assembly=RoutedUICommands"
         mc:Ignorable="d" 
         x:Class="CER.Foundry.MainWindow"
-        Title="Foundry" Height="700" Width="1600" Loaded="Window_Loaded">
+        Title="Foundry" Height="700" Width="1600" Loaded="Window_Loaded"
+        Icon="Foundry.ico">
     <Window.CommandBindings>
         <CommandBinding Command="c:RpgCommands.NewBelief" Executed="BeliefBinding_Executed"/>
         <CommandBinding Command="c:RpgCommands.NewCharacter" Executed="CharacterBinding_Executed" />
