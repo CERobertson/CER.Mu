@@ -18,11 +18,11 @@
             {
                 if (obj.id == 0)
                 {
-                    result = set.FirstOrDefault(x => x.gm_name == obj.gm_name);
+                    result = set.First(x => x.gm_name == obj.gm_name);
                 }
                 else
                 {
-                    result = set.FirstOrDefault(x => x.id == obj.id);
+                    result = set.First(x => x.id == obj.id);
                 }
             }
             catch(InvalidOperationException)

@@ -26,7 +26,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -35,7 +35,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
@@ -52,8 +52,8 @@
             <Button Margin="3" Padding="3" Command="c:RpgCommands.NewCharacter" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">C</Button>
         </StackPanel>
         <Frame x:Name="RpgFrame" Grid.Row="2" Grid.Column="0" LoadCompleted="NavigationService_LoadCompleted"/>
-        <TextBlock x:Name="EditorMarkup" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>
-        <RichTextBox x:Name="Editor" Grid.Row="2" Grid.Column="2" TextChanged="Editor_TextChanged" VerticalScrollBarVisibility="Visible" IsDocumentEnabled="True">
+        <TextBlock x:Name="EditorMarkup" Visibility="Collapsed"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>
+        <RichTextBox x:Name="Editor" Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Visible" IsDocumentEnabled="True" SpellCheck.IsEnabled="True">
             <FlowDocument>
                 <Section>
                     <Paragraph>
