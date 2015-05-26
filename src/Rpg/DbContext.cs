@@ -1,5 +1,7 @@
 ﻿namespace CER.Rpg
 {
+    using CER.EntityFramework;
+    using CER.JudeaPearl;
     using CER.Graphs;
     using System;
     using System.Collections.Generic;
@@ -11,32 +13,6 @@
 
     public class DbContext : ef.DbContext
     {
-        public T SingleOrCreate<T>(ef.DbSet<T> set, T obj = null, bool SaveOnCreate = false) where T : element
-        {
-            T result;
-            try
-            {
-                if (obj.id == 0)
-                {
-                    result = set.First(x => x.gm_name == obj.gm_name);
-                }
-                else
-                {
-                    result = set.First(x => x.id == obj.id);
-                }
-            }
-            catch(InvalidOperationException)
-            {
-                set.Add(obj);
-                if (SaveOnCreate)
-                {
-                    this.SaveChanges();
-                }
-                result = obj;
-            }
-            return result;
-        }
-
         public DirectedAcyclicGraph<belief> SaveBeliefNetworkToCharacter(string json, character c)
         {
 
@@ -51,40 +27,91 @@
 
             foreach (var n in dag_subgraph.Roots)
             {
-                this.SingleOrCreate(n, true);
+                this.CreaetOrRetrieve(n, true);
             }
             return dag_subgraph;
         }
 
-        public belief SingleOrCreate(belief obj = null, bool SaveOnCreate = false)
+        public List<hypothesis> SaveHypothesesToBelief(string json, belief b)
         {
-            belief belief;
+            var condition_probablity = new ConditionalProbability(json);
+            var hypothesis_list = new List<hypothesis>();
+            int h_index = 0;
+            foreach (var h in condition_probablity)
+            {
+                var hypothesis = new hypothesis { belief = b, name = h_index.ToString(), propositions = new List<proposition>(h.Count) };
+                for (int i = 0; i < h.Count; i++)
+                {
+                    var proposition = new proposition {hypothesis = hypothesis, name= i.ToString(), value = decimal.Parse(h.ElementAt(i))};
+                    proposition = this.CreaetOrRetrieve(
+                        this.Propositions,
+                        x => x.name == proposition.name &&
+                             x.hypothesis.name == hypothesis.name,
+                        proposition,
+                        true);
+                }
+                hypothesis = this.CreaetOrRetrieve(
+                    this.Hypotheses,
+                    x => x.name == hypothesis.name &&
+                         x.belief.variable == hypothesis.belief.variable,
+                    hypothesis,
+                    true);
+                hypothesis_list.Add(hypothesis);
+                h_index++;
+            }
+            return hypothesis_list;
+        }
+
+        public T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId
+        {
+            return this.CreaetOrRetrieve(set, predicate, (x) => x.id == obj.id, obj, SaveOnCreate);
+        }
+            
+        public T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> create_predicate, Func<T, bool> retrieve_predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId
+        {
+            if (obj.id == 0)
+            {
+                return this.FirstOrCreate(set, create_predicate, obj, SaveOnCreate);
+            }
+            else
+            {
+                return set.Single(retrieve_predicate);
+            }
+        }
+        public T FirstOrCreate<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null, bool SaveOnCreate = true) where T : class
+        {
+            T result;
             try
             {
-                if (obj.id == 0)
-                {
-                    belief = this.Beliefs.Single(x => 
-                        x.variable == obj.variable && 
-                        x.character.id == obj.character.id &&
-                        x.partition == obj.partition);
-                }
-                else
-                {
-                    belief = this.Beliefs.Single(x => x.id == obj.id && x.character.id == obj.character.id);
-                }
+                result = set.First(predicate);
             }
             catch (InvalidOperationException)
             {
-                this.Beliefs.Add(obj);
+                set.Add(obj);
                 if (SaveOnCreate)
                 {
                     this.SaveChanges();
                 }
-                belief = obj;
+                result = obj;
             }
-            return belief;
+            return result;
         }
 
+        public belief CreaetOrRetrieve(belief obj = null, bool SaveOnCreate = false)
+        {
+            return this.CreaetOrRetrieve(this.Beliefs,
+                x => x.variable == obj.variable &&
+                     x.character.id == obj.character.id &&
+                     x.partition == obj.partition,
+                x => x.id == obj.id && 
+                     x.character.id == obj.character.id,
+                obj,
+                SaveOnCreate);
+        }
+        public T SingleOrCreate<T>(ef.DbSet<T> set, T obj = null, bool SaveOnCreate = false) where T : element
+        {
+            return this.CreaetOrRetrieve(set, x => x.gm_name == obj.gm_name, obj, SaveOnCreate);
+        }
         
         public static string InitialContext;
         static DbContext()
@@ -100,17 +127,21 @@
             ef.Database.SetInitializer<DbContext>(strategy);
             strategy.InitializeDatabase(this);
         }
-        public ef.DbSet<game> Games { get; set; }
-        public ef.DbSet<player> Players { get; set; }
-        public ef.DbSet<character> Characters { get; set; }
-        public ef.DbSet<belief> Beliefs { get; set; }
-        public ef.DbSet<role> Roles { get; set; }
-        public ef.DbSet<performance> Performances { get; set; }
-        public ef.DbSet<plot> Plots { get; set; }
-        public ef.DbSet<relationship> Relationships { get; set; }
-        public ef.DbSet<location> Locations { get; set; }
-        public ef.DbSet<creation_process> CreationProcesses { get; set; }
 
+        public ef.DbSet<belief> Beliefs { get; set; }
+        public ef.DbSet<character> Characters { get; set; }
+        public ef.DbSet<game> Games { get; set; }
+        public ef.DbSet<hypothesis> Hypotheses { get; set; }
+        public ef.DbSet<location> Locations { get; set; }
+        public ef.DbSet<performance> Performances { get; set; }
+        public ef.DbSet<player> Players { get; set; }
+        public ef.DbSet<plot> Plots { get; set; }
+        public ef.DbSet<proposition> Propositions { get; set; }
+        public ef.DbSet<relationship> Relationships { get; set; }
+        public ef.DbSet<role> Roles { get; set; }
+
+        public ef.DbSet<creation_process> CreationProcesses { get; set; }
+        
         protected override void OnModelCreating(ef.DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -150,7 +181,7 @@
         public virtual List<relationship> relationships { get; set; }
         public virtual List<belief> beliefs { get; set; }
     }
-    public class belief : Node<belief>
+    public class belief : Node<belief>, IHasIntId
     {
         public belief()
         {
@@ -160,9 +191,29 @@
         public string partition { get; set; }
         public new string variable { get; set; }
         public character character { get; set; }
+        public virtual List<hypothesis> hypotheses { get; set; }
         public virtual List<belief> parents { get { return this._parents; } set { this._parents = value; } }
         public virtual List<belief> children { get { return this._children; } set { this._children = value; } }
     }
+
+    public class hypothesis : IHasIntId
+    {
+        [Key]
+        public int id { get; set; }
+        public string name { get; set; }
+        public belief belief { get; set; }
+        public virtual List<proposition> propositions { get; set; }
+    }
+
+    public class proposition : IHasIntId
+    {
+        [Key]
+        public int id { get; set; }
+        public hypothesis hypothesis { get; set; }
+        public string name { get; set; }
+        public decimal value { get; set; }
+    }
+
     public class role : element
     {
         public virtual player player { get; set; }
@@ -209,7 +260,7 @@
         public virtual List<location> Locations { get; set; }
     }
 
-    public abstract class element : Entity
+    public abstract class element : Entity, IHasIntId
     {
         public element()
         {

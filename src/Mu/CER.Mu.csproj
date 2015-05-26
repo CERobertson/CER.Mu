@@ -55,6 +55,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EntityFramework\CER.EntityFramework.csproj">
+      <Project>{cdf41080-f827-41f3-bf20-3bceebf9e22c}</Project>
+      <Name>CER.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Graphs\CER.Graphs.csproj">
       <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
       <Name>CER.Graphs</Name>

@@ -73,6 +73,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="hypotheses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="location.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +98,9 @@
     <Compile Include="game.xaml.cs">
       <DependentUpon>game.xaml</DependentUpon>
     </Compile>
+    <Compile Include="hypotheses.xaml.cs">
+      <DependentUpon>hypotheses.xaml</DependentUpon>
+    </Compile>
     <Compile Include="location.xaml.cs">
       <DependentUpon>location.xaml</DependentUpon>
     </Compile>
@@ -113,6 +120,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EntityFramework\CER.EntityFramework.csproj">
+      <Project>{cdf41080-f827-41f3-bf20-3bceebf9e22c}</Project>
+      <Name>CER.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Graphs\CER.Graphs.csproj">
       <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
       <Name>CER.Graphs</Name>

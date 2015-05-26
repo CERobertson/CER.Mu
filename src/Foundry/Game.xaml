@@ -16,6 +16,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="5">gm_name</TextBlock>
-        <TextBox x:Name="something" Grid.Row="1" Margin="5" Text="{Binding gm_name}"/>
+        <TextBox x:Name="something" Grid.Row="1" Margin="5" Text="{Binding gm_name, Mode=TwoWay}"/>
     </Grid>
 </Page>

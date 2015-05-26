@@ -12,6 +12,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="c:RpgCommands.NewBelief" Executed="BeliefBinding_Executed"/>
         <CommandBinding Command="c:RpgCommands.NewCharacter" Executed="CharacterBinding_Executed" />
+        <CommandBinding Command="c:RpgCommands.NewHypotheses" Executed="HypothesesBinding_Executed" />
         <CommandBinding Command="c:RpgCommands.NewGame" Executed="NewGameBinding_Executed"/>
         <CommandBinding Command="c:RpgCommands.NewLocation" Executed="NewLocationBinding_Executed"/>
         <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
@@ -50,6 +51,7 @@
             <Button Margin="3" Padding="3" Command="c:RpgCommands.NewLocation" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">L</Button>
             <Button Margin="3" Padding="3" Command="c:RpgCommands.NewBelief" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">B</Button>
             <Button Margin="3" Padding="3" Command="c:RpgCommands.NewCharacter" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">C</Button>
+            <Button Margin="3" Padding="3" Command="c:RpgCommands.NewHypotheses" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">H</Button>
         </StackPanel>
         <Frame x:Name="RpgFrame" Grid.Row="2" Grid.Column="0" LoadCompleted="NavigationService_LoadCompleted"/>
         <TextBlock x:Name="EditorMarkup" Visibility="Collapsed"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>

@@ -126,6 +126,12 @@
                 Assert.IsTrue(expected.Object.Graph.Count == 0);
             }
         }
+        [TestMethod]
+        public void HypothesesTesting()
+        {
+            var hypothesis_matrix = "[['0.8','0.1','0.1'],['.3','.3','3']]".Replace("'", "\"");
+            List<List<string>> simple = hypothesis_matrix.ParseJsonToSimple<List<List<string>>>();
+        }
 
         public class OscilattorContext 
         {   

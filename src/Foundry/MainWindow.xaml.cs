@@ -139,16 +139,6 @@
             }
         }
 
-        private void NewGameBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-        {
-            this.InsertLink("pack://application:,,,/Game.xaml");
-        }
-
-        private void NewLocationBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            this.InsertLink("pack://application:,,,/Location.xaml");
-        }
-
         private void BeliefBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             this.InsertLink("pack://application:,,,/Belief.xaml");
@@ -157,6 +147,21 @@
         private void CharacterBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             this.InsertLink("pack://application:,,,/Character.xaml");
+        }
+
+        private void HypothesesBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Hypotheses.xaml");
+        }
+
+        private void NewGameBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Game.xaml");
+        }
+
+        private void NewLocationBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Location.xaml");
         }
 
         private void InsertLink(string uri)
@@ -191,6 +196,12 @@
                 character.Navigation = this.RpgFrame.NavigationService;
                 link.RequestNavigate += character.Hyperlink_RequestNavigate;
             }
+            var hypotheses = Application.LoadComponent(new Uri(link.NavigateUri.LocalPath, UriKind.Relative)) as hypotheses;
+            if (hypotheses != null)
+            {
+                hypotheses.Navigation = this.RpgFrame.NavigationService;
+                link.RequestNavigate += hypotheses.Hyperlink_RequestNavigate;
+            }
 
             switch (page)
             {
@@ -207,6 +218,8 @@
                 case "game":
                     break;
                 case "character":
+                    break;
+                case "hypotheses":
                     break;
                 default:
                     throw new Exception(string.Format("Page does not exist for local path {0}", link.NavigateUri.LocalPath));
