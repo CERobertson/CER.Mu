@@ -7,7 +7,7 @@
         xmlns:c="clr-namespace:CER.RoutedUICommands;assembly=RoutedUICommands"
         mc:Ignorable="d" 
         x:Class="CER.Foundry.MainWindow"
-        Title="Foundry" Height="700" Width="1600" Loaded="Window_Loaded"
+        Title="Foundry" Height="900" Width="1600" Loaded="Window_Loaded"
         Icon="Foundry.ico">
     <Window.CommandBindings>
         <CommandBinding Command="c:RpgCommands.NewBelief" Executed="BeliefBinding_Executed"/>
@@ -22,6 +22,12 @@
     </Window.CommandBindings>
     <Window.Resources>
         <CollectionViewSource x:Key="gameViewSource" Source="{Binding rpg:game}"/>
+        <RectangleGeometry x:Key="Geomtry1" Rect="0,0, 64,64" />
+        <RectangleGeometry x:Key="Geomtry2" Rect="32,32,64,64" />
+        <CombinedGeometry x:Key="Exclude" GeometryCombineMode="Exclude" Geometry1="{StaticResource Geomtry1}" Geometry2="{StaticResource Geomtry2}"/>
+        <CombinedGeometry x:Key="Intersect" GeometryCombineMode="Intersect" Geometry1="{StaticResource Geomtry1}" Geometry2="{StaticResource Geomtry2}"/>
+        <CombinedGeometry x:Key="Union" GeometryCombineMode="Union" Geometry1="{StaticResource Geomtry1}" Geometry2="{StaticResource Geomtry2}"/>
+        <CombinedGeometry x:Key="Xor" GeometryCombineMode="Xor" Geometry1="{StaticResource Geomtry1}" Geometry2="{StaticResource Geomtry2}"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -36,7 +42,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
@@ -54,7 +60,34 @@
             <Button Margin="3" Padding="3" Command="c:RpgCommands.NewHypotheses" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">H</Button>
         </StackPanel>
         <Frame x:Name="RpgFrame" Grid.Row="2" Grid.Column="0" LoadCompleted="NavigationService_LoadCompleted"/>
-        <TextBlock x:Name="EditorMarkup" Visibility="Collapsed"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>
+        <Grid x:Name="CombinedGeomtryLegend"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Path Grid.Row="0" Grid.Column="0" Fill="Yellow" Data="{StaticResource Geomtry1}"/>
+            <Path Grid.Row="0" Grid.Column="1" Fill="Yellow" Data="{StaticResource Geomtry2}"/>
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical">
+                <Path Fill="Yellow" Data="{StaticResource Union}"/>
+                <Path Fill="red" Data="{StaticResource Exclude}"/>
+                <Path Fill="green" Data="{StaticResource Xor}"/>
+                <Path Fill="blue" Data="{StaticResource Intersect}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="3">
+                <Label FontSize="24">Union</Label>
+                <Label FontSize="24">Exclude</Label>
+                <Label FontSize="24">Xor (Exclusive Or)</Label>
+                <Label FontSize="24">Intersect</Label>
+            </StackPanel>
+
+
+        </Grid>
+        <!--<TextBlock x:Name="EditorMarkup" Visibility="Collapsed"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" TextWrapping="Wrap"/>-->
         <RichTextBox x:Name="Editor" Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Visible" IsDocumentEnabled="True" SpellCheck.IsEnabled="True">
             <FlowDocument>
                 <Section>

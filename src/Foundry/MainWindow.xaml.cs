@@ -106,22 +106,22 @@
             }
         }
 
-        private void Editor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            using (var s = new MemoryStream())
-            {
-                var textRange = new TextRange(
-                    this.Editor.Document.ContentStart,
-                    this.Editor.Document.ContentEnd);
-                textRange.Save(s, DataFormats.Xaml);
-                s.Position = 0;
+        //private void Editor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        //{
+        //    using (var s = new MemoryStream())
+        //    {
+        //        var textRange = new TextRange(
+        //            this.Editor.Document.ContentStart,
+        //            this.Editor.Document.ContentEnd);
+        //        textRange.Save(s, DataFormats.Xaml);
+        //        s.Position = 0;
 
-                using (var r = new StreamReader(s))
-                {
-                    this.EditorMarkup.Text = r.ReadToEnd();
-                }
-            }
-        }
+        //        using (var r = new StreamReader(s))
+        //        {
+        //            this.EditorMarkup.Text = r.ReadToEnd();
+        //        }
+        //    }
+        //}
 
         void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
         {

@@ -8,5 +8,10 @@
 	Title="belief">
 
     <Canvas>
+        <Path Fill="Yellow" Stroke="Blue">
+            <Path.Data>
+                <RectangleGeometry Rect="0,0,1,1"/>
+            </Path.Data>
+        </Path>
     </Canvas>
 </Page>
