@@ -62,9 +62,9 @@
             return hypothesis_list;
         }
 
-        public T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId
+        public virtual T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId, IHasPartitionString
         {
-            return this.CreaetOrRetrieve(set, predicate, (x) => x.id == obj.id, obj, SaveOnCreate);
+            return this.CreaetOrRetrieve(set, predicate, (x) => x.id == obj.id && x.partition == obj.partition, obj, SaveOnCreate);
         }
             
         public T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> create_predicate, Func<T, bool> retrieve_predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId
@@ -181,7 +181,7 @@
         public virtual List<relationship> relationships { get; set; }
         public virtual List<belief> beliefs { get; set; }
     }
-    public class belief : Node<belief>, IHasIntId
+    public class belief : Node<belief>, IHasIntId, IHasPartitionString
     {
         public belief()
         {
@@ -196,19 +196,21 @@
         public virtual List<belief> children { get { return this._children; } set { this._children = value; } }
     }
 
-    public class hypothesis : IHasIntId
+    public class hypothesis : IHasIntId, IHasPartitionString
     {
         [Key]
         public int id { get; set; }
+        public string partition { get; set; }
         public string name { get; set; }
         public belief belief { get; set; }
         public virtual List<proposition> propositions { get; set; }
     }
 
-    public class proposition : IHasIntId
+    public class proposition : IHasIntId, IHasPartitionString
     {
         [Key]
         public int id { get; set; }
+        public string partition { get; set; }
         public hypothesis hypothesis { get; set; }
         public string name { get; set; }
         public decimal value { get; set; }
@@ -260,7 +262,7 @@
         public virtual List<location> Locations { get; set; }
     }
 
-    public abstract class element : Entity, IHasIntId
+    public abstract class element : Entity, IHasIntId, IHasPartitionString
     {
         public element()
         {

@@ -1,8 +1,6 @@
 ﻿namespace CER.Foundry
 {
-    using CER.Mu;
-    using CER.RoutedUICommands;
-    using rpg = CER.Rpg;
+    using CER.ng;
     using Microsoft.Win32;
     using System;
     using System.ComponentModel;
@@ -13,6 +11,8 @@
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Navigation;
+    using ef = System.Data.Entity;
+    using rpg = CER.Rpg;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,7 +20,8 @@
     public partial class MainWindow : Window
     {
         public readonly string DialogFilter = "XAML Files (*.xaml)|*.xaml|RichText Files (*.rtf)|*.rtf|All files (*.*)|*.*";
-        private rpg.DbContext rpg = new rpg.DbContext(new CreateSeedDatabaseIfNotExists());
+
+        private GameContext rpg = new GameContext();
 
         public static DependencyProperty InternalDocument_PreviousPartitionHeight_Property = DependencyProperty.Register("InternalDocument_PreviousPartitionHeight", typeof(int), typeof(MainWindow));
 

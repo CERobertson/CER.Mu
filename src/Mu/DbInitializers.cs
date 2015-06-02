@@ -1,9 +1,7 @@
 ﻿namespace CER.Mu
 {
-    using CER.Graphs.SetExtensions;
     using CER.Rpg;
     using ef = System.Data.Entity;
-    using System.Linq;
 
     public class DropCreateSeedDatabaseAlways : ef.DropCreateDatabaseAlways<DbContext>
     {

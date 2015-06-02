@@ -166,6 +166,12 @@
             (0.314M).Assert_AboutEqual(Y.Value[0][1]);
             (0.471M).Assert_AboutEqual(Y.Value[0][2]);
         }
+
+        [TestMethod]
+        public void Chapter4_Exercise1()
+        {
+            //Evidence
+        }
     }
 
     /*

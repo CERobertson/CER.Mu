@@ -90,4 +90,9 @@
             }
         }
     }
+
+    public static class Evidence
+    {
+        //public static Belief CausesBelief(string variable, decimal[] 
+    }
 }

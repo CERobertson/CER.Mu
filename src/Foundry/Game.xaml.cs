@@ -1,12 +1,11 @@
 ﻿namespace CER.Foundry
 {
-    using CER.Mu;
-    using System.Collections;
-    using System.Linq;
+    using CER.ng;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Navigation;
+    using ef = System.Data.Entity;
     using r = CER.Rpg;
 
     /// <summary>
@@ -34,7 +33,7 @@
             set { this.SetValue(game.ReferenceProperty, value); }
         }
 
-        private r.DbContext rpg = new r.DbContext(new CreateSeedDatabaseIfNotExists());
+        private GameContext rpg = new GameContext();
 
         public game()
         {

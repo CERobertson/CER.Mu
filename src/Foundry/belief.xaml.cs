@@ -1,14 +1,11 @@
 ﻿namespace CER.Foundry
 {
-    using CER.Mu;
-    using rpg = CER.Rpg;
-    using System.Linq;
+    using CER.ng;
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Navigation;
-    using CER.Graphs;
-using System;
-    using System.Collections.Generic;
+    using ef = System.Data.Entity;
+    using rpg = CER.Rpg;
 
     /// <summary>
     /// Interaction logic for belief.xaml
@@ -19,8 +16,8 @@ using System;
         {
             InitializeComponent();
         }
-        
-        private rpg.DbContext rpg = new rpg.DbContext(new CreateSeedDatabaseIfNotExists());
+
+        private GameContext rpg = new GameContext();
 
         public void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {

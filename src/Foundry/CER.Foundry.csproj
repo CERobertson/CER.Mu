@@ -132,6 +132,10 @@
       <Project>{68ab6f0e-3b05-4b9b-b2eb-2afd9a71a9f2}</Project>
       <Name>CER.Mu</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NameGame\CER.ng.csproj">
+      <Project>{c3a0616d-0122-4d6d-9ea0-722633179dca}</Project>
+      <Name>CER.ng</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RoutedUICommands\CER.RoutedUICommands.csproj">
       <Project>{404bc0f9-c2a2-45fa-871a-16abec95e366}</Project>
       <Name>CER.RoutedUICommands</Name>

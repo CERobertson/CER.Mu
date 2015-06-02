@@ -1,21 +1,12 @@
 ﻿namespace CER.Foundry
 {
-    using CER.Mu;
-    using r = CER.Rpg;
-    using System;
-    using System.Collections.Generic;
+    using CER.ng;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
     using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
     using System.Windows.Navigation;
-    using System.Windows.Shapes;
+    using ef = System.Data.Entity;
+    using r = CER.Rpg;
 
 
     /// <summary>
@@ -23,7 +14,7 @@
     /// </summary>
     public partial class hypotheses : Page
     {
-        private r.DbContext rpg = new r.DbContext(new CreateSeedDatabaseIfNotExists());
+        private GameContext rpg = new GameContext();
 
         public hypotheses()
         {
