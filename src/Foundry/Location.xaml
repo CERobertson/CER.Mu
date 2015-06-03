@@ -8,6 +8,6 @@
 	Title="location">
 
     <Grid>
-        <TextBox>A place of amazingly fantastics things wizing around in painstaking details, rly.</TextBox>
+        <TextBox>location</TextBox>
     </Grid>
 </Page>

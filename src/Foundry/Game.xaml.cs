@@ -5,7 +5,6 @@
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Navigation;
-    using ef = System.Data.Entity;
     using r = CER.Rpg;
 
     /// <summary>
@@ -20,12 +19,12 @@
             var link = (Hyperlink)sender;
             var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
             var prototype = new r.game { gm_name = text };
-            this.Reference = this.rpg.SingleOrCreate(this.rpg.Games, prototype, true);
-            this.DataContext = this.rpg.SingleOrCreate(this.rpg.Games, prototype, true);
+            this.DataContext = this.CurrentGame.SingleOrCreate(this.CurrentGame.Games, prototype, true);
             this.Navigation.Navigate(this, this.Reference);
         }
 
         public NavigationService Navigation { get; set; }
+        public GameContext CurrentGame { get; set; }
 
         public r.game Reference
         {
@@ -33,7 +32,6 @@
             set { this.SetValue(game.ReferenceProperty, value); }
         }
 
-        private GameContext rpg = new GameContext();
 
         public game()
         {

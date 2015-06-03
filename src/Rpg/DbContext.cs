@@ -19,15 +19,16 @@
             var dg = new DirectedGraph(json);
             var dag_subgraph = new DirectedAcyclicGraph<belief>(dg);
 
-            foreach (var n in dag_subgraph)
+            foreach (var n in dag_subgraph.ToList())
             {
                 n.Value.variable = n.Key;
                 n.Value.character = c;
+                n.Value.partition = this.Partition;
             }
 
             foreach (var n in dag_subgraph.Roots)
             {
-                this.CreaetOrRetrieve(n, true);
+                this.CreaetOrRetrieve(this.Beliefs, x => x.variable == n.variable && x.character.id == n.character.id && x.partition == n.partition, n);
             }
             return dag_subgraph;
         }
@@ -37,9 +38,11 @@
             var condition_probablity = new ConditionalProbability(json);
             var hypothesis_list = new List<hypothesis>();
             int h_index = 0;
+            this.Beliefs.ToArray();
+            this.Hypotheses.ToArray();
             foreach (var h in condition_probablity)
             {
-                var hypothesis = new hypothesis { belief = b, name = h_index.ToString(), propositions = new List<proposition>(h.Count) };
+                var hypothesis = new hypothesis { belief = b, name = h_index.ToString(), partition = this.Partition, propositions = new List<proposition>(h.Count) };
                 for (int i = 0; i < h.Count; i++)
                 {
                     var proposition = new proposition {hypothesis = hypothesis, name= i.ToString(), value = decimal.Parse(h.ElementAt(i))};
@@ -61,6 +64,8 @@
             }
             return hypothesis_list;
         }
+
+        public virtual string Partition { get; private set; }
 
         public virtual T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId, IHasPartitionString
         {
@@ -97,20 +102,9 @@
             return result;
         }
 
-        public belief CreaetOrRetrieve(belief obj = null, bool SaveOnCreate = false)
-        {
-            return this.CreaetOrRetrieve(this.Beliefs,
-                x => x.variable == obj.variable &&
-                     x.character.id == obj.character.id &&
-                     x.partition == obj.partition,
-                x => x.id == obj.id && 
-                     x.character.id == obj.character.id,
-                obj,
-                SaveOnCreate);
-        }
         public T SingleOrCreate<T>(ef.DbSet<T> set, T obj = null, bool SaveOnCreate = false) where T : element
         {
-            return this.CreaetOrRetrieve(set, x => x.gm_name == obj.gm_name, obj, SaveOnCreate);
+            return this.CreaetOrRetrieve(set, x => x.gm_name == obj.gm_name && x.partition == obj.partition, obj, SaveOnCreate);
         }
         
         public static string InitialContext;

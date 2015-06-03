@@ -6,6 +6,7 @@
     public class GameContext : DbContext
     {
         public string CurrentGame { get; private set; }
+        public override string Partition { get { return this.CurrentGame; } }
 
         public GameContext()
         {
@@ -13,7 +14,7 @@
         }
         public string NewGame()
         {
-            var partition = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            var partition = Guid.NewGuid().ToString().Replace("-", string.Empty).Insert(0, "_");
             this.CurrentGame = partition;
             return partition;
         }

@@ -8,6 +8,6 @@
 	Title="hypotheses">
 
     <Grid>
-        
+        <TextBox>hypotheses</TextBox>
     </Grid>
 </Page>

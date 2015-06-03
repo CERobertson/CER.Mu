@@ -20,19 +20,20 @@
     public partial class MainWindow : Window
     {
         #region Default constructor/deconstructor and datacontext to CollectionViewSource management. (Importance:not really Status:proof of concept for CollectionViewSource)
-        private GameContext rpg = new GameContext();
 
+        public GameContext CurrentGame { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            this.CurrentGame = new GameContext(string.Empty);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //hooks up the collection viewer, most likely wont last
             var gameViewSource = (CollectionViewSource)this.FindResource("gameViewSource");
-            this.rpg.Games.ToList();
-            gameViewSource.Source = this.rpg.Games.Local;
+            this.CurrentGame.Games.ToList();
+            gameViewSource.Source = this.CurrentGame.Games.Local;
 
             CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
@@ -40,8 +41,8 @@
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            this.rpg.SaveChanges();
-            this.rpg.Dispose();
+            this.CurrentGame.SaveChanges();
+            this.CurrentGame.Dispose();
         }
         #endregion
 
@@ -51,6 +52,7 @@
         private void NewCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             this.Editor.Document = new FlowDocument();
+            this.SaveBinding_Executed(sender, e);
         }
 
         private void OpenCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -74,6 +76,7 @@
                         textRange.Load(fs, DataFormats.Xaml);
                     }
                 }
+                this.CurrentGame.LoadGame(dialog.FileName);
             }
             CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
@@ -99,6 +102,7 @@
                         textRange.Save(fs, DataFormats.Xaml);
                     }
                 }
+                this.CurrentGame.LoadGame(dialog.FileName);
             }
         }
         #endregion
@@ -111,41 +115,37 @@
             if (game != null)
             {
                 game.Navigation = this.RpgFrame.NavigationService;
+                game.CurrentGame = this.CurrentGame;
                 link.RequestNavigate += game.Hyperlink_RequestNavigate;
             }
             var character = Application.LoadComponent(new Uri(link.NavigateUri.LocalPath, UriKind.Relative)) as character;
             if (character != null)
             {
                 character.Navigation = this.RpgFrame.NavigationService;
+                character.CurrentGame = this.CurrentGame;
                 link.RequestNavigate += character.Hyperlink_RequestNavigate;
             }
             var hypotheses = Application.LoadComponent(new Uri(link.NavigateUri.LocalPath, UriKind.Relative)) as hypotheses;
             if (hypotheses != null)
             {
                 hypotheses.Navigation = this.RpgFrame.NavigationService;
+                hypotheses.CurrentGame = this.CurrentGame;
                 link.RequestNavigate += hypotheses.Hyperlink_RequestNavigate;
             }
-
-            switch (page)
+            var belief = Application.LoadComponent(new Uri(link.NavigateUri.LocalPath, UriKind.Relative)) as belief;
+            if (belief != null)
             {
-                case "belief":
-                    var belief = new belief();
-                    belief.Navigation = this.RpgFrame.NavigationService;
-                    link.RequestNavigate += belief.Hyperlink_RequestNavigate;
-                    break;
-                case "location":
-                    var location = new location();
-                    location.Navigation = this.RpgFrame.NavigationService;
-                    link.RequestNavigate += location.Hyperlink_RequestNavigate;
-                    break;
-                case "game":
-                    break;
-                case "character":
-                    break;
-                case "hypotheses":
-                    break;
-                default:
-                    throw new Exception(string.Format("Page does not exist for local path {0}", link.NavigateUri.LocalPath));
+
+                belief.Navigation = this.RpgFrame.NavigationService;
+                belief.CurrentGame = this.CurrentGame;
+                link.RequestNavigate += belief.Hyperlink_RequestNavigate;
+            }
+            var location = Application.LoadComponent(new Uri(link.NavigateUri.LocalPath, UriKind.Relative)) as location;
+            if (location != null)
+            {
+                location.Navigation = this.RpgFrame.NavigationService;
+                location.CurrentGame = this.CurrentGame;
+                link.RequestNavigate += location.Hyperlink_RequestNavigate;
             }
         }
         #endregion

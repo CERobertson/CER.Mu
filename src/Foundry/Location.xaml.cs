@@ -4,8 +4,7 @@
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Navigation;
-    using ef = System.Data.Entity;
-    using rpg = CER.Rpg;
+    using r = CER.Rpg;
 
     /// <summary>
     /// Interaction logic for Location.xaml
@@ -16,17 +15,16 @@
         {
             InitializeComponent();
         }
-
-        private GameContext rpg = new GameContext();
-
+        
         public void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             var link = (Hyperlink)sender;
             var text = new TextRange(link.ContentStart, link.ContentEnd).Text;
-            var prototype = new rpg.location { gm_name = text };
-            this.Navigation.Navigate(link.NavigateUri, this.rpg.SingleOrCreate(this.rpg.Locations, prototype, true));
+            var prototype = new r.location { gm_name = text };
+            this.Navigation.Navigate(link.NavigateUri, this.CurrentGame.SingleOrCreate(this.CurrentGame.Locations, prototype, true));
         }
 
         public NavigationService Navigation { get; set; }
+        public GameContext CurrentGame { get; set; }
     }
 }
