@@ -8,7 +8,7 @@
     /// </summary>
     public class Entity
     {
-        public readonly char seperator = '|';
+        public readonly char seperator = '/';
         public virtual string variable { get; set; }
         public virtual int id { get; set; }
         public virtual string Address { get { return string.Join(this.seperator.ToString(), this.GetType().FullName, this.id); } }

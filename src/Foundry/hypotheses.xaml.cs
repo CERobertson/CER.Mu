@@ -31,7 +31,7 @@
             var character = this.CurrentGame
                 .Characters.Single(x => x.gm_name == character_gm_name && x.partition == this.CurrentGame.Partition);
             var belief = character
-                .beliefs.Single(x => x.variable == belief_variable);
+                .beliefs.Single(x => x.variable == belief_variable && x.partition == this.CurrentGame.Partition);
             var prototype = this.CurrentGame.SaveHypothesesToBelief(character_belief_hypothesis_split[2], belief);
 
             this.Navigation.Navigate(this, prototype);

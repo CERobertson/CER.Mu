@@ -24,7 +24,7 @@
             var character_belief_split = text.Split(new char[] {prototype.seperator});
             prototype.gm_name = character_belief_split[0];
             prototype = this.CurrentGame.SingleOrCreate(this.CurrentGame.Characters, prototype, true);
-            prototype.beliefs.AddRange(this.CurrentGame.SaveBeliefNetworkToCharacter(character_belief_split[1], prototype).Roots);
+            this.CurrentGame.SaveBeliefNetworkToCharacter(character_belief_split[1], prototype);
 
             this.Navigation.Navigate(link.NavigateUri, prototype);
         }
