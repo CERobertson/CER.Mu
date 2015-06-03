@@ -1,5 +1,7 @@
 ﻿namespace CER.Test
 {
+    using CER.Rpg;
+    using CER.ng;
     using CER.JudeaPearl;
     using CER.JudeaPearl.CausalNetwork;
     using CER.Test.Extensions;
@@ -151,7 +153,7 @@
             (0.352M).Assert_AboutEqual(X.Value[0][1]);
             //Rounding error between test and priis pg. 160 orginal is 0.311M
             (0.312M).Assert_AboutEqual(X.Value[0][2]);
-            
+
             Y.UpdateCausalSupport(0, alibi);
 
             //Seems like another rounding error as 2 is equal while 0 and 1 are off by .005 or so
@@ -170,10 +172,22 @@
         [TestMethod]
         public void Chapter4_Exercise1()
         {
-            //Evidence
+            var game = new GameContext("_test " + Guid.NewGuid().ToString());
+
+            var belief = new belief();
+            belief.variable = "P(v-jth|v-ith)";
+            game.SaveHypothesesToBelief("", belief);
+
         }
     }
 
+    public enum V
+    {
+        empty = 0,
+        A,
+        B,
+        C
+    }
     /*
     (0.M).IsEqualTo();
      */

@@ -1,4 +1,4 @@
-﻿namespace CER.RoutedUICommands
+﻿namespace CER.Commands
 {
     using System.Windows.Input;
 

@@ -36,7 +36,7 @@
             this.CurrentGame.Games.ToList();
             gameViewSource.Source = this.CurrentGame.Games.Local;
 
-            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
+            CER.Commands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -81,7 +81,7 @@
                 this.CurrentGame.LoadGame(dialog.FileName);
                 this.Title = this.ApplicationName + " - " + dialog.FileName;
             }
-            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
+            CER.Commands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
 
         private void SaveBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -189,7 +189,7 @@
                 s.Position = 0;
                 selection.Load(s, DataFormats.Xaml);
             }
-            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
+            CER.Commands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
         #endregion
 

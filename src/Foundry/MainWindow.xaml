@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:mu="clr-namespace:CER.Mu;assembly=Mu"
-        xmlns:c="clr-namespace:CER.RoutedUICommands;assembly=RoutedUICommands"
+        xmlns:c="clr-namespace:CER.Commands;assembly=Commands"
         mc:Ignorable="d" 
         x:Class="CER.Foundry.MainWindow"
         Title="Foundry" Height="900" Width="1600" Loaded="Window_Loaded"

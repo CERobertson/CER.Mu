@@ -7,8 +7,8 @@
     <ProjectGuid>{404BC0F9-C2A2-45FA-871A-16ABEC95E366}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CER.RoutedUICommands</RootNamespace>
-    <AssemblyName>RoutedUICommands</AssemblyName>
+    <RootNamespace>CER.Commands</RootNamespace>
+    <AssemblyName>Commands</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
