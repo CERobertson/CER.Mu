@@ -28,10 +28,10 @@
             this.CurrentGame = partition;
         }
 
-        public override T CreaetOrRetrieve<T>(System.Data.Entity.DbSet<T> set, System.Func<T, bool> predicate, T obj, bool SaveOnCreate = true)
+        public override T CreateOrRetrieve<T>(System.Data.Entity.DbSet<T> set, System.Func<T, bool> predicate, T obj, bool SaveOnCreate = true)
         {
             obj.partition = this.CurrentGame;
-            return base.CreaetOrRetrieve<T>(set, predicate, obj, SaveOnCreate);
+            return base.CreateOrRetrieve<T>(set, predicate, obj, SaveOnCreate);
         }
     }
 }

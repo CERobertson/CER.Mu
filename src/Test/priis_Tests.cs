@@ -176,7 +176,10 @@
 
             var belief = new belief();
             belief.variable = "P(v-jth|v-ith)";
-            game.SaveHypothesesToBelief("", belief);
+            game.SaveHypothesesToBelief(@"[['.25','.25','.25','.25']
+                                          ,['.5','0','.25','.25']
+                                          ,['.125','.5','.125','.25']
+                                          ,['.25','.125','.5','.125']]", belief);
 
         }
     }

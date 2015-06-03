@@ -28,7 +28,7 @@
 
             foreach (var n in dag_subgraph.Roots)
             {
-                this.CreaetOrRetrieve(this.Beliefs, x => x.variable == n.variable && x.character.id == n.character.id && x.partition == n.partition, n);
+                this.CreateOrRetrieve(this.Beliefs, x => x.variable == n.variable && x.character.id == n.character.id && x.partition == n.partition, n);
             }
             return dag_subgraph;
         }
@@ -46,14 +46,14 @@
                 for (int i = 0; i < h.Count; i++)
                 {
                     var proposition = new proposition {hypothesis = hypothesis, name= i.ToString(), value = decimal.Parse(h.ElementAt(i))};
-                    proposition = this.CreaetOrRetrieve(
+                    proposition = this.CreateOrRetrieve(
                         this.Propositions,
                         x => x.name == proposition.name &&
                              x.hypothesis.name == hypothesis.name,
                         proposition,
                         true);
                 }
-                hypothesis = this.CreaetOrRetrieve(
+                hypothesis = this.CreateOrRetrieve(
                     this.Hypotheses,
                     x => x.name == hypothesis.name &&
                          x.belief.variable == hypothesis.belief.variable,
@@ -67,12 +67,12 @@
 
         public virtual string Partition { get; private set; }
 
-        public virtual T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId, IHasPartitionString
+        public virtual T CreateOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId, IHasPartitionString
         {
-            return this.CreaetOrRetrieve(set, predicate, (x) => x.id == obj.id && x.partition == obj.partition, obj, SaveOnCreate);
+            return this.CreateOrRetrieve(set, predicate, (x) => x.id == obj.id && x.partition == obj.partition, obj, SaveOnCreate);
         }
-            
-        public T CreaetOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> create_predicate, Func<T, bool> retrieve_predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId
+
+        public T CreateOrRetrieve<T>(ef.DbSet<T> set, Func<T, bool> create_predicate, Func<T, bool> retrieve_predicate, T obj = null, bool SaveOnCreate = true) where T : class, IHasIntId
         {
             if (obj.id == 0)
             {
@@ -104,7 +104,7 @@
 
         public T SingleOrCreate<T>(ef.DbSet<T> set, T obj = null, bool SaveOnCreate = false) where T : element
         {
-            return this.CreaetOrRetrieve(set, x => x.gm_name == obj.gm_name && x.partition == obj.partition, obj, SaveOnCreate);
+            return this.CreateOrRetrieve(set, x => x.gm_name == obj.gm_name && x.partition == obj.partition, obj, SaveOnCreate);
         }
         
         public static string InitialContext;
