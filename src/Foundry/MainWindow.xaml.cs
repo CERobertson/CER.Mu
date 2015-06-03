@@ -25,6 +25,7 @@
         public MainWindow()
         {
             InitializeComponent();
+            this.ApplicationName = this.Title;
             this.CurrentGame = new GameContext(string.Empty);
         }
 
@@ -48,6 +49,7 @@
 
         #region New, open, and save commands. (Importance:important Status:needs to be linked to game partition)
         public readonly string DialogFilter = "XAML Files (*.xaml)|*.xaml|RichText Files (*.rtf)|*.rtf|All files (*.*)|*.*";
+        public readonly string ApplicationName;
 
         private void NewCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
@@ -77,6 +79,7 @@
                     }
                 }
                 this.CurrentGame.LoadGame(dialog.FileName);
+                this.Title = this.ApplicationName + " - " + dialog.FileName;
             }
             CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
         }
@@ -103,6 +106,7 @@
                     }
                 }
                 this.CurrentGame.LoadGame(dialog.FileName);
+                this.Title = this.ApplicationName + " - " + dialog.FileName;
             }
         }
         #endregion
