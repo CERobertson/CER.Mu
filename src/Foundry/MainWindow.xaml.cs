@@ -19,17 +19,8 @@
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly string DialogFilter = "XAML Files (*.xaml)|*.xaml|RichText Files (*.rtf)|*.rtf|All files (*.*)|*.*";
-
+        #region Default constructor/deconstructor and datacontext to CollectionViewSource management. (Importance:not really Status:proof of concept for CollectionViewSource)
         private GameContext rpg = new GameContext();
-
-        public static DependencyProperty InternalDocument_PreviousPartitionHeight_Property = DependencyProperty.Register("InternalDocument_PreviousPartitionHeight", typeof(int), typeof(MainWindow));
-
-        public int InternalDocument_PreviousPartitionHeight
-        {
-            get { return (int)this.GetValue(MainWindow.InternalDocument_PreviousPartitionHeight_Property); }
-            set { this.SetValue(MainWindow.InternalDocument_PreviousPartitionHeight_Property, value); }
-        }
 
         public MainWindow()
         {
@@ -52,6 +43,10 @@
             this.rpg.SaveChanges();
             this.rpg.Dispose();
         }
+        #endregion
+
+        #region New, open, and save commands. (Importance:important Status:needs to be linked to game partition)
+        public readonly string DialogFilter = "XAML Files (*.xaml)|*.xaml|RichText Files (*.rtf)|*.rtf|All files (*.*)|*.*";
 
         private void NewCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
@@ -106,82 +101,9 @@
                 }
             }
         }
+        #endregion
 
-        //private void Editor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        //{
-        //    using (var s = new MemoryStream())
-        //    {
-        //        var textRange = new TextRange(
-        //            this.Editor.Document.ContentStart,
-        //            this.Editor.Document.ContentEnd);
-        //        textRange.Save(s, DataFormats.Xaml);
-        //        s.Position = 0;
-
-        //        using (var r = new StreamReader(s))
-        //        {
-        //            this.EditorMarkup.Text = r.ReadToEnd();
-        //        }
-        //    }
-        //}
-
-        void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-            var game = e.ExtraData as rpg.game;
-            int g = 0;
-            int l = 0;
-            if (game != null)
-            {
-                g++;
-            }
-            var location = e.ExtraData as rpg.location;
-            if (location != null)
-            {
-                l++;
-            }
-        }
-
-        private void BeliefBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            this.InsertLink("pack://application:,,,/Belief.xaml");
-        }
-
-        private void CharacterBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            this.InsertLink("pack://application:,,,/Character.xaml");
-        }
-
-        private void HypothesesBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            this.InsertLink("pack://application:,,,/Hypotheses.xaml");
-        }
-
-        private void NewGameBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-        {
-            this.InsertLink("pack://application:,,,/Game.xaml");
-        }
-
-        private void NewLocationBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            this.InsertLink("pack://application:,,,/Location.xaml");
-        }
-
-        private void InsertLink(string uri)
-        {
-            var selection = this.Editor.Selection;
-            var link = new Hyperlink(selection.Start, selection.End);
-            link.NavigateUri = new Uri(uri);
-            this.newRpgBinding(link);
-
-            using (var s = new MemoryStream())
-            {
-                var textRange = new TextRange(link.ContentStart, link.ContentEnd);
-                textRange.Save(s, DataFormats.Xaml);
-                s.Position = 0;
-                selection.Load(s, DataFormats.Xaml);
-            }
-            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
-        }
-
+        #region Links flow document hyperlinks to rpgFrame page event handlers. (Importance:important Status:working well)
         private void newRpgBinding(Hyperlink link)
         {
             var page = link.NavigateUri.LocalPath.ToLower().TrimStart('/').Split('.')[0];
@@ -211,7 +133,7 @@
                     belief.Navigation = this.RpgFrame.NavigationService;
                     link.RequestNavigate += belief.Hyperlink_RequestNavigate;
                     break;
-                case"location":
+                case "location":
                     var location = new location();
                     location.Navigation = this.RpgFrame.NavigationService;
                     link.RequestNavigate += location.Hyperlink_RequestNavigate;
@@ -226,7 +148,48 @@
                     throw new Exception(string.Format("Page does not exist for local path {0}", link.NavigateUri.LocalPath));
             }
         }
+        #endregion
 
+        #region Commands to link editor selection to page subclass. (Importance:important Status:working well)
+        private void BeliefBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Belief.xaml");
+        }
+        private void CharacterBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Character.xaml");
+        }
+        private void HypothesesBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Hypotheses.xaml");
+        }
+        private void NewGameBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Game.xaml");
+        }
+        private void NewLocationBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.InsertLink("pack://application:,,,/Location.xaml");
+        }
+        private void InsertLink(string uri)
+        {
+            var selection = this.Editor.Selection;
+            var link = new Hyperlink(selection.Start, selection.End);
+            link.NavigateUri = new Uri(uri);
+            this.newRpgBinding(link);
+
+            using (var s = new MemoryStream())
+            {
+                var textRange = new TextRange(link.ContentStart, link.ContentEnd);
+                textRange.Save(s, DataFormats.Xaml);
+                s.Position = 0;
+                selection.Load(s, DataFormats.Xaml);
+            }
+            CER.RoutedUICommands.FoundryCommands.RefreshLinks.Execute(null, null);
+        }
+        #endregion
+
+        #region Traverses flow document and links hyperlinks to rpgFrame pages. (Importance:important Status:working well)
         private void RefreshBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             this.iterateSections(this.Editor.Document.Blocks);
@@ -263,5 +226,43 @@
                 }
             }
         }
+        #endregion
+
+        #region Reflect changes to flow documents underlying markup (Importance:minimal Status:ineffiecent but quick way to obseve the results of edits)
+        //private void Editor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        //{
+        //    using (var s = new MemoryStream())
+        //    {
+        //        var textRange = new TextRange(
+        //            this.Editor.Document.ContentStart,
+        //            this.Editor.Document.ContentEnd);
+        //        textRange.Save(s, DataFormats.Xaml);
+        //        s.Position = 0;
+
+        //        using (var r = new StreamReader(s))
+        //        {
+        //            this.EditorMarkup.Text = r.ReadToEnd();
+        //        }
+        //    }
+        //}
+        #endregion
+
+        #region Post processing of rpg objects after frame has loaded. (Importance:minimal Status:useful proof of concept)
+        void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            var game = e.ExtraData as rpg.game;
+            int g = 0;
+            int l = 0;
+            if (game != null)
+            {
+                g++;
+            }
+            var location = e.ExtraData as rpg.location;
+            if (location != null)
+            {
+                l++;
+            }
+        }
+        #endregion
     }
 }
