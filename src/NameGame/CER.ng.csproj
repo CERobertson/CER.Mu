@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameContext.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RpgExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EntityFramework\CER.EntityFramework.csproj">
@@ -57,6 +59,10 @@
     <ProjectReference Include="..\Graphs\CER.Graphs.csproj">
       <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
       <Name>CER.Graphs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JudeaPearl\CER.JudeaPearl.csproj">
+      <Project>{21e6857b-f70b-43b3-ae55-651753b4a26b}</Project>
+      <Name>CER.JudeaPearl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rpg\CER.Rpg.csproj">
       <Project>{ac67fabd-5bf6-4253-8e03-a3e63b6626e5}</Project>

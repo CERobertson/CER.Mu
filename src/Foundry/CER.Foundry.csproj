@@ -132,6 +132,10 @@
       <Project>{d648ed86-53be-4e5d-9be9-ea4318e58755}</Project>
       <Name>CER.Graphs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JudeaPearl\CER.JudeaPearl.csproj">
+      <Project>{21e6857b-f70b-43b3-ae55-651753b4a26b}</Project>
+      <Name>CER.JudeaPearl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mu\CER.Mu.csproj">
       <Project>{68ab6f0e-3b05-4b9b-b2eb-2afd9a71a9f2}</Project>
       <Name>CER.Mu</Name>

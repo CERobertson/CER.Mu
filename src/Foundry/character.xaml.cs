@@ -30,6 +30,6 @@
         }
 
         public NavigationService Navigation { get; set; }
-        public GameContext CurrentGame { get; set; }
+        public r.DbContext CurrentGame { get; set; }
     }
 }

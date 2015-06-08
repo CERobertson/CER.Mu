@@ -1,6 +1,7 @@
 ﻿namespace CER.Foundry
 {
     using CER.ng;
+    using CER.Rpg;
     using Microsoft.Win32;
     using System;
     using System.ComponentModel;
@@ -21,12 +22,12 @@
     {
         #region Default constructor/deconstructor and datacontext to CollectionViewSource management. (Importance:not really Status:proof of concept for CollectionViewSource)
 
-        public GameContext CurrentGame { get; set; }
+        public DbContext CurrentGame { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             this.ApplicationName = this.Title;
-            this.CurrentGame = new GameContext(string.Empty);
+            this.CurrentGame = new DbContext();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -78,7 +79,7 @@
                         textRange.Load(fs, DataFormats.Xaml);
                     }
                 }
-                this.CurrentGame.LoadGame(dialog.FileName);
+                //this.CurrentGame.LoadGame(dialog.FileName);
                 this.Title = this.ApplicationName + " - " + dialog.FileName;
             }
             CER.Commands.FoundryCommands.RefreshLinks.Execute(null, null);
@@ -105,7 +106,7 @@
                         textRange.Save(fs, DataFormats.Xaml);
                     }
                 }
-                this.CurrentGame.LoadGame(dialog.FileName);
+                //this.CurrentGame.LoadGame(dialog.FileName);
                 this.Title = this.ApplicationName + " - " + dialog.FileName;
             }
         }

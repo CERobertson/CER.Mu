@@ -1,12 +1,14 @@
 ﻿namespace CER.ng
 {
-    using CER.Rpg;
+    using CER.EntityFramework;
+    using rpg = CER.Rpg;
     using System;
+    using System.Data.Entity;
 
     public class GameContext : DbContext
     {
         public string CurrentGame { get; private set; }
-        public override string Partition { get { return this.CurrentGame; } }
+        public string Partition { get { return this.CurrentGame; } }
 
         public GameContext()
         {
@@ -28,10 +30,17 @@
             this.CurrentGame = partition;
         }
 
-        public override T CreateOrRetrieve<T>(System.Data.Entity.DbSet<T> set, System.Func<T, bool> predicate, T obj, bool SaveOnCreate = true)
-        {
-            obj.partition = this.CurrentGame;
-            return base.CreateOrRetrieve<T>(set, predicate, obj, SaveOnCreate);
-        }
+        //public T CreateOrRetrieve<T>(DbSet<T> set, T obj) where T : class, IHasIntId, IHasPartitionString
+        //{
+        //    obj.partition = this.CurrentGame;
+        //    return base.CreateOrRetrieve(set, x => x.id == obj.id && x.partition == obj.partition, obj);
+        //}
+
+        //public T CreateOrRetrieve<T>(DbSet<T> set, T obj, params Func<T, T, bool> predicates)
+        //{
+
+        //}
+        public DbSet<rpg.belief> B1 { get; set; }
+        public DbSet<rpg.belief> B2 { get; set; }
     }
 }

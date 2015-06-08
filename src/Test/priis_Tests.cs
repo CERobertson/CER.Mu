@@ -169,28 +169,14 @@
             (0.471M).Assert_AboutEqual(Y.Value[0][2]);
         }
 
+
         [TestMethod]
         public void Chapter4_Exercise1()
         {
-            var game = new GameContext("_test " + Guid.NewGuid().ToString());
-
-            var belief = new belief();
-            belief.variable = "P(v-jth|v-ith)";
-            game.SaveHypothesesToBelief(@"[['.25','.25','.25','.25']
-                                          ,['.5','0','.25','.25']
-                                          ,['.125','.5','.125','.25']
-                                          ,['.25','.125','.5','.125']]", belief);
-
         }
     }
 
-    public enum V
-    {
-        empty = 0,
-        A,
-        B,
-        C
-    }
+
     /*
     (0.M).IsEqualTo();
      */
