@@ -86,9 +86,9 @@
       <Project>{68ab6f0e-3b05-4b9b-b2eb-2afd9a71a9f2}</Project>
       <Name>CER.Mu</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NameGame\CER.ng.csproj">
-      <Project>{c3a0616d-0122-4d6d-9ea0-722633179dca}</Project>
-      <Name>CER.ng</Name>
+    <ProjectReference Include="..\NGPlusPlusStar\NGPlusPlusStar.csproj">
+      <Project>{4eb6371c-1e66-419e-b622-5e758f47a926}</Project>
+      <Name>NGPlusPlusStar</Name>
     </ProjectReference>
     <ProjectReference Include="..\Roslyn\CER.Roslyn.csproj">
       <Project>{7a5dfea1-69b5-48db-aa16-44357bb94bc7}</Project>

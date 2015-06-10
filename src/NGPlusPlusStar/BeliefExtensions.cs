@@ -1,4 +1,4 @@
-﻿namespace CER.ng
+﻿namespace NGPlusPlusStar
 {
     using CER.JudeaPearl;
     using CER.JudeaPearl.CausalNetwork;

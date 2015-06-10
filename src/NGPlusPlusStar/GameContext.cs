@@ -1,6 +1,5 @@
-﻿namespace CER.ng
+﻿namespace NGPlusPlusStar
 {
-    using CER.EntityFramework;
     using rpg = CER.Rpg;
     using System;
     using System.Data.Entity;

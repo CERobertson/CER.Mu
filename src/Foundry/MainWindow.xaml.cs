@@ -1,6 +1,5 @@
 ﻿namespace CER.Foundry
 {
-    using CER.ng;
     using CER.Rpg;
     using Microsoft.Win32;
     using System;

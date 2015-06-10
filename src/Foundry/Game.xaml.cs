@@ -1,6 +1,5 @@
 ﻿namespace CER.Foundry
 {
-    using CER.ng;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;

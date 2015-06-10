@@ -1,7 +1,6 @@
 ﻿namespace CER.Test
 {
     using CER.Rpg;
-    using CER.ng;
     using CER.JudeaPearl;
     using CER.JudeaPearl.CausalNetwork;
     using CER.Test.Extensions;

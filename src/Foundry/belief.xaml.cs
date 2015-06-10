@@ -1,6 +1,5 @@
 ﻿namespace CER.Foundry
 {
-    using CER.ng;
     using CER.JudeaPearl.CausalNetwork;
     using System.Windows.Controls;
     using System.Windows.Documents;
