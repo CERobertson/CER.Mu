@@ -1,11 +1,12 @@
 ﻿namespace CER.ng
 {
     using CER.JudeaPearl;
+    using CER.JudeaPearl.CausalNetwork;
     using CER.Rpg;
     using System.Collections.Generic;
     using System.Linq;
 
-    public static class RpgExtensions
+    public static class BeliefExtensions
     {
         public static ConditionalProbability SetHypotheses(this belief b, string json)
         {
@@ -58,6 +59,21 @@
                 i++;
             }
             return result;
+        }
+        public static decimal[][] UniformDistribution(int length)
+        {
+            var conditional_probability = new decimal[length][];
+            for (int i = 0; i < length; i++)
+            {
+                var row = new decimal[length];
+                var distribution = 1 / length;
+                for(int j=0; j<length; j++)
+                {
+                    row[j] = distribution;
+                }
+                conditional_probability[i] = row;
+            }
+            return conditional_probability;
         }
     }
 }

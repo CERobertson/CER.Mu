@@ -1,6 +1,7 @@
 ﻿namespace CER.Test
 {
     using System;
+    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using CER.ng;
 
@@ -16,10 +17,32 @@
             {
                 p1.SwitchAbility(capability);
             }
-            foreach (var e in (int[])Enum.GetValues(typeof(Abilities)))
+            int found_ability_count = 0;
+            foreach (var possible_ability in (Abilities[])Enum.GetValues(typeof(Abilities)))
             {
-                Console.WriteLine(e.ToString());
+                if (p1.IsCapable(possible_ability))
+                {
+                    Assert.IsTrue(capabilities.Contains(possible_ability), "player has an unexpected ability.");
+                    found_ability_count++;
+                }
             }
+            Assert.AreEqual(capabilities.Count(), found_ability_count);
+        }
+        [TestMethod]
+        public void CharacterTest()
+        {
+            var characters = new Character[]
+            {
+                new Character { Name = "Mu" },
+                new Character { Name = "Mu", HypothesisCapacity=2}
+            };
+            foreach (var c in characters)
+            {
+                Assert.AreEqual(c.HypothesisCapacity, c.RespondTo(Topic.WhoAmITalkingTo).ConditionalProbability.Length);
+            }
+
+            
         }
     }
+
 }

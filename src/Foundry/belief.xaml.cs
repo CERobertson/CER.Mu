@@ -29,9 +29,9 @@
                 belief.variable = "P(v-jth|v-ith)";
                 belief.ConditionalProbability = new ConditionalProbability(
                     @"[['.25','.25','.25','.25']
-                  ,['.5','0','.25','.25']
-                  ,['.125','.5','.125','.25']
-                  ,['.25','.125','.5','.125']]").ToMatrix();
+                      ,['.5','0','.25','.25']
+                      ,['.125','.5','.125','.25']
+                      ,['.25','.125','.5','.125']]").ToMatrix();
                 return belief;
             }
         }
@@ -43,9 +43,9 @@
                 belief.variable = "P(v-kth|v-jth)";
                 belief.ConditionalProbability = new ConditionalProbability(
                     @"[['.9','.1','0','0']
-                ,['.1','.8','.1','0']
-                ,['0','.1','.8','.1']
-                ,['0','.1','.1','.8']]").ToMatrix();
+                      ,['.1','.8','.1','0']
+                      ,['0','.1','.8','.1']
+                      ,['0','.1','.1','.8']]").ToMatrix();
                 return belief;
             }
         }
