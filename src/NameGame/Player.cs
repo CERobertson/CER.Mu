@@ -91,7 +91,6 @@
             }
             
             return this.Evidence[t] = this.IDontKnow;
-            //return this.IDontKnow;
         }
     }
 
