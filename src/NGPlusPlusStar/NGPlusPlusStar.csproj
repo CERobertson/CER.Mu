@@ -74,8 +74,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NarrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NarrationPage.xaml.cs">
+      <DependentUpon>NarrationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -102,6 +109,10 @@
     <ProjectReference Include="..\Rpg\CER.Rpg.csproj">
       <Project>{ac67fabd-5bf6-4253-8e03-a3e63b6626e5}</Project>
       <Name>CER.Rpg</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Windows.Data\CER.Windows.Data.csproj">
+      <Project>{9ff18594-5b8a-4d5a-9bfa-73b104817e54}</Project>
+      <Name>CER.Windows.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

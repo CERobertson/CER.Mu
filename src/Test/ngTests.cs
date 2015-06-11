@@ -40,8 +40,17 @@
             {
                 Assert.AreEqual(c.HypothesisCapacity, c.RespondTo(Topic.WhoAmITalkingTo).ConditionalProbability.Length);
             }
-
-            
+        }
+        [TestMethod]
+        public void Around()
+        {
+            var i = int.MaxValue;
+            var m1 = Math.Abs(i % 360);
+            i++;
+            var m2 = Math.Abs(i % 360);
+            Assert.AreEqual(int.MinValue, i);
+            Assert.AreNotEqual(0, m2);
+            Assert.AreEqual(m1 + 1, m2);
         }
     }
 
