@@ -25,10 +25,21 @@
                 <Trigger Property="IsKeyboardFocused" Value="True">
                     <Setter TargetName="FocusCue" Property="Visibility" Value="Visible"/>
                 </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray"/>
+                    <Setter TargetName="Border" Property="Background" Value="MistyRose"/>
+                </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Control.Template" Value="{StaticResource ButtonTemplate}"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
     </Page.Resources>
-    <Button Margin="10" Padding="3" Template="{StaticResource ButtonTemplate}">
-        A simple _button
-    </Button>
+    <StackPanel>
+        <Button Margin="10" Padding="3" Style="{x:Null}">Regular Button</Button>
+        <Button>Custom ControlTemplate.Endabled</Button>
+        <Button IsEnabled="False">Custom ControlTemplate.Disabled</Button>
+    </StackPanel>
 </Page>
