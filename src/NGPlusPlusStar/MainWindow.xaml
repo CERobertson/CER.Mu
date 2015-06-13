@@ -12,7 +12,7 @@
     <Grid>
         <Slider Name="ScalarSlider" Value="1" Visibility="Collapsed"/>
         <Slider Name="RotationSlider" Value="0" Visibility="Collapsed"/>
-        <Frame Name="World" Source="NarrationPage.xaml" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Frame Name="World" Source="ButtonControlTemplate.xaml" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Frame.LayoutTransform>
                 <TransformGroup>
                     <RotateTransform x:Name="Rotate"
