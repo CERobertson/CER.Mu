@@ -5,7 +5,8 @@
         Title="(NG++)*"
         MouseDown="Window_PreviewMouseDown"
         MouseUp="Window_PreviewMouseUp"
-        MouseWheel="Window_PreviewMouseWheel">
+        MouseWheel="Window_PreviewMouseWheel"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <wd:SplitTransform x:Key="SplitTransform"/>
     </Window.Resources>

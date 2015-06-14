@@ -23,6 +23,7 @@ namespace NGPlusPlusStar.Windows
         public MainWindow()
         {
             InitializeComponent();
+            
             this.ScalarSlider.Maximum = double.MaxValue;
             this.RotationSlider.Maximum = 360;
             this.RotationSlider.Minimum = 0;
@@ -64,6 +65,13 @@ namespace NGPlusPlusStar.Windows
                 else
                     this.ScalarSlider.Value *= 0.9;
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var visualTreeWindow = new VisualTreeWindow();
+            visualTreeWindow.ShowVisualTree(this);
+            visualTreeWindow.Show();
         }
 
     }

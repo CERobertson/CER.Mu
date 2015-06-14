@@ -23,5 +23,30 @@ namespace NGPlusPlusStar.Windows
         {
             InitializeComponent();
         }
+        public void ShowVisualTree(DependencyObject element)
+        {
+            this.VisualTreeElements.Items.Clear();
+            this.ProcessElement(element, null);
+        }
+        private void ProcessElement(DependencyObject element, TreeViewItem previousItem)
+        {
+            TreeViewItem item = new TreeViewItem();
+            item.Header = element.GetType().Name;
+            item.IsExpanded = true;
+
+            if (previousItem == null)
+            {
+                this.VisualTreeElements.Items.Add(item);
+            }
+            else
+            {
+                previousItem.Items.Add(item);
+            }
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            {
+                this.ProcessElement(VisualTreeHelper.GetChild(element, i), item);
+            }
+        }
     }
 }
