@@ -1,16 +1,17 @@
-﻿<Window x:Class="NGPlusPlusStar.Windows.MainWindow"
+﻿<Page x:Class="NGPlusPlusStar.Pages.MainPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:wd="clr-namespace:CER.Windows.Data;assembly=Windows.Data"
         Title="(NG++)*"
-        MouseDown="Window_PreviewMouseDown"
-        MouseUp="Window_PreviewMouseUp"
-        MouseWheel="Window_PreviewMouseWheel"
-        Loaded="Window_Loaded">
-    <Window.Resources>
+        MouseDown="Page_PreviewMouseDown"
+        MouseUp="Page_PreviewMouseUp"
+        MouseWheel="Page_PreviewMouseWheel"
+        Loaded="Page_Loaded">
+    <Page.Resources>
         <wd:SplitTransform x:Key="SplitTransform"/>
-    </Window.Resources>
+    </Page.Resources>
     <Grid>
+        <TextBlock>Huh will <Hyperlink NavigateUri="ControlTemplatePage.xaml" TargetName="World">work</Hyperlink>???</TextBlock>
         <Slider Name="ScalarSlider" Value="1" Visibility="Collapsed"/>
         <Slider Name="RotationSlider" Value="0" Visibility="Collapsed"/>
         <Frame Name="World" Source="NarrationPage.xaml" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -29,4 +30,4 @@
             </Frame.LayoutTransform>
         </Frame>
     </Grid>
-</Window>
+</Page>

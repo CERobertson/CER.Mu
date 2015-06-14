@@ -33,6 +33,7 @@
         </RadialGradientBrush>
     </Page.Resources>
     <Canvas>
+        <TextBlock>Huh will <Hyperlink NavigateUri="ControlTemplatePage.xaml">work</Hyperlink>???</TextBlock>
         <Path Data="{StaticResource Node}" Fill="{StaticResource c0}"/>
         <Path Data="{StaticResource Node}" Fill="{StaticResource c0}" Canvas.Top="100" Canvas.Left="100"/>
     </Canvas>

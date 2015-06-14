@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NGPlusPlusStar.Windows
+namespace NGPlusPlusStar.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainPage : Page
     {
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
             
@@ -31,11 +31,11 @@ namespace NGPlusPlusStar.Windows
 
         private bool middle_mouse_pressed = false;
 
-        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void Page_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.middle_mouse_pressed = e.MiddleButton == MouseButtonState.Pressed;
         }
-        private void Window_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void Page_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.MiddleButton == MouseButtonState.Released && this.middle_mouse_pressed)
             {
@@ -45,7 +45,7 @@ namespace NGPlusPlusStar.Windows
             }
         }
 
-        private void Window_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void Page_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var rotate = (Keyboard.Modifiers & ModifierKeys.Shift) > 0;
             if (e.Delta > 0)
@@ -67,7 +67,7 @@ namespace NGPlusPlusStar.Windows
 
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //var visualTreeWindow = new VisualTreeWindow();
             //visualTreeWindow.ShowVisualTree(this);
