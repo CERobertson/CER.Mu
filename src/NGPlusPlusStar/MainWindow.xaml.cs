@@ -72,6 +72,9 @@ namespace NGPlusPlusStar.Windows
             var visualTreeWindow = new VisualTreeWindow();
             visualTreeWindow.ShowVisualTree(this);
             visualTreeWindow.Show();
+
+            var controlTemplateXamlWindow = new ControlTemplateXamlWindow();
+            controlTemplateXamlWindow.Show();
         }
 
     }

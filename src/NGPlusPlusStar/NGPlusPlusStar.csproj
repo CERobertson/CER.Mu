@@ -60,10 +60,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ControlTemplateXamlWindow.xaml.cs">
+      <DependentUpon>ControlTemplateXamlWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisualTreeWindow.xaml.cs">
       <DependentUpon>VisualTreeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="ControlTemplatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ControlTemplateXamlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

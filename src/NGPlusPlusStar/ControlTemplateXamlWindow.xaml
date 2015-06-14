@@ -1,0 +1,10 @@
+﻿<Window x:Class="NGPlusPlusStar.Windows.ControlTemplateXamlWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ControlTemplateXamlWindow"
+        Loaded="Window_Loaded">
+    <StackPanel Name="Grid" Orientation="Horizontal">
+        <ListBox Name="Controls" SelectionChanged="Controls_SelectionChanged"/>
+        <TextBox Name="TemplateXaml"/>
+    </StackPanel>
+</Window>
