@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NGPlusPlusStar
+namespace NGPlusPlusStar.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -49,15 +49,21 @@ namespace NGPlusPlusStar
             var rotate = (Keyboard.Modifiers & ModifierKeys.Shift) > 0;
             if (e.Delta > 0)
                 if (rotate)
-                    this.RotationSlider.Value = (this.RotationSlider.Value % this.RotationSlider.Maximum) + 1;
+                    this.RotationSlider.Value = (this.RotationSlider.Value + 10) % this.RotationSlider.Maximum;
                 else
                     this.ScalarSlider.Value *= 1.1;
             else
                 if (rotate)
-                    this.RotationSlider.Value = (this.RotationSlider.Value % this.RotationSlider.Maximum) - 1;
+                {
+                    var proposed_value = (this.RotationSlider.Value - 10);
+                    if (proposed_value > 0)
+                        this.RotationSlider.Value = proposed_value;
+                    else
+                        this.RotationSlider.Value = this.RotationSlider.Maximum + proposed_value;
+                }
                 else
                     this.ScalarSlider.Value *= 0.9;
-            
+
         }
 
     }

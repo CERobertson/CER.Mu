@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NGPlusPlusStar.Pages
+namespace NGPlusPlusStar.Windows
 {
     /// <summary>
-    /// Interaction logic for NarrationPage.xaml
+    /// Interaction logic for VisualTreeWindow.xaml
     /// </summary>
-    public partial class NarrationPage : Page
+    public partial class VisualTreeWindow : Window
     {
-        public NarrationPage()
+        public VisualTreeWindow()
         {
             InitializeComponent();
         }

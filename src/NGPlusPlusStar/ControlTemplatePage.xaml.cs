@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NGPlusPlusStar
+namespace NGPlusPlusStar.Pages
 {
     /// <summary>
     /// Interaction logic for ButtonControlTemplate.xaml
     /// </summary>
-    public partial class ButtonControlTemplate : Page
+    public partial class ControlTemplatePage : Page
     {
-        public ButtonControlTemplate()
+        public ControlTemplatePage()
         {
             InitializeComponent();
         }
