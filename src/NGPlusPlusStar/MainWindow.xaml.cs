@@ -69,12 +69,12 @@ namespace NGPlusPlusStar.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var visualTreeWindow = new VisualTreeWindow();
-            visualTreeWindow.ShowVisualTree(this);
-            visualTreeWindow.Show();
+            //var visualTreeWindow = new VisualTreeWindow();
+            //visualTreeWindow.ShowVisualTree(this);
+            //visualTreeWindow.Show();
 
-            var controlTemplateXamlWindow = new ControlTemplateXamlWindow();
-            controlTemplateXamlWindow.Show();
+            //var controlTemplateXamlWindow = new ControlTemplateXamlWindow();
+            //controlTemplateXamlWindow.Show();
         }
 
     }

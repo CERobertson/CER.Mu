@@ -10,16 +10,16 @@
     <Page.Resources>
         <RectangleGeometry x:Key="Geomtry1" Rect="0,0, 64,64" />
         <RectangleGeometry x:Key="Geomtry2" Rect="32,32,64,64" />
-        <EllipseGeometry x:Key="UnitCircle" Center="32,32" RadiusX="32" RadiusY="32" />
+        <EllipseGeometry x:Key="UnitCircle" Center="0,32" RadiusX="32" RadiusY="32" />
         <CombinedGeometry x:Key="UnitPerimeter" GeometryCombineMode="Exclude" Geometry1="{StaticResource UnitCircle}">
             <CombinedGeometry.Geometry2>
-                <EllipseGeometry Center="32,32" RadiusX="31" RadiusY="31" />
+                <EllipseGeometry Center="0,32" RadiusX="31" RadiusY="31" />
             </CombinedGeometry.Geometry2>
         </CombinedGeometry>
-        <EllipseGeometry x:Key="InteriorCircle" Center="32,32" RadiusX="24" RadiusY="24" />
+        <EllipseGeometry x:Key="InteriorCircle" Center="0,32" RadiusX="24" RadiusY="24" />
         <CombinedGeometry x:Key="InteriorPerimeter" GeometryCombineMode="Exclude" Geometry1="{StaticResource InteriorCircle}">
             <CombinedGeometry.Geometry2>
-                <EllipseGeometry Center="32,32" RadiusX="23" RadiusY="23" />
+                <EllipseGeometry Center="0,32" RadiusX="23" RadiusY="23" />
             </CombinedGeometry.Geometry2>
         </CombinedGeometry>
         <CombinedGeometry x:Key="Node" GeometryCombineMode="Exclude" Geometry1="{StaticResource UnitCircle}" Geometry2="{StaticResource InteriorCircle}" />
@@ -32,7 +32,7 @@
             <GradientStop Color="DarkMagenta" Offset="1" />
         </RadialGradientBrush>
     </Page.Resources>
-    <Canvas Margin="5">
+    <Canvas>
         <Path Data="{StaticResource Node}" Fill="{StaticResource c0}"/>
         <Path Data="{StaticResource Node}" Fill="{StaticResource c0}" Canvas.Top="100" Canvas.Left="100"/>
     </Canvas>
