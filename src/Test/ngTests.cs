@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Linq;
+    using Microsoft.Xna.Framework.Input;
 
     [TestClass]
     public class ngTests
@@ -51,6 +52,11 @@
             Assert.AreEqual(int.MinValue, i);
             Assert.AreNotEqual(0, m2);
             Assert.AreEqual(m1 + 1, m2);
+        }
+        [TestMethod]
+        public void GamePadThroughXNA()
+        {
+            
         }
     }
 
