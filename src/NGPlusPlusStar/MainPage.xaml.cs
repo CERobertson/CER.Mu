@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 
 namespace NGPlusPlusStar.Pages
 {
+    using NGPlusPlusStar.Windows;
+
     /// <summary>
     /// Interaction logic for MainPage.xaml
     /// </summary>
@@ -69,12 +71,15 @@ namespace NGPlusPlusStar.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            //var controlTemplateXamlWindow = new ControlTemplateXamlWindow();
+            //controlTemplateXamlWindow.Show();
+
             //var visualTreeWindow = new VisualTreeWindow();
             //visualTreeWindow.ShowVisualTree(this);
             //visualTreeWindow.Show();
 
-            //var controlTemplateXamlWindow = new ControlTemplateXamlWindow();
-            //controlTemplateXamlWindow.Show();
+            var gamepadWindow = new GamepadWindow();
+            gamepadWindow.Show();
         }
 
     }
