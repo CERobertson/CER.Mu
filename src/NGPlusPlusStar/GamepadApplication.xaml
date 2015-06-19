@@ -1,7 +1,9 @@
-﻿<Application x:Class="NGPlusPlusStar.App"
+﻿<Application x:Class="NGPlusPlusStar.Applications.GamepadApplication"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainPage.xaml">
+             StartupUri="MainPage.xaml"
+             Activated="Application_Activated"
+             Deactivated="Application_Deactivated">
     <Application.Resources>
          
     </Application.Resources>
