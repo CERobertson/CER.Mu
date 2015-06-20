@@ -11,10 +11,10 @@
         <wd:SplitTransform x:Key="SplitTransform"/>
     </Page.Resources>
     <Grid>
-        <TextBlock>Huh will <Hyperlink NavigateUri="ControlTemplatePage.xaml" TargetName="World">work</Hyperlink>???</TextBlock>
+        <TextBlock>Huh will <Hyperlink NavigateUri="ControlTemplatePage.xaml" TargetName="TranslationFrame">work</Hyperlink>???</TextBlock>
         <Slider Name="ScalarSlider" Value="1" Visibility="Collapsed"/>
         <Slider Name="RotationSlider" Value="0" Visibility="Collapsed"/>
-        <Frame Name="World" Source="NarrationPage.xaml" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Frame Name="World" Source="TranslatablePage.xaml" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Frame.LayoutTransform>
                 <TransformGroup>
                     <RotateTransform x:Name="Rotate"

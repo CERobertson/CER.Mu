@@ -1,6 +1,8 @@
 ﻿namespace NGPlusPlusStar
 {
     using CER.JudeaPearl.CausalNetwork;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Input;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -21,6 +23,38 @@
                 this.name = value.Length <= Player.MAX_NAME_LENGTH ?
                     value :
                     value.Remove(Player.MAX_NAME_LENGTH, value.Length - Player.MAX_NAME_LENGTH);
+            }
+        }
+
+        public int player_index = -1;
+        public int PlayerIndex
+        {
+            get
+            {
+                if (this.player_index < 0)
+                {
+                    foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
+                    {
+                        if (GamePad.GetState(index).IsConnected)
+                            return (int)index;
+                    }
+                }
+                else
+                {
+                    return this.player_index;
+                }
+                return -1;
+            }
+            set
+            {
+                if (value < Enum.GetNames(typeof(PlayerIndex)).Length)
+                {
+                    this.player_index = value;
+                }
+                else
+                {
+                    this.player_index = -1;
+                }
             }
         }
 

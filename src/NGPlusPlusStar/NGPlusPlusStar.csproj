@@ -79,6 +79,9 @@
     <Compile Include="ControlTemplateXamlWindow.xaml.cs">
       <DependentUpon>ControlTemplateXamlWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TranslatablePage.xaml.cs">
+      <DependentUpon>TranslatablePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisualTreeWindow.xaml.cs">
       <DependentUpon>VisualTreeWindow.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NarrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TranslatablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

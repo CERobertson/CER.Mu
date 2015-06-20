@@ -16,15 +16,19 @@ namespace NGPlusPlusStar.Applications
     /// </summary>
     public partial class GamepadApplication : Application
     {
-        public DispatcherTimer gamepadPoll;
+        public DispatcherTimer GamepadPoll { get; private set; }
+        public Player CurrentPlayer { get; private set; }
 
         public GamepadApplication()
         {
             InitializeComponent();
-            this.gamepadPoll = new DispatcherTimer();
-            this.gamepadPoll.Tick += gamepadPoll_Tick;
-            this.gamepadPoll.Interval = new TimeSpan(0, 0, 0, 0, 12);
-            this.gamepadPoll.Start();
+
+            this.GamepadPoll = new DispatcherTimer();
+            this.GamepadPoll.Tick += gamepadPoll_Tick;
+            this.GamepadPoll.Interval = new TimeSpan(0, 0, 0, 0, 12);
+            this.GamepadPoll.Start();
+
+            this.CurrentPlayer = new Player { Name = "CER" };
         }
 
         private float vibrationAmount;
@@ -32,7 +36,7 @@ namespace NGPlusPlusStar.Applications
         {
             if (this.process_gamepad)
             {
-                GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+                GamePadState currentState = GamePad.GetState((PlayerIndex)this.CurrentPlayer.PlayerIndex);
 
                 // Process input only if connected and button A is pressed.
                 if (currentState.IsConnected && currentState.Buttons.A ==
