@@ -78,5 +78,12 @@ namespace NGPlusPlusStar.Pages
             //visualTreeWindow.ShowVisualTree(this);
             //visualTreeWindow.Show();
         }
+
+        public static DependencyProperty ProcessGamepadProperty = DependencyProperty.Register("ProcessGamepad", typeof(bool), typeof(MainPage));
+        public bool ProcessGamepad
+        {
+            get { return (bool)this.GetValue(MainPage.ProcessGamepadProperty); }
+            set { this.SetValue(MainPage.ProcessGamepadProperty, value); }
+        }
     }
 }
