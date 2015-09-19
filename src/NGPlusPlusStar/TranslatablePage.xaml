@@ -10,7 +10,7 @@
     <Grid>
         <Slider Name="TranslateXSlider" Value="0" Visibility="Collapsed"/>
         <Slider Name="TranslateYSlider" Value="0" Visibility="Collapsed"/>
-        <Frame Name="TranslationFrame" Source="NarrationPage.xaml">
+        <Frame Name="TranslationFrame" Source="Ellipse.xaml">
             <Frame.RenderTransform>
                 <TranslateTransform x:Name="Translate"
                                         X="{Binding ElementName=TranslateXSlider, Path=Value}"
