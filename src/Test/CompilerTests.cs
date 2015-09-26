@@ -37,14 +37,21 @@
             this.print(Compiler.CalculateExponents(155, 155));
             this.print(Compiler.CalculateExponents(156, 155));
             this.print(Compiler.CalculateExponents(3723875, 155));
+            this.print(Compiler.CalculateExponents(3723874, 155));
             this.print(Compiler.CalculateExponents(3851372, 155));
             this.print(Compiler.CalculateExponents(3723874, 155));
         }
-        private void print(IEnumerable<int> a)
+        [TestMethod]
+        public void EnumerateOrdinals155()
         {
-            foreach(int i in a)
+            this.print(Compiler.EnumerateOrdinals(33874));
+        }
+
+        private void print<T>(IEnumerable<T> a)
+        {
+            foreach(T i in a)
             {
-                Console.Write(i + " ");
+                Console.Write(i + Environment.NewLine);
             }
             Console.WriteLine();
         }

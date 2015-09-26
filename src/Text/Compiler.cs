@@ -16,12 +16,13 @@
             {
                 base_enuneration = reader.ReadToEnd().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             }
-            var width = base_enuneration.Length;
+            var width = base_enuneration.Length + 1;
             var exponents = Compiler.CalculateExponents(limit, width);
             while (limit > 0)
             {
                 yield return string.Format("{0},{1}", limit, Compiler.CreateNumberGlyph(base_enuneration, exponents));
                 limit--;
+                exponents = Compiler.SubtractOneFromExponents(exponents, width);
             }
         }
 
@@ -30,22 +31,43 @@
             string result = string.Empty;
             for (int i = 0; i < exponents.Length; i++)
             {
-                if (exponents[i] == 0)
+                if (exponents[i] == 0  && i != 0)
                 {
                     result += "0";
                 }
-                else
+                else if(exponents[i] != 0)
                 {
-                    result += enumeration[exponents[i-1]];
+                    result += enumeration[exponents[i] - 1];
                 }
             }
             return result;
         }
-        public static int[] SubtractOneFromExponents(int[] exponents, int depth=0)
+        public static int[] SubtractOneFromExponents(int[] exponents, int b)
         {
-            for (int i =0; i< exponents.Length; i++)
+            if (exponents[0] == 0 && exponents.Length == 1)
             {
-
+                throw new ArgumentException("exponents[0] must not be zero");
+            }
+            else if (exponents[0] == 0)
+            {
+                int[] smaller_exponents = new int[exponents.Length - 1];
+                for (int i = 0; i < exponents.Length - 1; i++)
+                {
+                    smaller_exponents[i] = exponents[i + 1];
+                }
+                return Compiler.SubtractOneFromExponents(smaller_exponents, b);
+            }
+            for (int j = exponents.Length - 1; j >= 0; j--)
+            {
+                if (exponents[j] == 0)
+                {
+                    exponents[j] = b - 1;
+                }
+                else
+                {
+                    exponents[j] = exponents[j] - 1;
+                    j = -1;
+                }
             }
             return exponents;
         }
@@ -75,7 +97,7 @@
         public Compiler()
         {
             this.Regex = new Dictionary<object, string>();
-            this.Rules= new List<Rule>();
+            this.Rules = new List<Rule>();
         }
 
         public IEnumerable<Token> Scan(string message)
@@ -112,7 +134,7 @@
                 }
             }
         }
-        
+
         public Dictionary<object, string> Regex { get; set; }
         public List<Rule> Rules { get; set; }
 
@@ -135,12 +157,12 @@
         {
             this.Id = (int)id;
             this.RuleSequence = new Rule[tokens.Length];
-            for(int i=0; i<tokens.Length; i++)
+            for (int i = 0; i < tokens.Length; i++)
             {
                 this.RuleSequence[i] = new Rule((int)tokens[i]);
             }
         }
-        public Rule(){}
+        public Rule() { }
         private Rule(int id)
         {
             this.Id = id;
