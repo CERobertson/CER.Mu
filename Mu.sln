@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CER.Windows.Data", "src\Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGPlusPlusStar.xna", "src\NGPlusPlusStar.xna\NGPlusPlusStar.xna\NGPlusPlusStar.xna.csproj", "{BDC6669E-9D48-4761-A4FE-1C552E49FB1A}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "NGPlusPlusStar.xnaContent", "src\NGPlusPlusStar.xna\NGPlusPlusStar.xnaContent\NGPlusPlusStar.xnaContent.contentproj", "{B777427A-7A1D-444A-A3BF-41D441EE0619}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGPlusPlusStar.xnaContent", "src\NGPlusPlusStar.xna\NGPlusPlusStar.xnaContent\NGPlusPlusStar.xnaContent.contentproj", "{B777427A-7A1D-444A-A3BF-41D441EE0619}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
